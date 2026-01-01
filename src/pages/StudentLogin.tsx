@@ -4,27 +4,43 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, ArrowLeft, Calendar } from "lucide-react";
+import { GraduationCap, ArrowLeft, Info } from "lucide-react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
+import { useDemoData } from "@/contexts/DemoDataContext";
 
 const StudentLogin = () => {
   const [surname, setSurname] = useState("");
   const [dob, setDob] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { loginStudent, students } = useDemoData();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Simulate login - in real app, this would verify against database
     setTimeout(() => {
-      if (surname && dob) {
-        toast.success("Login successful!");
+      const student = loginStudent(surname, dob);
+      if (student) {
+        toast.success(`Welcome back, ${student.firstName}!`);
         navigate("/student-dashboard");
       } else {
-        toast.error("Please fill in all fields");
+        // Check if student exists but not active
+        const foundStudent = students.find(
+          s => s.surname.toLowerCase() === surname.toLowerCase() && s.dob === dob
+        );
+        if (foundStudent) {
+          if (foundStudent.status === "pending") {
+            toast.error("Your registration is pending approval. Please wait for admin approval.");
+          } else if (foundStudent.status === "suspended") {
+            toast.error("Your account has been suspended. Please contact the school administration.");
+          } else if (foundStudent.status === "inactive") {
+            toast.error("Your account is inactive. Please contact the school administration.");
+          }
+        } else {
+          toast.error("Invalid credentials. Please check your surname and date of birth.");
+        }
       }
       setLoading(false);
     }, 1000);
@@ -56,6 +72,18 @@ const StudentLogin = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
+            {/* Demo Credentials Info */}
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mb-6">
+              <div className="flex items-start gap-2">
+                <Info className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                <div className="text-sm">
+                  <p className="font-semibold text-foreground mb-1">Demo Login:</p>
+                  <p className="text-muted-foreground">Surname: <span className="font-mono text-primary">Ibrahim</span></p>
+                  <p className="text-muted-foreground">DOB: <span className="font-mono text-primary">2010-05-15</span></p>
+                </div>
+              </div>
+            </div>
+
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="surname">Surname</Label>
@@ -92,13 +120,23 @@ const StudentLogin = () => {
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
-              <p className="text-sm text-muted-foreground">
-                Having trouble logging in?{" "}
-                <Link to="/contact" className="text-primary hover:underline font-medium">
-                  Contact Support
-                </Link>
-              </p>
+            <div className="mt-6 space-y-3">
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground">
+                  New student?{" "}
+                  <Link to="/student-registration" className="text-primary hover:underline font-medium">
+                    Register Here
+                  </Link>
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground">
+                  Having trouble logging in?{" "}
+                  <Link to="/contact" className="text-primary hover:underline font-medium">
+                    Contact Support
+                  </Link>
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>
