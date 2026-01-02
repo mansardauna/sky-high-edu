@@ -68,6 +68,25 @@ export interface Result {
   session: string;
 }
 
+export interface FeeStructure {
+  id: string;
+  name: string;
+  amount: number;
+  term: string;
+  classLevel: string;
+}
+
+export interface FeePayment {
+  id: string;
+  studentId: string;
+  feeId: string;
+  amount: number;
+  paidDate: string;
+  paymentMethod: string;
+  reference: string;
+  status: "paid" | "partial" | "pending";
+}
+
 interface DemoDataContextType {
   students: Student[];
   teachers: Teacher[];
@@ -76,6 +95,8 @@ interface DemoDataContextType {
   subjects: Subject[];
   classes: ClassInfo[];
   results: Result[];
+  feeStructures: FeeStructure[];
+  feePayments: FeePayment[];
   currentUser: (Student | Teacher | Admin) | null;
   userRole: string | null;
   
@@ -104,6 +125,10 @@ interface DemoDataContextType {
   // Result functions
   updateResult: (studentId: string, subjectId: string, scores: { ca1?: number; ca2?: number; exam?: number }) => void;
   getStudentResults: (studentId: string) => Result[];
+  
+  // Fee functions
+  addFeePayment: (payment: Omit<FeePayment, "id">) => void;
+  getStudentFees: (studentId: string) => { structure: FeeStructure; payment?: FeePayment }[];
 }
 
 const DemoDataContext = createContext<DemoDataContextType | undefined>(undefined);
@@ -172,6 +197,20 @@ const initialResults: Result[] = [
   { studentId: "s2", subjectId: "sub2", ca1: 17, ca2: 18, exam: 52, term: "First", session: "2024/2025" },
 ];
 
+const initialFeeStructures: FeeStructure[] = [
+  { id: "f1", name: "Tuition Fee", amount: 75000, term: "First", classLevel: "JSS" },
+  { id: "f2", name: "Development Levy", amount: 15000, term: "First", classLevel: "JSS" },
+  { id: "f3", name: "Book Fee", amount: 25000, term: "First", classLevel: "JSS" },
+  { id: "f4", name: "Tuition Fee", amount: 95000, term: "First", classLevel: "SSS" },
+  { id: "f5", name: "Examination Fee", amount: 10000, term: "First", classLevel: "All" },
+];
+
+const initialFeePayments: FeePayment[] = [
+  { id: "fp1", studentId: "s1", feeId: "f1", amount: 75000, paidDate: "2024-01-20", paymentMethod: "bank_transfer", reference: "TRX001", status: "paid" },
+  { id: "fp2", studentId: "s1", feeId: "f2", amount: 15000, paidDate: "2024-01-20", paymentMethod: "bank_transfer", reference: "TRX001", status: "paid" },
+  { id: "fp3", studentId: "s2", feeId: "f1", amount: 50000, paidDate: "2024-01-22", paymentMethod: "cash", reference: "RCP002", status: "partial" },
+];
+
 export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
   const [students, setStudents] = useState<Student[]>(initialStudents);
   const [teachers, setTeachers] = useState<Teacher[]>(initialTeachers);
@@ -180,10 +219,11 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
   const [subjects] = useState<Subject[]>(initialSubjects);
   const [classes] = useState<ClassInfo[]>(initialClasses);
   const [results, setResults] = useState<Result[]>(initialResults);
+  const [feeStructures] = useState<FeeStructure[]>(initialFeeStructures);
+  const [feePayments, setFeePayments] = useState<FeePayment[]>(initialFeePayments);
   const [currentUser, setCurrentUser] = useState<(Student | Teacher | Admin) | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
 
-  // Auth functions
   const loginStudent = (surname: string, dob: string): Student | null => {
     const student = students.find(
       s => s.surname.toLowerCase() === surname.toLowerCase() && s.dob === dob && s.status === "active"
@@ -220,16 +260,10 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
     setUserRole(null);
   };
 
-  // Student functions
   const addStudent = (student: Omit<Student, "id" | "regNo" | "dateRegistered">): Student => {
     const newId = `s${students.length + 1}`;
     const regNo = `DU/2024/${String(students.length + 1).padStart(3, "0")}`;
-    const newStudent: Student = {
-      ...student,
-      id: newId,
-      regNo,
-      dateRegistered: new Date().toISOString().split("T")[0],
-    };
+    const newStudent: Student = { ...student, id: newId, regNo, dateRegistered: new Date().toISOString().split("T")[0] };
     setStudents(prev => [...prev, newStudent]);
     return newStudent;
   };
@@ -238,19 +272,10 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
     setStudents(prev => prev.map(s => s.id === id ? { ...s, ...updates } : s));
   };
 
-  const approveStudent = (id: string) => {
-    updateStudent(id, { status: "active" });
-  };
+  const approveStudent = (id: string) => updateStudent(id, { status: "active" });
+  const suspendStudent = (id: string) => updateStudent(id, { status: "suspended" });
+  const activateStudent = (id: string) => updateStudent(id, { status: "active" });
 
-  const suspendStudent = (id: string) => {
-    updateStudent(id, { status: "suspended" });
-  };
-
-  const activateStudent = (id: string) => {
-    updateStudent(id, { status: "active" });
-  };
-
-  // Teacher functions
   const addTeacher = (teacher: Omit<Teacher, "id">): Teacher => {
     const newId = `t${teachers.length + 1}`;
     const newTeacher: Teacher = { ...teacher, id: newId };
@@ -273,7 +298,6 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
-  // Timetable functions
   const addTimetableEntry = (entry: Omit<TimetableEntry, "id">) => {
     const newId = `tt${timetable.length + 1}`;
     setTimetable(prev => [...prev, { ...entry, id: newId }]);
@@ -287,7 +311,6 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
     setTimetable(prev => prev.filter(t => t.id !== id));
   };
 
-  // Result functions
   const updateResult = (studentId: string, subjectId: string, scores: { ca1?: number; ca2?: number; exam?: number }) => {
     setResults(prev => {
       const existingIndex = prev.findIndex(r => r.studentId === studentId && r.subjectId === subjectId);
@@ -301,37 +324,33 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  const getStudentResults = (studentId: string): Result[] => {
-    return results.filter(r => r.studentId === studentId);
+  const getStudentResults = (studentId: string): Result[] => results.filter(r => r.studentId === studentId);
+
+  const addFeePayment = (payment: Omit<FeePayment, "id">) => {
+    const newId = `fp${feePayments.length + 1}`;
+    setFeePayments(prev => [...prev, { ...payment, id: newId }]);
+  };
+
+  const getStudentFees = (studentId: string) => {
+    const student = students.find(s => s.id === studentId);
+    if (!student) return [];
+    const classLevel = student.class.startsWith("SSS") ? "SSS" : "JSS";
+    return feeStructures
+      .filter(f => f.classLevel === classLevel || f.classLevel === "All")
+      .map(structure => ({
+        structure,
+        payment: feePayments.find(p => p.studentId === studentId && p.feeId === structure.id)
+      }));
   };
 
   return (
     <DemoDataContext.Provider value={{
-      students,
-      teachers,
-      admins,
-      timetable,
-      subjects,
-      classes,
-      results,
-      currentUser,
-      userRole,
-      loginStudent,
-      loginStaff,
-      logout,
-      addStudent,
-      updateStudent,
-      approveStudent,
-      suspendStudent,
-      activateStudent,
-      addTeacher,
-      updateTeacher,
-      assignSubjectToTeacher,
-      addTimetableEntry,
-      updateTimetableEntry,
-      deleteTimetableEntry,
-      updateResult,
-      getStudentResults,
+      students, teachers, admins, timetable, subjects, classes, results, feeStructures, feePayments,
+      currentUser, userRole, loginStudent, loginStaff, logout,
+      addStudent, updateStudent, approveStudent, suspendStudent, activateStudent,
+      addTeacher, updateTeacher, assignSubjectToTeacher,
+      addTimetableEntry, updateTimetableEntry, deleteTimetableEntry,
+      updateResult, getStudentResults, addFeePayment, getStudentFees,
     }}>
       {children}
     </DemoDataContext.Provider>
