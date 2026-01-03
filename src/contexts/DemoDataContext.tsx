@@ -25,6 +25,17 @@ export interface Teacher {
   subjects: string[];
   classes: string[];
   status: "active" | "suspended";
+  salary?: TeacherSalary;
+}
+
+export interface TeacherSalary {
+  basic: number;
+  allowances: number;
+  deductions: number;
+  accountNumber?: string;
+  bankName?: string;
+  withdrawableBalance: number;
+  lastPaymentDate?: string;
 }
 
 export interface Admin {
@@ -87,6 +98,17 @@ export interface FeePayment {
   status: "paid" | "partial" | "pending";
 }
 
+export interface SalaryWithdrawal {
+  id: string;
+  teacherId: string;
+  amount: number;
+  status: "pending" | "approved" | "rejected" | "completed";
+  requestDate: string;
+  processedDate?: string;
+  accountNumber: string;
+  bankName: string;
+}
+
 interface DemoDataContextType {
   students: Student[];
   teachers: Teacher[];
@@ -97,6 +119,7 @@ interface DemoDataContextType {
   results: Result[];
   feeStructures: FeeStructure[];
   feePayments: FeePayment[];
+  salaryWithdrawals: SalaryWithdrawal[];
   currentUser: (Student | Teacher | Admin) | null;
   userRole: string | null;
   
@@ -128,7 +151,15 @@ interface DemoDataContextType {
   
   // Fee functions
   addFeePayment: (payment: Omit<FeePayment, "id">) => void;
+  updateFeePayment: (paymentId: string, updates: Partial<FeePayment>) => void;
   getStudentFees: (studentId: string) => { structure: FeeStructure; payment?: FeePayment }[];
+  updateFeeStructure: (id: string, updates: Partial<FeeStructure>) => void;
+  addFeeStructure: (fee: Omit<FeeStructure, "id">) => void;
+  
+  // Salary functions
+  updateTeacherSalary: (teacherId: string, salary: Partial<TeacherSalary>) => void;
+  requestWithdrawal: (teacherId: string, amount: number, accountNumber: string, bankName: string) => void;
+  processWithdrawal: (withdrawalId: string, status: "approved" | "rejected" | "completed") => void;
 }
 
 const DemoDataContext = createContext<DemoDataContextType | undefined>(undefined);
@@ -144,11 +175,56 @@ const initialStudents: Student[] = [
 ];
 
 const initialTeachers: Teacher[] = [
-  { id: "t1", name: "Mr. Ahmed Ibrahim", email: "ahmed@daruulum.edu", password: "teacher123", subjects: ["Mathematics"], classes: ["JSS 1A", "JSS 2A"], status: "active" },
-  { id: "t2", name: "Mrs. Fatima Yusuf", email: "fatima@daruulum.edu", password: "teacher123", subjects: ["English"], classes: ["JSS 1B", "JSS 2B"], status: "active" },
-  { id: "t3", name: "Ustaz Ibrahim Musa", email: "ibrahim@daruulum.edu", password: "teacher123", subjects: ["Islamic Studies", "Arabic"], classes: ["JSS 3A"], status: "suspended" },
-  { id: "t4", name: "Dr. Musa Aliyu", email: "musa@daruulum.edu", password: "teacher123", subjects: ["Science"], classes: ["SSS 1A", "SSS 2A"], status: "active" },
-  { id: "t5", name: "Mrs. Zainab Abubakar", email: "zainab@daruulum.edu", password: "teacher123", subjects: ["Social Studies"], classes: ["JSS 1A", "JSS 1B"], status: "active" },
+  { 
+    id: "t1", 
+    name: "Mr. Ahmed Ibrahim", 
+    email: "ahmed@daruulum.edu", 
+    password: "teacher123", 
+    subjects: ["Mathematics"], 
+    classes: ["JSS 1A", "JSS 2A"], 
+    status: "active",
+    salary: { basic: 150000, allowances: 30000, deductions: 15000, withdrawableBalance: 165000, accountNumber: "1234567890", bankName: "First Bank", lastPaymentDate: "2024-12-25" }
+  },
+  { 
+    id: "t2", 
+    name: "Mrs. Fatima Yusuf", 
+    email: "fatima@daruulum.edu", 
+    password: "teacher123", 
+    subjects: ["English"], 
+    classes: ["JSS 1B", "JSS 2B"], 
+    status: "active",
+    salary: { basic: 145000, allowances: 25000, deductions: 12000, withdrawableBalance: 158000, accountNumber: "0987654321", bankName: "GTBank", lastPaymentDate: "2024-12-25" }
+  },
+  { 
+    id: "t3", 
+    name: "Ustaz Ibrahim Musa", 
+    email: "ibrahim@daruulum.edu", 
+    password: "teacher123", 
+    subjects: ["Islamic Studies", "Arabic"], 
+    classes: ["JSS 3A"], 
+    status: "suspended",
+    salary: { basic: 160000, allowances: 35000, deductions: 18000, withdrawableBalance: 0 }
+  },
+  { 
+    id: "t4", 
+    name: "Dr. Musa Aliyu", 
+    email: "musa@daruulum.edu", 
+    password: "teacher123", 
+    subjects: ["Science"], 
+    classes: ["SSS 1A", "SSS 2A"], 
+    status: "active",
+    salary: { basic: 200000, allowances: 50000, deductions: 25000, withdrawableBalance: 225000, accountNumber: "1122334455", bankName: "UBA", lastPaymentDate: "2024-12-25" }
+  },
+  { 
+    id: "t5", 
+    name: "Mrs. Zainab Abubakar", 
+    email: "zainab@daruulum.edu", 
+    password: "teacher123", 
+    subjects: ["Social Studies"], 
+    classes: ["JSS 1A", "JSS 1B"], 
+    status: "active",
+    salary: { basic: 140000, allowances: 20000, deductions: 10000, withdrawableBalance: 150000, accountNumber: "5544332211", bankName: "Zenith Bank", lastPaymentDate: "2024-12-25" }
+  },
 ];
 
 const initialAdmins: Admin[] = [
@@ -187,6 +263,8 @@ const initialTimetable: TimetableEntry[] = [
   { id: "tt6", day: "Tuesday", time: "09:00 - 10:00", subject: "Social Studies", teacher: "Mrs. Zainab Abubakar", class: "JSS 1A", room: "Room 101" },
   { id: "tt7", day: "Wednesday", time: "08:00 - 09:00", subject: "Mathematics", teacher: "Mr. Ahmed Ibrahim", class: "JSS 2A", room: "Room 102" },
   { id: "tt8", day: "Wednesday", time: "09:00 - 10:00", subject: "English", teacher: "Mrs. Fatima Yusuf", class: "JSS 2B", room: "Room 103" },
+  { id: "tt9", day: "Thursday", time: "08:00 - 09:00", subject: "Science", teacher: "Dr. Musa Aliyu", class: "SSS 1A", room: "Lab 2" },
+  { id: "tt10", day: "Friday", time: "08:00 - 09:00", subject: "Islamic Studies", teacher: "Ustaz Ibrahim Musa", class: "JSS 3A", room: "Room 105" },
 ];
 
 const initialResults: Result[] = [
@@ -203,12 +281,19 @@ const initialFeeStructures: FeeStructure[] = [
   { id: "f3", name: "Book Fee", amount: 25000, term: "First", classLevel: "JSS" },
   { id: "f4", name: "Tuition Fee", amount: 95000, term: "First", classLevel: "SSS" },
   { id: "f5", name: "Examination Fee", amount: 10000, term: "First", classLevel: "All" },
+  { id: "f6", name: "Laboratory Fee", amount: 5000, term: "First", classLevel: "SSS" },
+  { id: "f7", name: "Sports Fee", amount: 3000, term: "First", classLevel: "All" },
 ];
 
 const initialFeePayments: FeePayment[] = [
   { id: "fp1", studentId: "s1", feeId: "f1", amount: 75000, paidDate: "2024-01-20", paymentMethod: "bank_transfer", reference: "TRX001", status: "paid" },
   { id: "fp2", studentId: "s1", feeId: "f2", amount: 15000, paidDate: "2024-01-20", paymentMethod: "bank_transfer", reference: "TRX001", status: "paid" },
   { id: "fp3", studentId: "s2", feeId: "f1", amount: 50000, paidDate: "2024-01-22", paymentMethod: "cash", reference: "RCP002", status: "partial" },
+];
+
+const initialSalaryWithdrawals: SalaryWithdrawal[] = [
+  { id: "sw1", teacherId: "t1", amount: 100000, status: "completed", requestDate: "2024-12-15", processedDate: "2024-12-17", accountNumber: "1234567890", bankName: "First Bank" },
+  { id: "sw2", teacherId: "t2", amount: 80000, status: "pending", requestDate: "2024-12-28", accountNumber: "0987654321", bankName: "GTBank" },
 ];
 
 export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
@@ -219,8 +304,9 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
   const [subjects] = useState<Subject[]>(initialSubjects);
   const [classes] = useState<ClassInfo[]>(initialClasses);
   const [results, setResults] = useState<Result[]>(initialResults);
-  const [feeStructures] = useState<FeeStructure[]>(initialFeeStructures);
+  const [feeStructures, setFeeStructures] = useState<FeeStructure[]>(initialFeeStructures);
   const [feePayments, setFeePayments] = useState<FeePayment[]>(initialFeePayments);
+  const [salaryWithdrawals, setSalaryWithdrawals] = useState<SalaryWithdrawal[]>(initialSalaryWithdrawals);
   const [currentUser, setCurrentUser] = useState<(Student | Teacher | Admin) | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
 
@@ -331,6 +417,10 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
     setFeePayments(prev => [...prev, { ...payment, id: newId }]);
   };
 
+  const updateFeePayment = (paymentId: string, updates: Partial<FeePayment>) => {
+    setFeePayments(prev => prev.map(p => p.id === paymentId ? { ...p, ...updates } : p));
+  };
+
   const getStudentFees = (studentId: string) => {
     const student = students.find(s => s.id === studentId);
     if (!student) return [];
@@ -343,14 +433,65 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
       }));
   };
 
+  const updateFeeStructure = (id: string, updates: Partial<FeeStructure>) => {
+    setFeeStructures(prev => prev.map(f => f.id === id ? { ...f, ...updates } : f));
+  };
+
+  const addFeeStructure = (fee: Omit<FeeStructure, "id">) => {
+    const newId = `f${feeStructures.length + 1}`;
+    setFeeStructures(prev => [...prev, { ...fee, id: newId }]);
+  };
+
+  const updateTeacherSalary = (teacherId: string, salary: Partial<TeacherSalary>) => {
+    setTeachers(prev => prev.map(t => {
+      if (t.id === teacherId) {
+        return { ...t, salary: { ...t.salary, ...salary } as TeacherSalary };
+      }
+      return t;
+    }));
+  };
+
+  const requestWithdrawal = (teacherId: string, amount: number, accountNumber: string, bankName: string) => {
+    const newId = `sw${salaryWithdrawals.length + 1}`;
+    setSalaryWithdrawals(prev => [...prev, {
+      id: newId,
+      teacherId,
+      amount,
+      status: "pending",
+      requestDate: new Date().toISOString().split("T")[0],
+      accountNumber,
+      bankName
+    }]);
+  };
+
+  const processWithdrawal = (withdrawalId: string, status: "approved" | "rejected" | "completed") => {
+    setSalaryWithdrawals(prev => prev.map(w => {
+      if (w.id === withdrawalId) {
+        const updated = { ...w, status, processedDate: new Date().toISOString().split("T")[0] };
+        // If completed, deduct from teacher's balance
+        if (status === "completed") {
+          const teacher = teachers.find(t => t.id === w.teacherId);
+          if (teacher?.salary) {
+            updateTeacherSalary(w.teacherId, {
+              withdrawableBalance: teacher.salary.withdrawableBalance - w.amount
+            });
+          }
+        }
+        return updated;
+      }
+      return w;
+    }));
+  };
+
   return (
     <DemoDataContext.Provider value={{
-      students, teachers, admins, timetable, subjects, classes, results, feeStructures, feePayments,
+      students, teachers, admins, timetable, subjects, classes, results, feeStructures, feePayments, salaryWithdrawals,
       currentUser, userRole, loginStudent, loginStaff, logout,
       addStudent, updateStudent, approveStudent, suspendStudent, activateStudent,
       addTeacher, updateTeacher, assignSubjectToTeacher,
       addTimetableEntry, updateTimetableEntry, deleteTimetableEntry,
-      updateResult, getStudentResults, addFeePayment, getStudentFees,
+      updateResult, getStudentResults, addFeePayment, updateFeePayment, getStudentFees, updateFeeStructure, addFeeStructure,
+      updateTeacherSalary, requestWithdrawal, processWithdrawal,
     }}>
       {children}
     </DemoDataContext.Provider>

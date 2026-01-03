@@ -13,7 +13,6 @@ import {
   Users, 
   FileText, 
   Bell, 
-  User,
   LogOut,
   Menu,
   Upload,
@@ -25,12 +24,16 @@ import {
   Shield,
   Palette,
   Lock,
-  Mail,
-  Phone,
-  Camera
+  Globe,
+  Wallet,
+  DollarSign,
+  CreditCard,
+  ArrowDownToLine
 } from "lucide-react";
 import { toast } from "sonner";
 import { useDemoData } from "@/contexts/DemoDataContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 
 const TeacherDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -38,22 +41,49 @@ const TeacherDashboard = () => {
   const [settingsSection, setSettingsSection] = useState("profile");
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedSubject, setSelectedSubject] = useState("");
+  const [withdrawalModalOpen, setWithdrawalModalOpen] = useState(false);
+  const [withdrawalAmount, setWithdrawalAmount] = useState("");
   const navigate = useNavigate();
-  const { timetable, currentUser, logout } = useDemoData();
+  const { timetable, currentUser, requestWithdrawal, logout } = useDemoData();
+  const { t, language, setLanguage, direction } = useLanguage();
 
-  const teacher = currentUser as any || { name: "Mr. Ahmed Ibrahim", email: "ahmed@daruulum.edu", subjects: ["Mathematics"], classes: ["JSS 1A", "JSS 2A"] };
+  const teacher = currentUser as any || { name: "Mr. Ahmed Ibrahim", email: "ahmed@daruulum.edu", subjects: ["Mathematics"], classes: ["JSS 1A", "JSS 2A"], salary: { basic: 150000, allowances: 30000, deductions: 15000, withdrawableBalance: 165000, accountNumber: "1234567890", bankName: "First Bank" } };
   const teacherName = teacher?.name || "Mr. Ahmed Ibrahim";
   const teacherClasses = teacher?.classes || ["JSS 1A", "JSS 1B", "JSS 2A", "JSS 2B"];
   const teacherSubjects = teacher?.subjects || ["Mathematics"];
+  const salary = teacher?.salary || { basic: 150000, allowances: 30000, deductions: 15000, withdrawableBalance: 165000 };
 
   // Filter timetable for this teacher
   const myTimetable = timetable.filter(t => t.teacher === teacherName);
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const dayTranslations: Record<string, string> = {
+    Monday: t("monday"),
+    Tuesday: t("tuesday"),
+    Wednesday: t("wednesday"),
+    Thursday: t("thursday"),
+    Friday: t("friday"),
+  };
 
   const handleLogout = () => {
     logout();
-    toast.success("Logged out successfully");
+    toast.success(t("logout") + " successful");
     navigate("/");
+  };
+
+  const handleWithdrawal = () => {
+    const amount = parseFloat(withdrawalAmount);
+    if (!amount || amount <= 0) {
+      toast.error("Please enter a valid amount");
+      return;
+    }
+    if (amount > salary.withdrawableBalance) {
+      toast.error("Amount exceeds available balance");
+      return;
+    }
+    requestWithdrawal(teacher.id, amount, salary.accountNumber || "", salary.bankName || "");
+    toast.success("Withdrawal request submitted!");
+    setWithdrawalModalOpen(false);
+    setWithdrawalAmount("");
   };
 
   const students = [
@@ -78,12 +108,13 @@ const TeacherDashboard = () => {
   };
 
   const menuItems = [
-    { icon: TrendingUp, label: "Dashboard", id: "dashboard" },
+    { icon: TrendingUp, label: t("dashboard"), id: "dashboard" },
     { icon: Users, label: "My Classes", id: "classes" },
-    { icon: Calendar, label: "Timetable", id: "timetable" },
+    { icon: Calendar, label: t("timetable"), id: "timetable" },
     { icon: FileText, label: "Upload Results", id: "results" },
-    { icon: Bell, label: "Announcements", id: "announcements" },
-    { icon: Settings, label: "Settings", id: "settings" },
+    { icon: Wallet, label: t("salary"), id: "salary" },
+    { icon: Bell, label: t("announcements"), id: "announcements" },
+    { icon: Settings, label: t("settings"), id: "settings" },
   ];
 
   const myClasses = teacherClasses.map((cls: string) => ({
@@ -93,18 +124,20 @@ const TeacherDashboard = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-muted/30" dir={direction}>
       {sidebarOpen && (
         <div className="fixed inset-0 bg-foreground/50 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />
       )}
 
-      <aside className={`fixed top-0 left-0 h-full w-64 bg-card border-r border-border z-50 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`fixed top-0 ${direction === "rtl" ? "right-0" : "left-0"} h-full w-64 bg-card border-${direction === "rtl" ? "l" : "r"} border-border z-50 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : direction === "rtl" ? 'translate-x-full' : '-translate-x-full'}`}>
         <div className="p-6 border-b border-border">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-success to-success/80 flex items-center justify-center shadow-md">
               <BookOpen className="w-6 h-6 text-success-foreground" />
             </div>
-            <span className="font-bold text-lg text-foreground">Teacher Portal</span>
+            <span className="font-bold text-lg text-foreground">
+              {language === "ar" ? "بوابة المعلم" : "Teacher Portal"}
+            </span>
           </Link>
         </div>
 
@@ -126,12 +159,12 @@ const TeacherDashboard = () => {
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border">
           <Button variant="ghost" className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10" onClick={handleLogout}>
             <LogOut className="w-5 h-5 mr-3" />
-            Logout
+            {t("logout")}
           </Button>
         </div>
       </aside>
 
-      <div className="lg:ml-64">
+      <div className={`${direction === "rtl" ? "lg:mr-64" : "lg:ml-64"}`}>
         <header className="sticky top-0 bg-card/80 backdrop-blur-lg border-b border-border z-30">
           <div className="flex items-center justify-between px-4 lg:px-8 h-16">
             <div className="flex items-center gap-4">
@@ -140,10 +173,18 @@ const TeacherDashboard = () => {
               </button>
               <div>
                 <h1 className="font-bold text-lg text-foreground">{teacherName}</h1>
-                <p className="text-sm text-muted-foreground">{teacherSubjects.join(", ")} Teacher</p>
+                <p className="text-sm text-muted-foreground">{teacherSubjects.join(", ")} {t("teacher")}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setLanguage(language === "en" ? "ar" : "en")}
+                title={t("language")}
+              >
+                <Globe className="w-5 h-5" />
+              </Button>
               <button className="relative p-2 text-muted-foreground hover:text-foreground transition-colors">
                 <Bell className="w-5 h-5" />
               </button>
@@ -175,7 +216,7 @@ const TeacherDashboard = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1">Total Students</p>
+                        <p className="text-sm text-muted-foreground mb-1">{t("total_students")}</p>
                         <p className="text-3xl font-bold text-foreground">{myClasses.reduce((sum: number, c: any) => sum + c.students, 0)}</p>
                       </div>
                       <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -201,11 +242,11 @@ const TeacherDashboard = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-muted-foreground mb-1">Today's Classes</p>
-                        <p className="text-3xl font-bold text-foreground">{myTimetable.filter(t => t.day === "Monday").length}</p>
+                        <p className="text-sm text-muted-foreground mb-1">{t("available_balance")}</p>
+                        <p className="text-3xl font-bold text-foreground">₦{salary.withdrawableBalance?.toLocaleString()}</p>
                       </div>
                       <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center">
-                        <Calendar className="w-6 h-6 text-primary" />
+                        <Wallet className="w-6 h-6 text-primary" />
                       </div>
                     </div>
                   </CardContent>
@@ -221,7 +262,7 @@ const TeacherDashboard = () => {
                           <GraduationCap className="w-5 h-5 text-success" />
                         </div>
                         <span className="text-xs bg-success/10 text-success px-2 py-1 rounded-full font-medium">
-                          {cls.students} students
+                          {cls.students} {t("students").toLowerCase()}
                         </span>
                       </div>
                       <h3 className="font-semibold text-foreground">{cls.class}</h3>
@@ -247,7 +288,7 @@ const TeacherDashboard = () => {
                         <div className="w-12 h-12 rounded-lg bg-success/10 flex items-center justify-center">
                           <Users className="w-6 h-6 text-success" />
                         </div>
-                        <Badge variant="secondary">{cls.students} students</Badge>
+                        <Badge variant="secondary">{cls.students} {t("students").toLowerCase()}</Badge>
                       </div>
                       <h3 className="text-xl font-semibold text-foreground mb-1">{cls.class}</h3>
                       <p className="text-muted-foreground mb-4">{cls.subject}</p>
@@ -265,7 +306,7 @@ const TeacherDashboard = () => {
           {activeTab === "timetable" && (
             <>
               <div className="mb-8">
-                <h1 className="text-2xl font-bold text-foreground">My Timetable</h1>
+                <h1 className="text-2xl font-bold text-foreground">{t("timetable")}</h1>
                 <p className="text-muted-foreground">Your teaching schedule</p>
               </div>
               <div className="space-y-6">
@@ -276,7 +317,7 @@ const TeacherDashboard = () => {
                       <CardHeader className="pb-3">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <Calendar className="w-5 h-5 text-success" />
-                          {day}
+                          {dayTranslations[day]}
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -314,7 +355,7 @@ const TeacherDashboard = () => {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                   <div className="space-y-2">
-                    <Label>Select Class</Label>
+                    <Label>Select {t("class")}</Label>
                     <Select value={selectedClass} onValueChange={setSelectedClass}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select class" />
@@ -327,7 +368,7 @@ const TeacherDashboard = () => {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Select Subject</Label>
+                    <Label>Select {t("subject")}</Label>
                     <Select value={selectedSubject} onValueChange={setSelectedSubject}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select subject" />
@@ -340,7 +381,7 @@ const TeacherDashboard = () => {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Term</Label>
+                    <Label>{t("term")}</Label>
                     <Select defaultValue="first">
                       <SelectTrigger><SelectValue /></SelectTrigger>
                       <SelectContent>
@@ -365,183 +406,271 @@ const TeacherDashboard = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {students.map((student) => {
-                        const studentScores = scores.find(s => s.id === student.id)!;
-                        const total = studentScores.ca1 + studentScores.ca2 + studentScores.exam;
+                      {students.map((student, index) => {
+                        const scoreData = scores.find(s => s.id === student.id) || { ca1: 0, ca2: 0, exam: 0 };
+                        const total = scoreData.ca1 + scoreData.ca2 + scoreData.exam;
                         return (
-                          <tr key={student.id} className="border-b border-border/50">
-                            <td className="py-3 px-4 text-muted-foreground text-sm">{student.regNo}</td>
+                          <tr key={student.id} className="border-b border-border/50 hover:bg-muted/50">
+                            <td className="py-3 px-4 text-muted-foreground font-mono">{student.regNo}</td>
                             <td className="py-3 px-4 font-medium text-foreground">{student.name}</td>
                             <td className="py-3 px-4 text-center">
-                              <Input type="number" min="0" max="20" value={studentScores.ca1} onChange={(e) => updateScore(student.id, 'ca1', e.target.value)} className="w-16 h-8 text-center mx-auto" />
+                              <Input type="number" value={scoreData.ca1} onChange={(e) => updateScore(student.id, "ca1", e.target.value)} className="w-16 h-8 text-center mx-auto" min="0" max="20" />
                             </td>
                             <td className="py-3 px-4 text-center">
-                              <Input type="number" min="0" max="20" value={studentScores.ca2} onChange={(e) => updateScore(student.id, 'ca2', e.target.value)} className="w-16 h-8 text-center mx-auto" />
+                              <Input type="number" value={scoreData.ca2} onChange={(e) => updateScore(student.id, "ca2", e.target.value)} className="w-16 h-8 text-center mx-auto" min="0" max="20" />
                             </td>
                             <td className="py-3 px-4 text-center">
-                              <Input type="number" min="0" max="60" value={studentScores.exam} onChange={(e) => updateScore(student.id, 'exam', e.target.value)} className="w-16 h-8 text-center mx-auto" />
+                              <Input type="number" value={scoreData.exam} onChange={(e) => updateScore(student.id, "exam", e.target.value)} className="w-16 h-8 text-center mx-auto" min="0" max="60" />
                             </td>
-                            <td className="py-3 px-4 text-center">
-                              <span className={`font-bold ${total >= 70 ? 'text-success' : total >= 50 ? 'text-warning' : 'text-destructive'}`}>{total}</span>
-                            </td>
+                            <td className="py-3 px-4 text-center font-bold text-foreground">{total}</td>
                           </tr>
                         );
                       })}
                     </tbody>
                   </table>
                 </div>
-
-                <div className="flex justify-end mt-6 gap-3">
-                  <Button variant="outline">Cancel</Button>
-                  <Button variant="default" onClick={handleSaveResults}>
+                <div className="mt-6 flex justify-end">
+                  <Button onClick={handleSaveResults}>
                     <Save className="w-4 h-4 mr-2" />
-                    Save Results
+                    {t("save")} Results
                   </Button>
                 </div>
               </CardContent>
             </Card>
           )}
 
+          {activeTab === "salary" && (
+            <>
+              <div className="mb-8">
+                <h1 className="text-2xl font-bold text-foreground">{t("salary")}</h1>
+                <p className="text-muted-foreground">{t("salary_structure")} & {t("withdraw")}</p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                <Card className="border-none shadow-card">
+                  <CardContent className="p-6">
+                    <p className="text-sm text-muted-foreground mb-1">{t("basic_salary")}</p>
+                    <p className="text-2xl font-bold text-foreground">₦{salary.basic?.toLocaleString()}</p>
+                  </CardContent>
+                </Card>
+                <Card className="border-none shadow-card">
+                  <CardContent className="p-6">
+                    <p className="text-sm text-muted-foreground mb-1">{t("allowances")}</p>
+                    <p className="text-2xl font-bold text-success">₦{salary.allowances?.toLocaleString()}</p>
+                  </CardContent>
+                </Card>
+                <Card className="border-none shadow-card">
+                  <CardContent className="p-6">
+                    <p className="text-sm text-muted-foreground mb-1">{t("deductions")}</p>
+                    <p className="text-2xl font-bold text-destructive">₦{salary.deductions?.toLocaleString()}</p>
+                  </CardContent>
+                </Card>
+                <Card className="border-none shadow-card bg-gradient-to-br from-primary/10 to-primary/5">
+                  <CardContent className="p-6">
+                    <p className="text-sm text-muted-foreground mb-1">{t("net_salary")}</p>
+                    <p className="text-2xl font-bold text-primary">₦{(salary.basic + salary.allowances - salary.deductions)?.toLocaleString()}</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card className="border-none shadow-card">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Wallet className="w-5 h-5 text-success" />
+                    {t("available_balance")}
+                  </CardTitle>
+                  <CardDescription>Request withdrawal to your registered bank account</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div>
+                      <p className="text-4xl font-bold text-foreground mb-2">₦{salary.withdrawableBalance?.toLocaleString()}</p>
+                      <p className="text-sm text-muted-foreground">
+                        Bank: {salary.bankName || "Not set"} • Account: {salary.accountNumber || "Not set"}
+                      </p>
+                    </div>
+                    <Button size="lg" onClick={() => setWithdrawalModalOpen(true)} disabled={!salary.withdrawableBalance || salary.withdrawableBalance <= 0}>
+                      <ArrowDownToLine className="w-5 h-5 mr-2" />
+                      {t("withdraw")}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </>
+          )}
+
           {activeTab === "announcements" && (
             <>
               <div className="mb-8">
-                <h1 className="text-2xl font-bold text-foreground">Announcements</h1>
-                <p className="text-muted-foreground">Latest school updates</p>
+                <h1 className="text-2xl font-bold text-foreground">{t("announcements")}</h1>
+                <p className="text-muted-foreground">School news and updates</p>
               </div>
-              <div className="space-y-4">
-                {[
-                  { title: "Staff meeting on Friday", date: "Jan 2, 2025", urgent: true },
-                  { title: "Submit term results by next week", date: "Dec 30, 2024", urgent: true },
-                  { title: "New curriculum guidelines available", date: "Dec 28, 2024", urgent: false },
-                ].map((item, index) => (
-                  <Card key={index} className={`border-none shadow-card ${item.urgent ? 'border-l-4 border-l-destructive' : ''}`}>
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <h3 className="font-semibold text-foreground mb-1">{item.title}</h3>
-                          <p className="text-sm text-muted-foreground">{item.date}</p>
-                        </div>
-                        {item.urgent && <Badge variant="destructive">Urgent</Badge>}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
+              <Card className="border-none shadow-card">
+                <CardContent className="p-12 text-center">
+                  <Bell className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-foreground mb-2">No announcements</h3>
+                  <p className="text-muted-foreground">Check back later for updates</p>
+                </CardContent>
+              </Card>
             </>
           )}
 
           {activeTab === "settings" && (
-            <div className="max-w-4xl">
+            <>
               <div className="mb-8">
-                <h1 className="text-2xl font-bold text-foreground">Settings</h1>
+                <h1 className="text-2xl font-bold text-foreground">{t("settings")}</h1>
                 <p className="text-muted-foreground">Manage your account preferences</p>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <Card className="md:col-span-1 border-none shadow-card h-fit">
+              
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <Card className="border-none shadow-card lg:col-span-1">
                   <CardContent className="p-4">
                     <nav className="space-y-1">
                       {[
-                        { id: "profile", label: "Profile", icon: User },
-                        { id: "notifications", label: "Notifications", icon: Bell },
-                        { id: "security", label: "Security", icon: Shield },
-                        { id: "appearance", label: "Appearance", icon: Palette },
-                      ].map((section) => (
+                        { id: "profile", icon: BookOpen, label: t("profile") },
+                        { id: "notifications", icon: Bell, label: t("notifications") },
+                        { id: "security", icon: Shield, label: t("security") },
+                        { id: "appearance", icon: Palette, label: t("appearance") },
+                      ].map((item) => (
                         <button
-                          key={section.id}
-                          onClick={() => setSettingsSection(section.id)}
-                          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all text-left ${
-                            settingsSection === section.id ? "bg-success text-success-foreground" : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          key={item.id}
+                          onClick={() => setSettingsSection(item.id)}
+                          className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                            settingsSection === item.id ? 'bg-success text-success-foreground' : 'text-muted-foreground hover:bg-muted hover:text-foreground'
                           }`}
                         >
-                          <section.icon className="w-4 h-4" />
-                          <span className="text-sm font-medium">{section.label}</span>
+                          <item.icon className="w-5 h-5" />
+                          <span className="font-medium">{item.label}</span>
                         </button>
                       ))}
                     </nav>
                   </CardContent>
                 </Card>
 
-                <div className="md:col-span-3">
-                  {settingsSection === "profile" && (
-                    <Card className="border-none shadow-card">
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2"><User className="w-5 h-5 text-success" />Profile</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-6">
-                        <div className="flex items-center gap-4">
-                          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-success to-success/80 flex items-center justify-center text-success-foreground text-2xl font-bold">
-                            {teacherName.charAt(0)}
-                          </div>
-                          <Button variant="outline" size="sm"><Camera className="w-4 h-4 mr-2" />Change Photo</Button>
-                        </div>
-                        <Separator />
+                <Card className="border-none shadow-card lg:col-span-3">
+                  <CardContent className="p-6">
+                    {settingsSection === "profile" && (
+                      <div className="space-y-6">
+                        <h3 className="text-lg font-semibold">{t("profile")}</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-2"><Label>Full Name</Label><Input value={profileData.name} onChange={(e) => setProfileData({ ...profileData, name: e.target.value })} /></div>
-                          <div className="space-y-2"><Label>Email</Label><Input type="email" value={profileData.email} onChange={(e) => setProfileData({ ...profileData, email: e.target.value })} /></div>
-                          <div className="space-y-2"><Label>Phone</Label><Input value={profileData.phone} onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })} /></div>
-                          <div className="space-y-2"><Label>Subjects</Label><Input value={teacherSubjects.join(", ")} disabled /></div>
+                          <div className="space-y-2">
+                            <Label>Full Name</Label>
+                            <Input value={profileData.name} onChange={(e) => setProfileData({...profileData, name: e.target.value})} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Email</Label>
+                            <Input value={profileData.email} onChange={(e) => setProfileData({...profileData, email: e.target.value})} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Phone</Label>
+                            <Input value={profileData.phone} onChange={(e) => setProfileData({...profileData, phone: e.target.value})} />
+                          </div>
                         </div>
-                        <div className="flex justify-end">
-                          <Button onClick={() => toast.success("Profile updated!")}><Save className="w-4 h-4 mr-2" />Save Changes</Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
+                        <Button onClick={() => toast.success("Profile updated!")}>
+                          <Save className="w-4 h-4 mr-2" />
+                          {t("save")} Changes
+                        </Button>
+                      </div>
+                    )}
 
-                  {settingsSection === "notifications" && (
-                    <Card className="border-none shadow-card">
-                      <CardHeader><CardTitle className="flex items-center gap-2"><Bell className="w-5 h-5 text-success" />Notifications</CardTitle></CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50">
-                          <div className="flex items-center gap-3"><Mail className="w-5 h-5 text-muted-foreground" /><p className="font-medium">Email Notifications</p></div>
-                          <Switch checked={notifications.email} onCheckedChange={(c) => setNotifications({ ...notifications, email: c })} />
+                    {settingsSection === "notifications" && (
+                      <div className="space-y-6">
+                        <h3 className="text-lg font-semibold">{t("notifications")}</h3>
+                        <div className="space-y-4">
+                          {Object.entries(notifications).map(([key, value]) => (
+                            <div key={key} className="flex items-center justify-between">
+                              <Label className="capitalize">{key} Notifications</Label>
+                              <Switch checked={value} onCheckedChange={(checked) => setNotifications({...notifications, [key]: checked})} />
+                            </div>
+                          ))}
                         </div>
-                        <div className="flex items-center justify-between p-4 rounded-lg bg-muted/50">
-                          <div className="flex items-center gap-3"><Phone className="w-5 h-5 text-muted-foreground" /><p className="font-medium">SMS Notifications</p></div>
-                          <Switch checked={notifications.sms} onCheckedChange={(c) => setNotifications({ ...notifications, sms: c })} />
-                        </div>
-                        <div className="flex justify-end"><Button onClick={() => toast.success("Saved!")}><Save className="w-4 h-4 mr-2" />Save</Button></div>
-                      </CardContent>
-                    </Card>
-                  )}
+                      </div>
+                    )}
 
-                  {settingsSection === "security" && (
-                    <Card className="border-none shadow-card">
-                      <CardHeader><CardTitle className="flex items-center gap-2"><Shield className="w-5 h-5 text-success" />Security</CardTitle></CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="space-y-4 max-w-md">
-                          <div className="space-y-2"><Label>Current Password</Label><Input type="password" value={passwords.current} onChange={(e) => setPasswords({ ...passwords, current: e.target.value })} /></div>
-                          <div className="space-y-2"><Label>New Password</Label><Input type="password" value={passwords.new} onChange={(e) => setPasswords({ ...passwords, new: e.target.value })} /></div>
-                          <div className="space-y-2"><Label>Confirm Password</Label><Input type="password" value={passwords.confirm} onChange={(e) => setPasswords({ ...passwords, confirm: e.target.value })} /></div>
+                    {settingsSection === "security" && (
+                      <div className="space-y-6">
+                        <h3 className="text-lg font-semibold">{t("security")}</h3>
+                        <div className="space-y-4">
+                          <div className="space-y-2">
+                            <Label>Current Password</Label>
+                            <Input type="password" value={passwords.current} onChange={(e) => setPasswords({...passwords, current: e.target.value})} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>New Password</Label>
+                            <Input type="password" value={passwords.new} onChange={(e) => setPasswords({...passwords, new: e.target.value})} />
+                          </div>
+                          <div className="space-y-2">
+                            <Label>Confirm Password</Label>
+                            <Input type="password" value={passwords.confirm} onChange={(e) => setPasswords({...passwords, confirm: e.target.value})} />
+                          </div>
                         </div>
-                        <div className="flex justify-end">
-                          <Button onClick={() => { if (passwords.new === passwords.confirm && passwords.new.length >= 6) { toast.success("Password updated!"); setPasswords({ current: "", new: "", confirm: "" }); } else { toast.error("Check password requirements"); } }}>
-                            <Lock className="w-4 h-4 mr-2" />Update Password
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
+                        <Button onClick={() => toast.success("Password updated!")}>
+                          <Lock className="w-4 h-4 mr-2" />
+                          Update Password
+                        </Button>
+                      </div>
+                    )}
 
-                  {settingsSection === "appearance" && (
-                    <Card className="border-none shadow-card">
-                      <CardHeader><CardTitle className="flex items-center gap-2"><Palette className="w-5 h-5 text-success" />Appearance</CardTitle></CardHeader>
-                      <CardContent>
-                        <div className="grid grid-cols-3 gap-4">
-                          <button className="p-4 rounded-lg border-2 border-success bg-card text-center"><div className="w-8 h-8 rounded-full bg-background border mx-auto mb-2" /><span className="text-sm font-medium">Light</span></button>
-                          <button className="p-4 rounded-lg border border-border bg-card text-center opacity-50"><div className="w-8 h-8 rounded-full bg-foreground mx-auto mb-2" /><span className="text-sm font-medium">Dark</span><p className="text-xs text-muted-foreground">Soon</p></button>
-                          <button className="p-4 rounded-lg border border-border bg-card text-center opacity-50"><div className="w-8 h-8 rounded-full bg-gradient-to-br from-background to-foreground mx-auto mb-2" /><span className="text-sm font-medium">System</span><p className="text-xs text-muted-foreground">Soon</p></button>
+                    {settingsSection === "appearance" && (
+                      <div className="space-y-6">
+                        <h3 className="text-lg font-semibold">{t("appearance")}</h3>
+                        <div className="space-y-4">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <Label>{t("language")}</Label>
+                              <p className="text-sm text-muted-foreground">Choose your preferred language</p>
+                            </div>
+                            <div className="flex gap-2">
+                              <Button variant={language === "en" ? "default" : "outline"} size="sm" onClick={() => setLanguage("en")}>
+                                🇬🇧 {t("english")}
+                              </Button>
+                              <Button variant={language === "ar" ? "default" : "outline"} size="sm" onClick={() => setLanguage("ar")}>
+                                🇸🇦 {t("arabic")}
+                              </Button>
+                            </div>
+                          </div>
                         </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
               </div>
-            </div>
+            </>
           )}
         </main>
       </div>
+
+      {/* Withdrawal Modal */}
+      <Dialog open={withdrawalModalOpen} onOpenChange={setWithdrawalModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>{t("withdraw")} Funds</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label>Amount (₦)</Label>
+              <Input
+                type="number"
+                value={withdrawalAmount}
+                onChange={(e) => setWithdrawalAmount(e.target.value)}
+                placeholder="Enter amount"
+                max={salary.withdrawableBalance}
+              />
+              <p className="text-xs text-muted-foreground">
+                {t("available_balance")}: ₦{salary.withdrawableBalance?.toLocaleString()}
+              </p>
+            </div>
+            <div className="space-y-2">
+              <Label>Bank Account</Label>
+              <p className="text-sm text-foreground">{salary.bankName} - {salary.accountNumber}</p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setWithdrawalModalOpen(false)}>{t("cancel")}</Button>
+            <Button onClick={handleWithdrawal}>{t("confirm")} {t("withdraw")}</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
