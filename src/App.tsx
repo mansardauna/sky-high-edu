@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DemoDataProvider } from "@/contexts/DemoDataContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import StudentLogin from "./pages/StudentLogin";
 import StaffLogin from "./pages/StaffLogin";
@@ -22,27 +23,29 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <DemoDataProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/student-login" element={<StudentLogin />} />
-            <Route path="/staff-login" element={<StaffLogin />} />
-            <Route path="/student-registration" element={<StudentRegistration />} />
-            <Route path="/student-dashboard" element={<StudentDashboard />} />
-            <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/programs" element={<Programs />} />
-            <Route path="/contact" element={<Contact />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </DemoDataProvider>
+      <LanguageProvider>
+        <DemoDataProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/student-login" element={<StudentLogin />} />
+              <Route path="/staff-login" element={<StaffLogin />} />
+              <Route path="/student-registration" element={<StudentRegistration />} />
+              <Route path="/student-dashboard" element={<StudentDashboard />} />
+              <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
+              <Route path="/super-admin-dashboard" element={<SuperAdminDashboard />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/programs" element={<Programs />} />
+              <Route path="/contact" element={<Contact />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </DemoDataProvider>
+      </LanguageProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
