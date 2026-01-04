@@ -109,6 +109,17 @@ export interface SalaryWithdrawal {
   bankName: string;
 }
 
+export interface Announcement {
+  id: string;
+  title: string;
+  content: string;
+  category: "admissions" | "events" | "notice" | "academic" | "urgent";
+  targetAudience: "all" | "students" | "teachers";
+  date: string;
+  createdBy: string;
+  isActive: boolean;
+}
+
 interface DemoDataContextType {
   students: Student[];
   teachers: Teacher[];
@@ -120,6 +131,7 @@ interface DemoDataContextType {
   feeStructures: FeeStructure[];
   feePayments: FeePayment[];
   salaryWithdrawals: SalaryWithdrawal[];
+  announcements: Announcement[];
   currentUser: (Student | Teacher | Admin) | null;
   userRole: string | null;
   
@@ -160,6 +172,12 @@ interface DemoDataContextType {
   updateTeacherSalary: (teacherId: string, salary: Partial<TeacherSalary>) => void;
   requestWithdrawal: (teacherId: string, amount: number, accountNumber: string, bankName: string) => void;
   processWithdrawal: (withdrawalId: string, status: "approved" | "rejected" | "completed") => void;
+
+  // Announcement functions
+  addAnnouncement: (announcement: Omit<Announcement, "id" | "date">) => void;
+  updateAnnouncement: (id: string, updates: Partial<Announcement>) => void;
+  deleteAnnouncement: (id: string) => void;
+  getActiveAnnouncements: (audience?: "all" | "students" | "teachers") => Announcement[];
 }
 
 const DemoDataContext = createContext<DemoDataContextType | undefined>(undefined);
@@ -296,6 +314,14 @@ const initialSalaryWithdrawals: SalaryWithdrawal[] = [
   { id: "sw2", teacherId: "t2", amount: 80000, status: "pending", requestDate: "2024-12-28", accountNumber: "0987654321", bankName: "GTBank" },
 ];
 
+const initialAnnouncements: Announcement[] = [
+  { id: "ann1", title: "New Term Registration Open", content: "Registration for the new academic term is now open. All parents are advised to complete registration by January 15th.", category: "admissions", targetAudience: "all", date: "2024-12-28", createdBy: "Admin", isActive: true },
+  { id: "ann2", title: "Annual Sports Day Results", content: "Congratulations to all participants in our Annual Sports Day! Results and awards ceremony details coming soon.", category: "events", targetAudience: "all", date: "2024-12-25", createdBy: "Admin", isActive: true },
+  { id: "ann3", title: "Holiday Break Schedule", content: "School will be closed from December 20th to January 5th for the holiday break. Classes resume on January 6th.", category: "notice", targetAudience: "all", date: "2024-12-20", createdBy: "Admin", isActive: true },
+  { id: "ann4", title: "Teachers Meeting", content: "Mandatory staff meeting on Monday at 2pm in the main hall. All teachers must attend.", category: "academic", targetAudience: "teachers", date: "2024-12-18", createdBy: "Super Admin", isActive: true },
+  { id: "ann5", title: "Exam Timetable Released", content: "The examination timetable for this term has been released. Students can view it on their dashboard.", category: "academic", targetAudience: "students", date: "2024-12-15", createdBy: "Admin", isActive: true },
+];
+
 export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
   const [students, setStudents] = useState<Student[]>(initialStudents);
   const [teachers, setTeachers] = useState<Teacher[]>(initialTeachers);
@@ -307,6 +333,7 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
   const [feeStructures, setFeeStructures] = useState<FeeStructure[]>(initialFeeStructures);
   const [feePayments, setFeePayments] = useState<FeePayment[]>(initialFeePayments);
   const [salaryWithdrawals, setSalaryWithdrawals] = useState<SalaryWithdrawal[]>(initialSalaryWithdrawals);
+  const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
   const [currentUser, setCurrentUser] = useState<(Student | Teacher | Admin) | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
 
@@ -483,15 +510,42 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
     }));
   };
 
+  // Announcement functions
+  const addAnnouncement = (announcement: Omit<Announcement, "id" | "date">) => {
+    const newId = `ann${announcements.length + 1}`;
+    const newAnnouncement: Announcement = {
+      ...announcement,
+      id: newId,
+      date: new Date().toISOString().split("T")[0]
+    };
+    setAnnouncements(prev => [newAnnouncement, ...prev]);
+  };
+
+  const updateAnnouncement = (id: string, updates: Partial<Announcement>) => {
+    setAnnouncements(prev => prev.map(a => a.id === id ? { ...a, ...updates } : a));
+  };
+
+  const deleteAnnouncement = (id: string) => {
+    setAnnouncements(prev => prev.filter(a => a.id !== id));
+  };
+
+  const getActiveAnnouncements = (audience?: "all" | "students" | "teachers") => {
+    return announcements
+      .filter(a => a.isActive)
+      .filter(a => !audience || a.targetAudience === "all" || a.targetAudience === audience)
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  };
+
   return (
     <DemoDataContext.Provider value={{
-      students, teachers, admins, timetable, subjects, classes, results, feeStructures, feePayments, salaryWithdrawals,
+      students, teachers, admins, timetable, subjects, classes, results, feeStructures, feePayments, salaryWithdrawals, announcements,
       currentUser, userRole, loginStudent, loginStaff, logout,
       addStudent, updateStudent, approveStudent, suspendStudent, activateStudent,
       addTeacher, updateTeacher, assignSubjectToTeacher,
       addTimetableEntry, updateTimetableEntry, deleteTimetableEntry,
       updateResult, getStudentResults, addFeePayment, updateFeePayment, getStudentFees, updateFeeStructure, addFeeStructure,
       updateTeacherSalary, requestWithdrawal, processWithdrawal,
+      addAnnouncement, updateAnnouncement, deleteAnnouncement, getActiveAnnouncements,
     }}>
       {children}
     </DemoDataContext.Provider>

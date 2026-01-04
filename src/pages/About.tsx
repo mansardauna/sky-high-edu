@@ -1,40 +1,41 @@
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
-import { GraduationCap, BookOpen, Users, Award, Target, Heart, Star, Clock } from "lucide-react";
+import { GraduationCap, BookOpen, Target, Heart, Star } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const About = () => {
+  const { t, direction } = useLanguage();
+
   const values = [
-    { icon: BookOpen, title: "Islamic Excellence", description: "Combining Quranic education with modern academic curriculum" },
-    { icon: Heart, title: "Character Building", description: "Nurturing morally upright and responsible citizens" },
-    { icon: Target, title: "Academic Rigor", description: "Maintaining high standards in both Islamic and Western education" },
-    { icon: Star, title: "Holistic Development", description: "Fostering intellectual, spiritual, and physical growth" },
+    { icon: BookOpen, titleKey: "islamic_excellence", descKey: "islamic_excellence_desc" },
+    { icon: Heart, titleKey: "character_building", descKey: "character_building_desc" },
+    { icon: Target, titleKey: "academic_rigor", descKey: "academic_rigor_desc" },
+    { icon: Star, titleKey: "holistic_development", descKey: "holistic_development_desc" },
   ];
 
   const milestones = [
-    { year: "1985", event: "School Founded", description: "Daru Ulum Isalekoto was established in Ilorin, Kwara State" },
-    { year: "1995", event: "Secondary Section Added", description: "Expanded to include junior and senior secondary education" },
-    { year: "2005", event: "Modern Facilities", description: "New computer lab and science laboratories built" },
-    { year: "2015", event: "Accreditation", description: "Received full accreditation from Ministry of Education" },
-    { year: "2024", event: "Digital Transformation", description: "Launched modern school management system" },
+    { year: "1985", eventKey: "school_founded", descKey: "school_founded_desc" },
+    { year: "1995", eventKey: "secondary_added", descKey: "secondary_added_desc" },
+    { year: "2005", eventKey: "modern_facilities", descKey: "modern_facilities_desc" },
+    { year: "2015", eventKey: "accreditation", descKey: "accreditation_desc" },
+    { year: "2024", eventKey: "digital_transformation", descKey: "digital_transformation_desc" },
   ];
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5" dir={direction}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <GraduationCap className="w-4 h-4" />
-              <span>Since 1985</span>
+              <span>{t("since")} 1985</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              About Daru Ulum Isalekoto
+              {t("about_hero_title")}
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              A leading Islamic educational institution in Ilorin, Kwara State, Nigeria, 
-              dedicated to providing comprehensive Islamic and secular education that 
-              nurtures the intellectual, spiritual, and moral potential of our students.
+              {t("about_hero_description")}
             </p>
           </div>
         </div>
@@ -49,12 +50,9 @@ const About = () => {
                 <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center mb-6">
                   <Target className="w-7 h-7 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold text-foreground mb-4">Our Mission</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-4">{t("our_mission")}</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  To provide quality Islamic and Western education that develops students 
-                  into well-rounded individuals who are academically excellent, morally 
-                  upright, and spiritually grounded, prepared to contribute positively to 
-                  society while maintaining their Islamic values.
+                  {t("mission_description")}
                 </p>
               </CardContent>
             </Card>
@@ -64,12 +62,9 @@ const About = () => {
                 <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-6">
                   <Star className="w-7 h-7 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold text-foreground mb-4">Our Vision</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-4">{t("our_vision")}</h2>
                 <p className="text-muted-foreground leading-relaxed">
-                  To be the leading Islamic educational institution in Nigeria, recognized 
-                  for producing graduates who excel in both religious knowledge and secular 
-                  academics, becoming leaders and positive change-makers in their communities 
-                  and beyond.
+                  {t("vision_description")}
                 </p>
               </CardContent>
             </Card>
@@ -81,9 +76,9 @@ const About = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Our Core Values</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{t("our_core_values")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              The principles that guide everything we do at Daru Ulum Isalekoto
+              {t("values_description")}
             </p>
           </div>
 
@@ -94,8 +89,8 @@ const About = () => {
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <value.icon className="w-7 h-7 text-primary" />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-2">{value.title}</h3>
-                  <p className="text-sm text-muted-foreground">{value.description}</p>
+                  <h3 className="font-semibold text-foreground mb-2">{t(value.titleKey)}</h3>
+                  <p className="text-sm text-muted-foreground">{t(value.descKey)}</p>
                 </CardContent>
               </Card>
             ))}
@@ -107,9 +102,9 @@ const About = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Our Journey</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{t("our_journey")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Key milestones in the history of Daru Ulum Isalekoto
+              {t("journey_description")}
             </p>
           </div>
 
@@ -125,8 +120,8 @@ const About = () => {
                   </div>
                   <Card className="flex-1 border-none shadow-card">
                     <CardContent className="p-6">
-                      <h3 className="font-semibold text-foreground mb-2">{milestone.event}</h3>
-                      <p className="text-sm text-muted-foreground">{milestone.description}</p>
+                      <h3 className="font-semibold text-foreground mb-2">{t(milestone.eventKey)}</h3>
+                      <p className="text-sm text-muted-foreground">{t(milestone.descKey)}</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -142,19 +137,19 @@ const About = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
             <div>
               <p className="text-4xl font-bold mb-2">39+</p>
-              <p className="text-primary-foreground/80">Years of Excellence</p>
+              <p className="text-primary-foreground/80">{t("years_of_excellence")}</p>
             </div>
             <div>
               <p className="text-4xl font-bold mb-2">5000+</p>
-              <p className="text-primary-foreground/80">Alumni Network</p>
+              <p className="text-primary-foreground/80">{t("alumni_network")}</p>
             </div>
             <div>
               <p className="text-4xl font-bold mb-2">50+</p>
-              <p className="text-primary-foreground/80">Qualified Teachers</p>
+              <p className="text-primary-foreground/80">{t("qualified_teachers")}</p>
             </div>
             <div>
               <p className="text-4xl font-bold mb-2">95%</p>
-              <p className="text-primary-foreground/80">Graduation Rate</p>
+              <p className="text-primary-foreground/80">{t("graduation_rate")}</p>
             </div>
           </div>
         </div>
@@ -164,9 +159,9 @@ const About = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">School Leadership</h2>
+            <h2 className="text-3xl font-bold text-foreground mb-4">{t("school_leadership")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Dedicated leaders guiding our institution towards excellence
+              {t("leadership_description")}
             </p>
           </div>
 
@@ -177,7 +172,7 @@ const About = () => {
                   SI
                 </div>
                 <h3 className="font-semibold text-foreground mb-1">Sheikh Ibrahim</h3>
-                <p className="text-sm text-primary mb-3">Principal / Chief Imam</p>
+                <p className="text-sm text-primary mb-3">{t("principal")}</p>
                 <p className="text-sm text-muted-foreground">
                   Over 25 years of experience in Islamic education and school administration.
                 </p>
@@ -190,7 +185,7 @@ const About = () => {
                   AA
                 </div>
                 <h3 className="font-semibold text-foreground mb-1">Mr. Abdullahi Ahmed</h3>
-                <p className="text-sm text-success mb-3">Vice Principal (Academics)</p>
+                <p className="text-sm text-success mb-3">{t("vp_academics")}</p>
                 <p className="text-sm text-muted-foreground">
                   Expert in curriculum development and academic excellence initiatives.
                 </p>
@@ -203,7 +198,7 @@ const About = () => {
                   FM
                 </div>
                 <h3 className="font-semibold text-foreground mb-1">Mrs. Fatima Musa</h3>
-                <p className="text-sm text-warning mb-3">Vice Principal (Admin)</p>
+                <p className="text-sm text-warning mb-3">{t("vp_admin")}</p>
                 <p className="text-sm text-muted-foreground">
                   Specializes in student welfare and administrative excellence.
                 </p>

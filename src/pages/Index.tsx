@@ -9,66 +9,61 @@ import {
   Trophy, 
   ArrowRight, 
   Star,
-  CheckCircle,
   Calendar,
-  Clock,
   ChevronRight
 } from "lucide-react";
 import heroImage from "@/assets/hero-school.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useDemoData } from "@/contexts/DemoDataContext";
 
 const Index = () => {
+  const { t, language, direction } = useLanguage();
+  const { getActiveAnnouncements } = useDemoData();
+  
+  const announcements = getActiveAnnouncements().slice(0, 3);
+
   const features = [
     {
       icon: GraduationCap,
-      title: "Quality Education",
-      description: "World-class curriculum combining Islamic studies with modern academics"
+      titleKey: "quality_education",
+      descKey: "quality_education_desc"
     },
     {
       icon: Users,
-      title: "Expert Teachers",
-      description: "Dedicated and qualified educators committed to student success"
+      titleKey: "expert_teachers",
+      descKey: "expert_teachers_desc"
     },
     {
       icon: BookOpen,
-      title: "Digital Learning",
-      description: "State-of-the-art facilities with integrated technology"
+      titleKey: "digital_learning",
+      descKey: "digital_learning_desc"
     },
     {
       icon: Trophy,
-      title: "Excellence",
-      description: "Proven track record of outstanding academic achievements"
+      titleKey: "excellence",
+      descKey: "excellence_desc"
     }
   ];
 
   const stats = [
-    { value: "2,500+", label: "Students" },
-    { value: "150+", label: "Teachers" },
-    { value: "25+", label: "Years" },
-    { value: "98%", label: "Success Rate" }
+    { value: "2,500+", labelKey: "students_stat" },
+    { value: "150+", labelKey: "teachers_stat" },
+    { value: "25+", labelKey: "years" },
+    { value: "98%", labelKey: "success_rate" }
   ];
 
-  const announcements = [
-    {
-      date: "Dec 28, 2024",
-      title: "New Term Registration Open",
-      category: "Admissions"
-    },
-    {
-      date: "Dec 25, 2024",
-      title: "Annual Sports Day Results",
-      category: "Events"
-    },
-    {
-      date: "Dec 20, 2024",
-      title: "Holiday Break Schedule",
-      category: "Notice"
-    }
-  ];
+  const categoryTranslations: Record<string, string> = {
+    admissions: t("admissions_cat"),
+    events: t("events"),
+    notice: t("notice"),
+    academic: t("academic"),
+    urgent: t("urgent")
+  };
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center">
+      <section className="relative min-h-[90vh] flex items-center" dir={direction}>
         <div className="absolute inset-0 z-0">
           <img 
             src={heroImage} 
@@ -82,26 +77,26 @@ const Index = () => {
           <div className="max-w-2xl text-background">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 mb-6 animate-fade-in">
               <Star className="w-4 h-4 text-primary" />
-              <span className="text-sm font-medium text-primary">Excellence in Education</span>
+              <span className="text-sm font-medium text-primary">{t("excellence_in_education")}</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight animate-slide-up">
-              Welcome to <span className="text-primary">Daru Ulum</span> School
+              {t("welcome_to")} <span className="text-primary">{t("school_name")}</span>
             </h1>
             
             <p className="text-lg md:text-xl text-background/80 mb-8 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-              Nurturing minds, building futures. We provide world-class education rooted in Islamic values and modern academic excellence.
+              {t("hero_description")}
             </p>
             
             <div className="flex flex-wrap gap-4 animate-slide-up" style={{ animationDelay: "0.2s" }}>
               <Button variant="hero" size="xl" asChild>
                 <Link to="/student-login">
-                  Student Portal <ArrowRight className="w-5 h-5" />
+                  {t("student_portal")} <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
               <Button variant="heroOutline" size="xl" asChild>
                 <Link to="/staff-login">
-                  Staff Login
+                  {t("staff_login")}
                 </Link>
               </Button>
             </div>
@@ -116,7 +111,7 @@ const Index = () => {
                 <Card key={index} className="bg-card/95 backdrop-blur-sm border-none shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
                   <CardContent className="p-6 text-center">
                     <div className="text-3xl md:text-4xl font-bold text-primary mb-1">{stat.value}</div>
-                    <div className="text-muted-foreground text-sm font-medium">{stat.label}</div>
+                    <div className="text-muted-foreground text-sm font-medium">{t(stat.labelKey)}</div>
                   </CardContent>
                 </Card>
               ))}
@@ -130,10 +125,10 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Why Choose Daru Ulum?
+              {t("why_choose_us")}
             </h2>
             <p className="text-muted-foreground text-lg">
-              We combine traditional Islamic values with modern education to prepare students for success in this world and the hereafter.
+              {t("why_choose_description")}
             </p>
           </div>
 
@@ -144,8 +139,8 @@ const Index = () => {
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
                     <feature.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-3">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-3">{t(feature.titleKey)}</h3>
+                  <p className="text-muted-foreground">{t(feature.descKey)}</p>
                 </CardContent>
               </Card>
             ))}
@@ -158,10 +153,10 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Access Your Portal
+              {t("access_your_portal")}
             </h2>
             <p className="text-muted-foreground text-lg">
-              Login to your personalized dashboard for grades, assignments, and more.
+              {t("portal_description")}
             </p>
           </div>
 
@@ -172,10 +167,10 @@ const Index = () => {
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-primary/30">
                     <GraduationCap className="w-10 h-10 text-primary-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Student Portal</h3>
-                  <p className="text-muted-foreground text-sm mb-4">Check results, attendance & more</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{t("student_portal")}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{t("check_results")}</p>
                   <span className="inline-flex items-center gap-1 text-primary font-medium text-sm">
-                    Login <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {t("login")} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </CardContent>
               </Card>
@@ -187,10 +182,10 @@ const Index = () => {
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-success to-success/70 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-success/30">
                     <BookOpen className="w-10 h-10 text-success-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Teacher Portal</h3>
-                  <p className="text-muted-foreground text-sm mb-4">Manage classes & upload results</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{t("teacher_portal")}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{t("manage_classes")}</p>
                   <span className="inline-flex items-center gap-1 text-success font-medium text-sm">
-                    Login <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {t("login")} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </CardContent>
               </Card>
@@ -202,10 +197,10 @@ const Index = () => {
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-warning to-warning/70 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-warning/30">
                     <Users className="w-10 h-10 text-warning-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Admin Portal</h3>
-                  <p className="text-muted-foreground text-sm mb-4">Manage staff & operations</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{t("admin_portal")}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{t("manage_staff")}</p>
                   <span className="inline-flex items-center gap-1 text-warning font-medium text-sm">
-                    Login <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {t("login")} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </CardContent>
               </Card>
@@ -217,10 +212,10 @@ const Index = () => {
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-destructive to-destructive/70 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-destructive/30">
                     <Trophy className="w-10 h-10 text-destructive-foreground" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Super Admin</h3>
-                  <p className="text-muted-foreground text-sm mb-4">Full system control</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{t("super_admin")}</h3>
+                  <p className="text-muted-foreground text-sm mb-4">{t("full_system_control")}</p>
                   <span className="inline-flex items-center gap-1 text-destructive font-medium text-sm">
-                    Login <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    {t("login")} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </CardContent>
               </Card>
@@ -235,14 +230,14 @@ const Index = () => {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Latest Announcements
+                {t("latest_announcements")}
               </h2>
               <p className="text-muted-foreground text-lg">
-                Stay updated with the latest news and events
+                {language === "ar" ? "ابق على اطلاع بآخر الأخبار والفعاليات" : "Stay updated with the latest news and events"}
               </p>
             </div>
             <Button variant="outline" className="mt-4 md:mt-0">
-              View All <ArrowRight className="w-4 h-4 ml-2" />
+              {t("view_all")} <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
 
@@ -253,13 +248,20 @@ const Index = () => {
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
                     <Calendar className="w-4 h-4" />
                     {item.date}
-                    <span className="ml-auto px-2 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium">
-                      {item.category}
+                    <span className={`ml-auto px-2 py-1 rounded-full text-xs font-medium ${
+                      item.category === "urgent" ? "bg-destructive/10 text-destructive" :
+                      item.category === "events" ? "bg-success/10 text-success" :
+                      "bg-primary/10 text-primary"
+                    }`}>
+                      {categoryTranslations[item.category] || item.category}
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
                     {item.title}
                   </h3>
+                  <p className="text-sm text-muted-foreground mt-2 line-clamp-2">
+                    {item.content}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -271,17 +273,21 @@ const Index = () => {
       <section className="py-24 bg-gradient-to-br from-primary via-primary/90 to-primary/80">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-            Ready to Join Daru Ulum?
+            {t("ready_to_join")}
           </h2>
           <p className="text-primary-foreground/80 text-lg mb-8 max-w-2xl mx-auto">
-            Enroll your child today and give them the gift of quality education combined with strong moral values.
+            {t("cta_description")}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button variant="heroOutline" size="xl">
-              Apply Now <ArrowRight className="w-5 h-5" />
+            <Button variant="heroOutline" size="xl" asChild>
+              <Link to="/student-registration">
+                {t("apply_now")} <ArrowRight className="w-5 h-5" />
+              </Link>
             </Button>
-            <Button variant="glass" size="xl" className="bg-primary-foreground/10 text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground/20">
-              Contact Us
+            <Button variant="glass" size="xl" className="bg-primary-foreground/10 text-primary-foreground border-primary-foreground/20 hover:bg-primary-foreground/20" asChild>
+              <Link to="/contact">
+                {t("contact_us")}
+              </Link>
             </Button>
           </div>
         </div>
