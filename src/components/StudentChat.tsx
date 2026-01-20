@@ -19,43 +19,114 @@ interface Message {
 
 interface ChatRoom {
   id: string;
+  nameKey: string;
   name: string;
   type: "class" | "subject" | "general";
   unread: number;
   lastMessage: string;
 }
 
-const initialRooms: ChatRoom[] = [
-  { id: "1", name: "JSS 1A Class Chat", type: "class", unread: 3, lastMessage: "When is the assignment due?" },
-  { id: "2", name: "Mathematics Study Group", type: "subject", unread: 0, lastMessage: "I understood the concept now" },
-  { id: "3", name: "General Announcements", type: "general", unread: 1, lastMessage: "Sports day is coming up!" },
-  { id: "4", name: "Islamic Studies Group", type: "subject", unread: 5, lastMessage: "Memorization tips anyone?" },
-];
-
-const initialMessages: Message[] = [
-  { id: "1", sender: "Fatima Yusuf", senderInitial: "F", content: "Assalamu Alaikum everyone!", timestamp: "10:30 AM", isOwn: false },
-  { id: "2", sender: "You", senderInitial: "A", content: "Wa Alaikum Assalam! How is everyone preparing for exams?", timestamp: "10:32 AM", isOwn: true },
-  { id: "3", sender: "Muhammad Ali", senderInitial: "M", content: "Still working on the Mathematics revision", timestamp: "10:35 AM", isOwn: false },
-  { id: "4", sender: "Aisha Bello", senderInitial: "A", content: "Has anyone finished the Science assignment?", timestamp: "10:40 AM", isOwn: false },
-  { id: "5", sender: "Fatima Yusuf", senderInitial: "F", content: "Yes! I can help if you need", timestamp: "10:42 AM", isOwn: false },
-];
-
 export const StudentChat = () => {
-  const { t } = useLanguage();
-  const [rooms] = useState<ChatRoom[]>(initialRooms);
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const { t, language, translateSubject } = useLanguage();
+
+  const getRooms = (): ChatRoom[] => [
+    { 
+      id: "1", 
+      nameKey: "class_chat",
+      name: language === "ar" ? "محادثة فصل الأول الإعدادي أ" : "JSS 1A Class Chat", 
+      type: "class", 
+      unread: 3, 
+      lastMessage: language === "ar" ? "متى موعد تسليم الواجب؟" : "When is the assignment due?" 
+    },
+    { 
+      id: "2", 
+      nameKey: "study_group",
+      name: language === "ar" ? "مجموعة دراسة الرياضيات" : "Mathematics Study Group", 
+      type: "subject", 
+      unread: 0, 
+      lastMessage: language === "ar" ? "فهمت المفهوم الآن" : "I understood the concept now" 
+    },
+    { 
+      id: "3", 
+      nameKey: "general_chat",
+      name: language === "ar" ? "الإعلانات العامة" : "General Announcements", 
+      type: "general", 
+      unread: 1, 
+      lastMessage: language === "ar" ? "يوم الرياضة قادم!" : "Sports day is coming up!" 
+    },
+    { 
+      id: "4", 
+      nameKey: "study_group",
+      name: language === "ar" ? "مجموعة الدراسات الإسلامية" : "Islamic Studies Group", 
+      type: "subject", 
+      unread: 5, 
+      lastMessage: language === "ar" ? "هل لديكم نصائح للحفظ؟" : "Memorization tips anyone?" 
+    },
+  ];
+
+  const getMessages = (): Message[] => [
+    { 
+      id: "1", 
+      sender: language === "ar" ? "فاطمة يوسف" : "Fatima Yusuf", 
+      senderInitial: language === "ar" ? "ف" : "F", 
+      content: language === "ar" ? "السلام عليكم جميعاً!" : "Assalamu Alaikum everyone!", 
+      timestamp: language === "ar" ? "١٠:٣٠ ص" : "10:30 AM", 
+      isOwn: false 
+    },
+    { 
+      id: "2", 
+      sender: language === "ar" ? "أنت" : "You", 
+      senderInitial: language === "ar" ? "أ" : "A", 
+      content: language === "ar" ? "وعليكم السلام! كيف استعدادكم للامتحانات؟" : "Wa Alaikum Assalam! How is everyone preparing for exams?", 
+      timestamp: language === "ar" ? "١٠:٣٢ ص" : "10:32 AM", 
+      isOwn: true 
+    },
+    { 
+      id: "3", 
+      sender: language === "ar" ? "محمد علي" : "Muhammad Ali", 
+      senderInitial: language === "ar" ? "م" : "M", 
+      content: language === "ar" ? "ما زلت أعمل على مراجعة الرياضيات" : "Still working on the Mathematics revision", 
+      timestamp: language === "ar" ? "١٠:٣٥ ص" : "10:35 AM", 
+      isOwn: false 
+    },
+    { 
+      id: "4", 
+      sender: language === "ar" ? "عائشة بيلو" : "Aisha Bello", 
+      senderInitial: language === "ar" ? "ع" : "A", 
+      content: language === "ar" ? "هل أكمل أحد واجب العلوم؟" : "Has anyone finished the Science assignment?", 
+      timestamp: language === "ar" ? "١٠:٤٠ ص" : "10:40 AM", 
+      isOwn: false 
+    },
+    { 
+      id: "5", 
+      sender: language === "ar" ? "فاطمة يوسف" : "Fatima Yusuf", 
+      senderInitial: language === "ar" ? "ف" : "F", 
+      content: language === "ar" ? "نعم! يمكنني المساعدة إن احتجتِ" : "Yes! I can help if you need", 
+      timestamp: language === "ar" ? "١٠:٤٢ ص" : "10:42 AM", 
+      isOwn: false 
+    },
+  ];
+
+  const [rooms] = useState<ChatRoom[]>(getRooms());
+  const [messages, setMessages] = useState<Message[]>(getMessages());
   const [selectedRoom, setSelectedRoom] = useState<ChatRoom>(rooms[0]);
   const [newMessage, setNewMessage] = useState("");
+
+  const typeLabels: Record<string, string> = {
+    class: language === "ar" ? "فصل" : "class",
+    subject: language === "ar" ? "مادة" : "subject",
+    general: language === "ar" ? "عام" : "general",
+  };
 
   const handleSendMessage = () => {
     if (!newMessage.trim()) return;
     
     const message: Message = {
       id: Date.now().toString(),
-      sender: "You",
-      senderInitial: "A",
+      sender: language === "ar" ? "أنت" : "You",
+      senderInitial: language === "ar" ? "أ" : "Y",
       content: newMessage,
-      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      timestamp: new Date().toLocaleTimeString(language === "ar" ? "ar-SA" : "en-US", { hour: "2-digit", minute: "2-digit" }),
       isOwn: true,
     };
     
@@ -77,7 +148,7 @@ export const StudentChat = () => {
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-lg">
             <Users className="w-5 h-5 text-primary" />
-            {t("chat")} Rooms
+            {t("chat_rooms")}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -100,7 +171,7 @@ export const StudentChat = () => {
                 </div>
                 <p className="text-xs text-muted-foreground truncate">{room.lastMessage}</p>
                 <Badge variant="outline" className="mt-2 text-xs capitalize">
-                  {room.type}
+                  {typeLabels[room.type]}
                 </Badge>
               </button>
             ))}
