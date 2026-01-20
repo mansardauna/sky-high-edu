@@ -1,73 +1,114 @@
-# Welcome to your Lovable project
+# Daru Ulum School Management System
 
-## Project info
+A comprehensive, modern school management system built for **Daru Ulum Isalekoto**. This application provides a complete solution for managing students, teachers, administrators, and all aspects of school operations.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## 🌟 Features
 
-## How can I edit this code?
+### Multi-Role Dashboard System
+- **Student Dashboard**: View grades, timetables, fee status, announcements, chat & forum
+- **Teacher Dashboard**: Manage results, view schedules, salary management, withdrawal requests
+- **Admin Dashboard**: Student registration approval, fee management, announcements, timetables
+- **Super Admin Dashboard**: Complete control over staff, subjects, fee structures, salaries
 
-There are several ways of editing your application.
+### Key Functionalities
 
-**Use Lovable**
+#### 📚 Academic Management
+- Student registration with approval workflow
+- Result entry system (CA1, CA2, Exam scores)
+- Timetable management with sorting & filtering
+- Subject assignment to teachers
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+#### 💰 Financial Management
+- Level-specific fee structures (set by Super Admin)
+- Student fee tracking and payment status
+- Teacher salary management
+- Withdrawal request system for teachers
+- Comprehensive financial reporting for admins
 
-Changes made via Lovable will be committed automatically to this repo.
+#### 📢 Communication
+- Centralized announcement system
+- Real-time student chat
+- Student forum for community interaction
+- Announcements sync across landing page and dashboards
 
-**Use your preferred IDE**
+#### 🌐 Internationalization
+- Full English and Arabic language support
+- RTL (Right-to-Left) layout for Arabic
+- Language switcher accessible from all pages
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+#### ⚙️ Settings & Customization
+- Profile management
+- Notification preferences
+- Security settings
+- Theme/appearance options (including dark mode)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🚀 Demo Credentials
 
-Follow these steps:
+### Student Login
+- **Surname**: Abdullahi
+- **Date of Birth**: 2010-05-15
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Staff Login
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+| Role | Email | Password |
+|------|-------|----------|
+| Teacher | teacher@daruulum.edu | teacher123 |
+| Admin | admin@daruulum.edu | admin123 |
+| Super Admin | superadmin@daruulum.edu | super123 |
 
-# Step 3: Install the necessary dependencies.
-npm i
+## 🛠️ Technology Stack
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+- **Frontend**: React 18 with TypeScript
+- **Styling**: Tailwind CSS with custom design system
+- **UI Components**: shadcn/ui
+- **State Management**: React Context API
+- **Routing**: React Router v6
+- **Data Fetching**: TanStack Query
+- **Build Tool**: Vite
+- **Icons**: Lucide React
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── modals/          # Modal components (AddStudent, FeePayment, etc.)
+│   ├── ui/              # shadcn/ui components
+│   ├── DataTable.tsx    # Reusable sortable/searchable table
+│   ├── StudentChat.tsx  # Real-time chat component
+│   ├── StudentForum.tsx # Forum component
+│   └── ...
+├── contexts/
+│   ├── DemoDataContext.tsx   # Central state management
+│   └── LanguageContext.tsx   # i18n management
+├── pages/
+│   ├── Index.tsx             # Landing page
+│   ├── StudentDashboard.tsx  # Student portal
+│   ├── TeacherDashboard.tsx  # Teacher portal
+│   ├── AdminDashboard.tsx    # Admin portal
+│   ├── SuperAdminDashboard.tsx # Super admin portal
+│   └── ...
+└── ...
 ```
 
-**Edit a file directly in GitHub**
+## 🏫 About Daru Ulum Isalekoto
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Daru Ulum Isalekoto is an educational institution offering:
+- **Primary Education**: Foundation studies (Years 1-6)
+- **Junior Secondary (JSS)**: Core academic subjects (Years 7-9)
+- **Senior Secondary (SSS)**: Specialized streams (Years 10-12)
+- **Islamic Studies**: Comprehensive Quranic education
 
-**Use GitHub Codespaces**
+## 📧 Contact
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **Address**: 123 Education Road, Isalekoto, Nigeria
+- **Phone**: +234 XXX XXX XXXX
+- **Email**: info@daruulum.edu
 
-## What technologies are used for this project?
+## 📝 License
 
-This project is built with:
+This project is proprietary software developed for Daru Ulum Isalekoto.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Built with ❤️ using [Lovable](https://lovable.dev)
