@@ -25,10 +25,12 @@ import {
   Plus,
   Calendar,
   Trash2,
-  Clock
+  Clock,
+  Globe
 } from "lucide-react";
 import { toast } from "sonner";
 import { useDemoData, Teacher, TimetableEntry } from "@/contexts/DemoDataContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { AddTeacherModal } from "@/components/modals/AddTeacherModal";
 import { AssignSubjectModal } from "@/components/modals/AssignSubjectModal";
 import { TimetableModal } from "@/components/modals/TimetableModal";
@@ -47,6 +49,7 @@ const SuperAdminDashboard = () => {
   const [confirmModal, setConfirmModal] = useState<{ open: boolean; id: string; action: string; type: string }>({ open: false, id: "", action: "", type: "" });
   
   const navigate = useNavigate();
+  const { t, language, setLanguage, direction, translateSubject, translateDay, translateName, translateStatus } = useLanguage();
   const { 
     students, 
     teachers, 
@@ -61,7 +64,7 @@ const SuperAdminDashboard = () => {
 
   const handleLogout = () => {
     logout();
-    toast.success("Logged out successfully");
+    toast.success(t("logout") + " successful");
     navigate("/");
   };
 
@@ -69,10 +72,10 @@ const SuperAdminDashboard = () => {
   const activeTeachers = teachers.filter(t => t.status === "active");
 
   const stats = [
-    { label: "Total Students", value: students.length.toString(), icon: GraduationCap, color: "primary" },
-    { label: "Active Teachers", value: activeTeachers.length.toString(), icon: Users, color: "success" },
-    { label: "Total Subjects", value: subjects.length.toString(), icon: BookOpen, color: "warning" },
-    { label: "Timetable Entries", value: timetable.length.toString(), icon: Calendar, color: "accent" },
+    { label: t("total_students"), value: students.length.toString(), icon: GraduationCap, color: "primary" },
+    { label: t("active_teachers"), value: activeTeachers.length.toString(), icon: Users, color: "success" },
+    { label: t("total_subjects"), value: subjects.length.toString(), icon: BookOpen, color: "warning" },
+    { label: t("timetable_entries"), value: timetable.length.toString(), icon: Calendar, color: "accent" },
   ];
 
   const handleStudentStatusChange = (studentId: string, action: string) => {
@@ -121,20 +124,27 @@ const SuperAdminDashboard = () => {
   };
 
   const menuItems = [
-    { icon: TrendingUp, label: "Overview", id: "overview" },
-    { icon: GraduationCap, label: "Students", id: "students" },
-    { icon: Users, label: "Teachers", id: "teachers" },
-    { icon: UserCog, label: "Assignments", id: "assignments" },
-    { icon: Calendar, label: "Timetable", id: "timetable" },
-    { icon: BookOpen, label: "Subjects", id: "subjects" },
-    { icon: FileText, label: "Reports", id: "reports" },
-    { icon: Settings, label: "Settings", id: "settings" },
+    { icon: TrendingUp, label: t("overview"), id: "overview" },
+    { icon: GraduationCap, label: t("students"), id: "students" },
+    { icon: Users, label: t("teachers"), id: "teachers" },
+    { icon: UserCog, label: t("assignments"), id: "assignments" },
+    { icon: Calendar, label: t("timetable"), id: "timetable" },
+    { icon: BookOpen, label: t("subjects"), id: "subjects" },
+    { icon: FileText, label: t("reports"), id: "reports" },
+    { icon: Settings, label: t("settings"), id: "settings" },
   ];
 
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const dayTranslations: Record<string, string> = {
+    Monday: t("monday"),
+    Tuesday: t("tuesday"),
+    Wednesday: t("wednesday"),
+    Thursday: t("thursday"),
+    Friday: t("friday"),
+  };
 
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="min-h-screen bg-muted/30" dir={direction}>
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
         <div 
@@ -144,13 +154,13 @@ const SuperAdminDashboard = () => {
       )}
 
       {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 h-full w-64 bg-card border-r border-border z-50 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+      <aside className={`fixed top-0 ${direction === "rtl" ? "right-0" : "left-0"} h-full w-64 bg-card border-${direction === "rtl" ? "l" : "r"} border-border z-50 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : direction === "rtl" ? 'translate-x-full' : '-translate-x-full'}`}>
         <div className="p-6 border-b border-border">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-destructive to-destructive/80 flex items-center justify-center shadow-md">
               <Shield className="w-6 h-6 text-destructive-foreground" />
             </div>
-            <span className="font-bold text-lg text-foreground">Super Admin</span>
+            <span className="font-bold text-lg text-foreground">{t("super_admin")}</span>
           </Link>
         </div>
 
@@ -174,13 +184,13 @@ const SuperAdminDashboard = () => {
         <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-border">
           <Button variant="ghost" className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10" onClick={handleLogout}>
             <LogOut className="w-5 h-5 mr-3" />
-            Logout
+            {t("logout")}
           </Button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <div className="lg:ml-64">
+      <div className={`${direction === "rtl" ? "lg:mr-64" : "lg:ml-64"}`}>
         {/* Header */}
         <header className="sticky top-0 bg-card/80 backdrop-blur-lg border-b border-border z-30">
           <div className="flex items-center justify-between px-4 lg:px-8 h-16">
@@ -194,7 +204,7 @@ const SuperAdminDashboard = () => {
               <div className="relative hidden md:block">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
-                  placeholder="Search anything..."
+                  placeholder={t("search") + "..."}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-80 pl-10 h-10"
@@ -203,6 +213,9 @@ const SuperAdminDashboard = () => {
             </div>
 
             <div className="flex items-center gap-3">
+              <Button variant="ghost" size="icon" onClick={() => setLanguage(language === "en" ? "ar" : "en")} title={t("language")}>
+                <Globe className="w-5 h-5" />
+              </Button>
               <button className="relative p-2 text-muted-foreground hover:text-foreground transition-colors">
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-1 right-1 w-2 h-2 bg-destructive rounded-full" />
@@ -219,8 +232,8 @@ const SuperAdminDashboard = () => {
           {activeTab === "overview" && (
             <>
               <div className="mb-8">
-                <h1 className="text-2xl font-bold text-foreground">Super Admin Dashboard</h1>
-                <p className="text-muted-foreground">Complete control over the school management system</p>
+                <h1 className="text-2xl font-bold text-foreground">{t("super_admin_dashboard")}</h1>
+                <p className="text-muted-foreground">{t("complete_system_control")}</p>
               </div>
 
               {/* Stats Cards */}
@@ -246,19 +259,19 @@ const SuperAdminDashboard = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <Button variant="outline" className="h-auto py-6 flex-col gap-2" onClick={() => setActiveTab("students")}>
                   <GraduationCap className="w-6 h-6 text-primary" />
-                  <span>Manage Students</span>
+                  <span>{t("manage_students")}</span>
                 </Button>
                 <Button variant="outline" className="h-auto py-6 flex-col gap-2" onClick={() => setActiveTab("teachers")}>
                   <Users className="w-6 h-6 text-success" />
-                  <span>Manage Teachers</span>
+                  <span>{t("manage_teachers")}</span>
                 </Button>
                 <Button variant="outline" className="h-auto py-6 flex-col gap-2" onClick={() => setActiveTab("assignments")}>
                   <UserCog className="w-6 h-6 text-warning" />
-                  <span>Assign Subjects</span>
+                  <span>{t("assign_subjects")}</span>
                 </Button>
                 <Button variant="outline" className="h-auto py-6 flex-col gap-2" onClick={() => setActiveTab("timetable")}>
                   <Calendar className="w-6 h-6 text-destructive" />
-                  <span>Manage Timetable</span>
+                  <span>{t("manage_timetable")}</span>
                 </Button>
               </div>
             </>
@@ -268,12 +281,12 @@ const SuperAdminDashboard = () => {
             <>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground">Teacher Management</h1>
-                  <p className="text-muted-foreground">Add, edit, and manage teacher accounts</p>
+                  <h1 className="text-2xl font-bold text-foreground">{t("teacher_management")}</h1>
+                  <p className="text-muted-foreground">{t("add_edit_teachers")}</p>
                 </div>
                 <Button variant="default" className="mt-4 md:mt-0" onClick={() => setAddTeacherOpen(true)}>
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Teacher
+                  {t("add")} {t("teacher")}
                 </Button>
               </div>
 
@@ -283,12 +296,12 @@ const SuperAdminDashboard = () => {
                     <table className="w-full">
                       <thead>
                         <tr className="border-b border-border">
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Teacher</th>
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Email</th>
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Subjects</th>
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Classes</th>
-                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">Status</th>
-                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">Actions</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("teacher")}</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("email")}</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("subjects")}</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("class")}</th>
+                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">{t("status")}</th>
+                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">{t("actions")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -299,27 +312,27 @@ const SuperAdminDashboard = () => {
                                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
                                   {teacher.name.charAt(0)}
                                 </div>
-                                <span className="font-medium text-foreground">{teacher.name}</span>
+                                <span className="font-medium text-foreground">{translateName(teacher.name)}</span>
                               </div>
                             </td>
                             <td className="py-4 px-6 text-muted-foreground">{teacher.email}</td>
                             <td className="py-4 px-6">
                               <div className="flex flex-wrap gap-1">
                                 {teacher.subjects.length > 0 ? teacher.subjects.map((subject, i) => (
-                                  <Badge key={i} variant="secondary" className="text-xs">{subject}</Badge>
-                                )) : <span className="text-muted-foreground text-sm">No subjects</span>}
+                                  <Badge key={i} variant="secondary" className="text-xs">{translateSubject(subject)}</Badge>
+                                )) : <span className="text-muted-foreground text-sm">{t("no_subjects")}</span>}
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex flex-wrap gap-1">
                                 {teacher.classes.length > 0 ? teacher.classes.map((cls, i) => (
                                   <Badge key={i} variant="outline" className="text-xs">{cls}</Badge>
-                                )) : <span className="text-muted-foreground text-sm">No classes</span>}
+                                )) : <span className="text-muted-foreground text-sm">{t("no_classes_assigned")}</span>}
                               </div>
                             </td>
                             <td className="py-4 px-6 text-center">
                               <Badge variant={teacher.status === 'active' ? 'default' : 'destructive'} className="capitalize">
-                                {teacher.status}
+                                {translateStatus(teacher.status)}
                               </Badge>
                             </td>
                             <td className="py-4 px-6">
@@ -366,8 +379,8 @@ const SuperAdminDashboard = () => {
           {activeTab === "students" && (
             <>
               <div className="mb-8">
-                <h1 className="text-2xl font-bold text-foreground">Student Management</h1>
-                <p className="text-muted-foreground">Activate, suspend, or deactivate student accounts</p>
+                <h1 className="text-2xl font-bold text-foreground">{t("student_management")}</h1>
+                <p className="text-muted-foreground">{t("activate_suspend_students")}</p>
               </div>
 
               <Card className="border-none shadow-card">
@@ -376,11 +389,11 @@ const SuperAdminDashboard = () => {
                     <table className="w-full">
                       <thead>
                         <tr className="border-b border-border">
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Student</th>
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Reg. No</th>
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Class</th>
-                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">Status</th>
-                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">Actions</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("students")}</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("reg_no")}</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("class")}</th>
+                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">{t("status")}</th>
+                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">{t("actions")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -391,7 +404,7 @@ const SuperAdminDashboard = () => {
                                 <div className="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center text-success font-semibold">
                                   {student.firstName.charAt(0)}
                                 </div>
-                                <span className="font-medium text-foreground">{student.firstName} {student.surname}</span>
+                                <span className="font-medium text-foreground">{translateName(`${student.firstName} ${student.surname}`)}</span>
                               </div>
                             </td>
                             <td className="py-4 px-6 text-muted-foreground font-mono">{student.regNo}</td>
@@ -405,7 +418,7 @@ const SuperAdminDashboard = () => {
                                 } 
                                 className="capitalize"
                               >
-                                {student.status}
+                                {translateStatus(student.status)}
                               </Badge>
                             </td>
                             <td className="py-4 px-6">
@@ -446,8 +459,8 @@ const SuperAdminDashboard = () => {
             <>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground">Subject Assignments</h1>
-                  <p className="text-muted-foreground">Assign subjects and classes to teachers</p>
+                  <h1 className="text-2xl font-bold text-foreground">{t("assignments")}</h1>
+                  <p className="text-muted-foreground">{t("assign_subject_to")} {t("teachers").toLowerCase()}</p>
                 </div>
               </div>
 
@@ -457,10 +470,10 @@ const SuperAdminDashboard = () => {
                     <table className="w-full">
                       <thead>
                         <tr className="border-b border-border">
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Teacher</th>
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Current Subjects</th>
-                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">Assigned Classes</th>
-                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">Action</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("teacher")}</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("subjects")}</th>
+                          <th className="text-left py-4 px-6 text-sm font-semibold text-muted-foreground">{t("assigned_classes")}</th>
+                          <th className="text-center py-4 px-6 text-sm font-semibold text-muted-foreground">{t("actions")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -472,7 +485,7 @@ const SuperAdminDashboard = () => {
                                   {teacher.name.charAt(0)}
                                 </div>
                                 <div>
-                                  <span className="font-medium text-foreground">{teacher.name}</span>
+                                  <span className="font-medium text-foreground">{translateName(teacher.name)}</span>
                                   <p className="text-sm text-muted-foreground">{teacher.email}</p>
                                 </div>
                               </div>
@@ -480,21 +493,21 @@ const SuperAdminDashboard = () => {
                             <td className="py-4 px-6">
                               <div className="flex flex-wrap gap-1">
                                 {teacher.subjects.length > 0 ? teacher.subjects.map((subject, i) => (
-                                  <Badge key={i} variant="secondary" className="text-xs">{subject}</Badge>
-                                )) : <span className="text-muted-foreground text-sm">None assigned</span>}
+                                  <Badge key={i} variant="secondary" className="text-xs">{translateSubject(subject)}</Badge>
+                                )) : <span className="text-muted-foreground text-sm">{t("no_subjects")}</span>}
                               </div>
                             </td>
                             <td className="py-4 px-6">
                               <div className="flex flex-wrap gap-1">
                                 {teacher.classes.length > 0 ? teacher.classes.map((cls, i) => (
                                   <Badge key={i} variant="outline" className="text-xs">{cls}</Badge>
-                                )) : <span className="text-muted-foreground text-sm">None assigned</span>}
+                                )) : <span className="text-muted-foreground text-sm">{t("no_classes_assigned")}</span>}
                               </div>
                             </td>
                             <td className="py-4 px-6 text-center">
                               <Button variant="default" size="sm" onClick={() => openAssignSubject(teacher)}>
                                 <Plus className="w-4 h-4 mr-1" />
-                                Assign
+                                {t("assign_subject")}
                               </Button>
                             </td>
                           </tr>
@@ -511,12 +524,12 @@ const SuperAdminDashboard = () => {
             <>
               <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground">Timetable Management</h1>
-                  <p className="text-muted-foreground">Create and manage class schedules</p>
+                  <h1 className="text-2xl font-bold text-foreground">{t("manage_timetable")}</h1>
+                  <p className="text-muted-foreground">{t("organize_by_day")}</p>
                 </div>
                 <Button variant="default" className="mt-4 md:mt-0" onClick={openAddTimetable}>
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Schedule
+                  {t("add")} {t("timetable")}
                 </Button>
               </div>
 
@@ -531,7 +544,7 @@ const SuperAdminDashboard = () => {
                       <CardHeader className="pb-3">
                         <CardTitle className="text-lg flex items-center gap-2">
                           <Calendar className="w-5 h-5 text-primary" />
-                          {day}
+                          {dayTranslations[day]}
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -559,8 +572,8 @@ const SuperAdminDashboard = () => {
                                   </Button>
                                 </div>
                               </div>
-                              <h4 className="font-semibold text-foreground mb-1">{entry.subject}</h4>
-                              <p className="text-sm text-muted-foreground mb-2">{entry.teacher}</p>
+                              <h4 className="font-semibold text-foreground mb-1">{translateSubject(entry.subject)}</h4>
+                              <p className="text-sm text-muted-foreground mb-2">{translateName(entry.teacher)}</p>
                               <div className="flex items-center gap-2 text-xs text-muted-foreground">
                                 <Badge variant="outline" className="text-xs">{entry.class}</Badge>
                                 <span>•</span>
@@ -578,11 +591,11 @@ const SuperAdminDashboard = () => {
                   <Card className="border-none shadow-card">
                     <CardContent className="p-12 text-center">
                       <Calendar className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-foreground mb-2">No Timetable Entries</h3>
-                      <p className="text-muted-foreground mb-4">Start by adding class schedules.</p>
+                      <h3 className="text-lg font-semibold text-foreground mb-2">{t("no_timetable_entries")}</h3>
+                      <p className="text-muted-foreground mb-4">{t("start_adding_schedules")}</p>
                       <Button variant="default" onClick={openAddTimetable}>
                         <Plus className="w-4 h-4 mr-2" />
-                        Add First Schedule
+                        {t("add")} {t("timetable")}
                       </Button>
                     </CardContent>
                   </Card>
@@ -594,8 +607,8 @@ const SuperAdminDashboard = () => {
           {activeTab === "subjects" && (
             <>
               <div className="mb-8">
-                <h1 className="text-2xl font-bold text-foreground">Subjects</h1>
-                <p className="text-muted-foreground">View all available subjects</p>
+                <h1 className="text-2xl font-bold text-foreground">{t("subjects")}</h1>
+                <p className="text-muted-foreground">{t("view_all")} {t("subjects").toLowerCase()}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -607,7 +620,7 @@ const SuperAdminDashboard = () => {
                           <BookOpen className="w-6 h-6 text-primary" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-foreground">{subject.name}</h3>
+                          <h3 className="font-semibold text-foreground">{translateSubject(subject.name)}</h3>
                           <p className="text-sm text-muted-foreground font-mono">{subject.code}</p>
                         </div>
                       </div>
@@ -634,16 +647,16 @@ const SuperAdminDashboard = () => {
         open={confirmModal.open}
         onOpenChange={(open) => setConfirmModal({ ...confirmModal, open })}
         title={
-          confirmModal.action === "activate" ? `Activate ${confirmModal.type}` :
-          confirmModal.action === "suspend" ? `Suspend ${confirmModal.type}` :
-          `Delete ${confirmModal.type} entry`
+          confirmModal.action === "activate" ? `${t("active")} ${t(confirmModal.type)}` :
+          confirmModal.action === "suspend" ? `${t("suspended")} ${t(confirmModal.type)}` :
+          `${t("delete")} ${t(confirmModal.type)}`
         }
         description={
-          confirmModal.action === "activate" ? `Are you sure you want to activate this ${confirmModal.type}?` :
-          confirmModal.action === "suspend" ? `Are you sure you want to suspend this ${confirmModal.type}?` :
-          `Are you sure you want to delete this timetable entry? This action cannot be undone.`
+          confirmModal.action === "activate" ? t("are_you_sure") :
+          confirmModal.action === "suspend" ? t("are_you_sure") :
+          t("action_cannot_undone")
         }
-        confirmText={confirmModal.action === "activate" ? "Activate" : confirmModal.action === "suspend" ? "Suspend" : "Delete"}
+        confirmText={confirmModal.action === "activate" ? t("active") : confirmModal.action === "suspend" ? t("suspended") : t("delete")}
         variant={confirmModal.action === "activate" ? "default" : "destructive"}
         onConfirm={() => {
           if (confirmModal.type === "student") {
