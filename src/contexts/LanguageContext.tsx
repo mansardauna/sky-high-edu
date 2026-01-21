@@ -101,9 +101,9 @@ const translations: Translations = {
   // Subjects
   "subjects": { en: "Subjects", ar: "المواد" },
   "mathematics": { en: "Mathematics", ar: "الرياضيات" },
-  "english": { en: "English", ar: "اللغة الإنجليزية" },
+  "english_subject": { en: "English", ar: "اللغة الإنجليزية" },
   "islamic_studies": { en: "Islamic Studies", ar: "الدراسات الإسلامية" },
-  "arabic": { en: "Arabic", ar: "اللغة العربية" },
+  "arabic_subject": { en: "Arabic", ar: "اللغة العربية" },
   "science": { en: "Science", ar: "العلوم" },
   "social_studies": { en: "Social Studies", ar: "الدراسات الاجتماعية" },
   "computer_science": { en: "Computer Science", ar: "علوم الحاسوب" },
@@ -235,8 +235,8 @@ const translations: Translations = {
   "security": { en: "Security", ar: "الأمان" },
   "appearance": { en: "Appearance", ar: "المظهر" },
   "language": { en: "Language", ar: "اللغة" },
-  "english": { en: "English", ar: "الإنجليزية" },
-  "arabic": { en: "Arabic", ar: "العربية" },
+  "english_lang": { en: "English", ar: "الإنجليزية" },
+  "arabic_lang": { en: "Arabic", ar: "العربية" },
   "dark_mode": { en: "Dark Mode", ar: "الوضع الداكن" },
   "email_notifications": { en: "Email Notifications", ar: "إشعارات البريد" },
   "sms_notifications": { en: "SMS Notifications", ar: "إشعارات الرسائل" },
@@ -511,8 +511,8 @@ const translations: Translations = {
   "please_fill_fields": { en: "Please fill in all fields", ar: "يرجى ملء جميع الحقول" },
   "please_fill_required": { en: "Please fill in all required fields", ar: "يرجى ملء جميع الحقول المطلوبة" },
   "invalid_credentials": { en: "Invalid credentials", ar: "بيانات غير صحيحة" },
-  "select_class": { en: "Select class", ar: "اختر الفصل" },
-  "select_subject": { en: "Select subject", ar: "اختر المادة" },
+  "select_class_option": { en: "Select class", ar: "اختر الفصل" },
+  "select_subject_form": { en: "Select subject", ar: "اختر المادة" },
   "select_teacher": { en: "Select teacher", ar: "اختر المعلم" },
   "select_day": { en: "Select day", ar: "اختر اليوم" },
   "select_time": { en: "Select time", ar: "اختر الوقت" },
@@ -546,6 +546,9 @@ const translations: Translations = {
   "add_student_desc": { en: "Manually add a student to the system", ar: "إضافة طالب يدوياً للنظام" },
   "add_timetable_entry": { en: "Add Timetable Entry", ar: "إضافة إدخال للجدول" },
   "edit_timetable_entry": { en: "Edit Timetable Entry", ar: "تعديل إدخال الجدول" },
+  "no_timetable_entries": { en: "No Timetable Entries", ar: "لا توجد إدخالات للجدول" },
+  "start_adding_schedules": { en: "Start by adding class schedules.", ar: "ابدأ بإضافة جداول الفصول." },
+  "no_classes_assigned": { en: "No classes assigned", ar: "لم يتم تعيين فصول" },
 };
 
 interface LanguageContextType {
