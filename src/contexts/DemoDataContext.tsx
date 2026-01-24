@@ -184,62 +184,62 @@ const DemoDataContext = createContext<DemoDataContextType | undefined>(undefined
 
 // Demo Data
 const initialStudents: Student[] = [
-  { id: "s1", surname: "Ibrahim", firstName: "Ahmad", dob: "2010-05-15", regNo: "DU/2024/001", class: "JSS 1A", status: "active", parentName: "Mr. Ibrahim", parentPhone: "08012345678", dateRegistered: "2024-01-15" },
-  { id: "s2", surname: "Yusuf", firstName: "Fatima", dob: "2009-08-22", regNo: "DU/2024/002", class: "JSS 2B", status: "active", parentName: "Mrs. Yusuf", parentPhone: "08023456789", dateRegistered: "2024-01-16" },
-  { id: "s3", surname: "Ali", firstName: "Muhammad", dob: "2008-03-10", regNo: "DU/2024/003", class: "SSS 1A", status: "suspended", parentName: "Mr. Ali", parentPhone: "08034567890", dateRegistered: "2024-01-17" },
-  { id: "s4", surname: "Bello", firstName: "Aisha", dob: "2010-11-30", regNo: "DU/2024/004", class: "JSS 3A", status: "inactive", parentName: "Mr. Bello", parentPhone: "08045678901", dateRegistered: "2024-01-18" },
-  { id: "s5", surname: "Suleiman", firstName: "Umar", dob: "2010-02-14", regNo: "DU/2024/005", class: "JSS 1A", status: "pending", parentName: "Mr. Suleiman", parentPhone: "08056789012", dateRegistered: "2024-12-28" },
-  { id: "s6", surname: "Abdullahi", firstName: "Khadijah", dob: "2009-07-20", regNo: "DU/2024/006", class: "JSS 2A", status: "pending", parentName: "Mrs. Abdullahi", parentPhone: "08067890123", dateRegistered: "2024-12-29" },
+  { id: "s1", surname: "إبراهيم", firstName: "أحمد", dob: "2010-05-15", regNo: "DU/2024/001", class: "إعدادي ١أ", status: "active", parentName: "السيد إبراهيم", parentPhone: "08012345678", dateRegistered: "2024-01-15" },
+  { id: "s2", surname: "يوسف", firstName: "فاطمة", dob: "2009-08-22", regNo: "DU/2024/002", class: "إعدادي ٢ب", status: "active", parentName: "السيدة يوسف", parentPhone: "08023456789", dateRegistered: "2024-01-16" },
+  { id: "s3", surname: "علي", firstName: "محمد", dob: "2008-03-10", regNo: "DU/2024/003", class: "توجيهي ١أ", status: "suspended", parentName: "السيد علي", parentPhone: "08034567890", dateRegistered: "2024-01-17" },
+  { id: "s4", surname: "بيلو", firstName: "عائشة", dob: "2010-11-30", regNo: "DU/2024/004", class: "إعدادي ٣أ", status: "inactive", parentName: "السيد بيلو", parentPhone: "08045678901", dateRegistered: "2024-01-18" },
+  { id: "s5", surname: "سليمان", firstName: "عمر", dob: "2010-02-14", regNo: "DU/2024/005", class: "إعدادي ١أ", status: "pending", parentName: "السيد سليمان", parentPhone: "08056789012", dateRegistered: "2024-12-28" },
+  { id: "s6", surname: "عبد الله", firstName: "خديجة", dob: "2009-07-20", regNo: "DU/2024/006", class: "إعدادي ٢أ", status: "pending", parentName: "السيدة عبد الله", parentPhone: "08067890123", dateRegistered: "2024-12-29" },
 ];
 
 const initialTeachers: Teacher[] = [
   { 
     id: "t1", 
-    name: "Mr. Ahmed Ibrahim", 
+    name: "الأستاذ أحمد إبراهيم", 
     email: "ahmed@daruulum.edu", 
     password: "teacher123", 
-    subjects: ["Mathematics"], 
-    classes: ["JSS 1A", "JSS 2A"], 
+    subjects: ["الرياضيات"], 
+    classes: ["إعدادي ١أ", "إعدادي ٢أ"], 
     status: "active",
     salary: { basic: 150000, allowances: 30000, deductions: 15000, withdrawableBalance: 165000, accountNumber: "1234567890", bankName: "First Bank", lastPaymentDate: "2024-12-25" }
   },
   { 
     id: "t2", 
-    name: "Mrs. Fatima Yusuf", 
+    name: "الأستاذة فاطمة يوسف", 
     email: "fatima@daruulum.edu", 
     password: "teacher123", 
-    subjects: ["English"], 
-    classes: ["JSS 1B", "JSS 2B"], 
+    subjects: ["اللغة الإنجليزية"], 
+    classes: ["إعدادي ١ب", "إعدادي ٢ب"], 
     status: "active",
     salary: { basic: 145000, allowances: 25000, deductions: 12000, withdrawableBalance: 158000, accountNumber: "0987654321", bankName: "GTBank", lastPaymentDate: "2024-12-25" }
   },
   { 
     id: "t3", 
-    name: "Ustaz Ibrahim Musa", 
+    name: "الأستاذ إبراهيم موسى", 
     email: "ibrahim@daruulum.edu", 
     password: "teacher123", 
-    subjects: ["Islamic Studies", "Arabic"], 
-    classes: ["JSS 3A"], 
+    subjects: ["الدراسات الإسلامية", "اللغة العربية"], 
+    classes: ["إعدادي ٣أ"], 
     status: "suspended",
     salary: { basic: 160000, allowances: 35000, deductions: 18000, withdrawableBalance: 0 }
   },
   { 
     id: "t4", 
-    name: "Dr. Musa Aliyu", 
+    name: "الدكتور موسى عليو", 
     email: "musa@daruulum.edu", 
     password: "teacher123", 
-    subjects: ["Science"], 
-    classes: ["SSS 1A", "SSS 2A"], 
+    subjects: ["العلوم"], 
+    classes: ["توجيهي ١أ", "توجيهي ٢أ"], 
     status: "active",
     salary: { basic: 200000, allowances: 50000, deductions: 25000, withdrawableBalance: 225000, accountNumber: "1122334455", bankName: "UBA", lastPaymentDate: "2024-12-25" }
   },
   { 
     id: "t5", 
-    name: "Mrs. Zainab Abubakar", 
+    name: "الأستاذة زينب أبوبكر", 
     email: "zainab@daruulum.edu", 
     password: "teacher123", 
-    subjects: ["Social Studies"], 
-    classes: ["JSS 1A", "JSS 1B"], 
+    subjects: ["الدراسات الاجتماعية"], 
+    classes: ["إعدادي ١أ", "إعدادي ١ب"], 
     status: "active",
     salary: { basic: 140000, allowances: 20000, deductions: 10000, withdrawableBalance: 150000, accountNumber: "5544332211", bankName: "Zenith Bank", lastPaymentDate: "2024-12-25" }
   },
@@ -251,38 +251,46 @@ const initialAdmins: Admin[] = [
 ];
 
 const initialSubjects: Subject[] = [
-  { id: "sub1", name: "Mathematics", code: "MTH" },
-  { id: "sub2", name: "English", code: "ENG" },
-  { id: "sub3", name: "Islamic Studies", code: "ISL" },
-  { id: "sub4", name: "Arabic", code: "ARB" },
-  { id: "sub5", name: "Science", code: "SCI" },
-  { id: "sub6", name: "Social Studies", code: "SST" },
-  { id: "sub7", name: "Computer Science", code: "CSC" },
-  { id: "sub8", name: "Physical Education", code: "PHE" },
+  { id: "sub1", name: "الرياضيات", code: "MTH" },
+  { id: "sub2", name: "اللغة الإنجليزية", code: "ENG" },
+  { id: "sub3", name: "الدراسات الإسلامية", code: "ISL" },
+  { id: "sub4", name: "اللغة العربية", code: "ARB" },
+  { id: "sub5", name: "العلوم", code: "SCI" },
+  { id: "sub6", name: "الدراسات الاجتماعية", code: "SST" },
+  { id: "sub7", name: "علوم الحاسوب", code: "CSC" },
+  { id: "sub8", name: "التربية البدنية", code: "PHE" },
+  { id: "sub9", name: "الدراسات القرآنية", code: "QRN" },
+  { id: "sub10", name: "الفقه الإسلامي", code: "FQH" },
+  { id: "sub11", name: "الحديث", code: "HDT" },
 ];
 
 const initialClasses: ClassInfo[] = [
-  { id: "c1", name: "JSS 1A", section: "A", capacity: 40 },
-  { id: "c2", name: "JSS 1B", section: "B", capacity: 40 },
-  { id: "c3", name: "JSS 2A", section: "A", capacity: 38 },
-  { id: "c4", name: "JSS 2B", section: "B", capacity: 35 },
-  { id: "c5", name: "JSS 3A", section: "A", capacity: 42 },
-  { id: "c6", name: "SSS 1A", section: "A", capacity: 36 },
-  { id: "c7", name: "SSS 2A", section: "A", capacity: 34 },
-  { id: "c8", name: "SSS 3A", section: "A", capacity: 30 },
+  // التمهيدي (Tamhidi - Preparatory)
+  { id: "c1", name: "تمهيدي ١", section: "أ", capacity: 35 },
+  { id: "c2", name: "تمهيدي ٢", section: "أ", capacity: 35 },
+  // الإعدادي (I'dadi - Intermediate)
+  { id: "c3", name: "إعدادي ١أ", section: "أ", capacity: 40 },
+  { id: "c4", name: "إعدادي ١ب", section: "ب", capacity: 40 },
+  { id: "c5", name: "إعدادي ٢أ", section: "أ", capacity: 38 },
+  { id: "c6", name: "إعدادي ٢ب", section: "ب", capacity: 35 },
+  { id: "c7", name: "إعدادي ٣أ", section: "أ", capacity: 42 },
+  // التوجيهي (Tawjihi - Secondary)
+  { id: "c8", name: "توجيهي ١أ", section: "أ", capacity: 36 },
+  { id: "c9", name: "توجيهي ٢أ", section: "أ", capacity: 34 },
+  { id: "c10", name: "توجيهي ٣أ", section: "أ", capacity: 30 },
 ];
 
 const initialTimetable: TimetableEntry[] = [
-  { id: "tt1", day: "Monday", time: "08:00 - 09:00", subject: "Mathematics", teacher: "Mr. Ahmed Ibrahim", class: "JSS 1A", room: "Room 101" },
-  { id: "tt2", day: "Monday", time: "09:00 - 10:00", subject: "English", teacher: "Mrs. Fatima Yusuf", class: "JSS 1A", room: "Room 101" },
-  { id: "tt3", day: "Monday", time: "10:30 - 11:30", subject: "Science", teacher: "Dr. Musa Aliyu", class: "JSS 1A", room: "Lab 1" },
-  { id: "tt4", day: "Monday", time: "11:30 - 12:30", subject: "Islamic Studies", teacher: "Ustaz Ibrahim Musa", class: "JSS 1A", room: "Room 101" },
-  { id: "tt5", day: "Tuesday", time: "08:00 - 09:00", subject: "Arabic", teacher: "Ustaz Ibrahim Musa", class: "JSS 1A", room: "Room 101" },
-  { id: "tt6", day: "Tuesday", time: "09:00 - 10:00", subject: "Social Studies", teacher: "Mrs. Zainab Abubakar", class: "JSS 1A", room: "Room 101" },
-  { id: "tt7", day: "Wednesday", time: "08:00 - 09:00", subject: "Mathematics", teacher: "Mr. Ahmed Ibrahim", class: "JSS 2A", room: "Room 102" },
-  { id: "tt8", day: "Wednesday", time: "09:00 - 10:00", subject: "English", teacher: "Mrs. Fatima Yusuf", class: "JSS 2B", room: "Room 103" },
-  { id: "tt9", day: "Thursday", time: "08:00 - 09:00", subject: "Science", teacher: "Dr. Musa Aliyu", class: "SSS 1A", room: "Lab 2" },
-  { id: "tt10", day: "Friday", time: "08:00 - 09:00", subject: "Islamic Studies", teacher: "Ustaz Ibrahim Musa", class: "JSS 3A", room: "Room 105" },
+  { id: "tt1", day: "الإثنين", time: "٠٨:٠٠ - ٠٩:٠٠", subject: "الرياضيات", teacher: "الأستاذ أحمد إبراهيم", class: "إعدادي ١أ", room: "قاعة ١٠١" },
+  { id: "tt2", day: "الإثنين", time: "٠٩:٠٠ - ١٠:٠٠", subject: "اللغة الإنجليزية", teacher: "الأستاذة فاطمة يوسف", class: "إعدادي ١أ", room: "قاعة ١٠١" },
+  { id: "tt3", day: "الإثنين", time: "١٠:٣٠ - ١١:٣٠", subject: "العلوم", teacher: "الدكتور موسى عليو", class: "إعدادي ١أ", room: "المختبر ١" },
+  { id: "tt4", day: "الإثنين", time: "١١:٣٠ - ١٢:٣٠", subject: "الدراسات الإسلامية", teacher: "الأستاذ إبراهيم موسى", class: "إعدادي ١أ", room: "قاعة ١٠١" },
+  { id: "tt5", day: "الثلاثاء", time: "٠٨:٠٠ - ٠٩:٠٠", subject: "اللغة العربية", teacher: "الأستاذ إبراهيم موسى", class: "إعدادي ١أ", room: "قاعة ١٠١" },
+  { id: "tt6", day: "الثلاثاء", time: "٠٩:٠٠ - ١٠:٠٠", subject: "الدراسات الاجتماعية", teacher: "الأستاذة زينب أبوبكر", class: "إعدادي ١أ", room: "قاعة ١٠١" },
+  { id: "tt7", day: "الأربعاء", time: "٠٨:٠٠ - ٠٩:٠٠", subject: "الرياضيات", teacher: "الأستاذ أحمد إبراهيم", class: "إعدادي ٢أ", room: "قاعة ١٠٢" },
+  { id: "tt8", day: "الأربعاء", time: "٠٩:٠٠ - ١٠:٠٠", subject: "اللغة الإنجليزية", teacher: "الأستاذة فاطمة يوسف", class: "إعدادي ٢ب", room: "قاعة ١٠٣" },
+  { id: "tt9", day: "الخميس", time: "٠٨:٠٠ - ٠٩:٠٠", subject: "العلوم", teacher: "الدكتور موسى عليو", class: "توجيهي ١أ", room: "المختبر ٢" },
+  { id: "tt10", day: "الجمعة", time: "٠٨:٠٠ - ٠٩:٠٠", subject: "الدراسات الإسلامية", teacher: "الأستاذ إبراهيم موسى", class: "إعدادي ٣أ", room: "قاعة ١٠٥" },
 ];
 
 const initialResults: Result[] = [
@@ -315,11 +323,11 @@ const initialSalaryWithdrawals: SalaryWithdrawal[] = [
 ];
 
 const initialAnnouncements: Announcement[] = [
-  { id: "ann1", title: "New Term Registration Open", content: "Registration for the new academic term is now open. All parents are advised to complete registration by January 15th.", category: "admissions", targetAudience: "all", date: "2024-12-28", createdBy: "Admin", isActive: true },
-  { id: "ann2", title: "Annual Sports Day Results", content: "Congratulations to all participants in our Annual Sports Day! Results and awards ceremony details coming soon.", category: "events", targetAudience: "all", date: "2024-12-25", createdBy: "Admin", isActive: true },
-  { id: "ann3", title: "Holiday Break Schedule", content: "School will be closed from December 20th to January 5th for the holiday break. Classes resume on January 6th.", category: "notice", targetAudience: "all", date: "2024-12-20", createdBy: "Admin", isActive: true },
-  { id: "ann4", title: "Teachers Meeting", content: "Mandatory staff meeting on Monday at 2pm in the main hall. All teachers must attend.", category: "academic", targetAudience: "teachers", date: "2024-12-18", createdBy: "Super Admin", isActive: true },
-  { id: "ann5", title: "Exam Timetable Released", content: "The examination timetable for this term has been released. Students can view it on their dashboard.", category: "academic", targetAudience: "students", date: "2024-12-15", createdBy: "Admin", isActive: true },
+  { id: "ann1", title: "فتح باب التسجيل للفصل الجديد", content: "التسجيل للفصل الدراسي الجديد مفتوح الآن. يُنصح جميع أولياء الأمور بإكمال التسجيل قبل ١٥ يناير.", category: "admissions", targetAudience: "all", date: "2024-12-28", createdBy: "الإدارة", isActive: true },
+  { id: "ann2", title: "نتائج اليوم الرياضي السنوي", content: "تهانينا لجميع المشاركين في يومنا الرياضي السنوي! ستُعلن تفاصيل النتائج وحفل التكريم قريباً.", category: "events", targetAudience: "all", date: "2024-12-25", createdBy: "الإدارة", isActive: true },
+  { id: "ann3", title: "جدول العطلة", content: "ستكون المدرسة مغلقة من ٢٠ ديسمبر إلى ٥ يناير لعطلة نهاية العام. تستأنف الدراسة في ٦ يناير.", category: "notice", targetAudience: "all", date: "2024-12-20", createdBy: "الإدارة", isActive: true },
+  { id: "ann4", title: "اجتماع المعلمين", content: "اجتماع إلزامي للموظفين يوم الإثنين الساعة ٢ ظهراً في القاعة الرئيسية. يجب على جميع المعلمين الحضور.", category: "academic", targetAudience: "teachers", date: "2024-12-18", createdBy: "المدير العام", isActive: true },
+  { id: "ann5", title: "صدور جدول الامتحانات", content: "صدر جدول الامتحانات لهذا الفصل. يمكن للطلاب الاطلاع عليه في لوحة التحكم الخاصة بهم.", category: "academic", targetAudience: "students", date: "2024-12-15", createdBy: "الإدارة", isActive: true },
 ];
 
 export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
