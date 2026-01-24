@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { GraduationCap, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
+import logoImage from "@/assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,11 +14,11 @@ const Navbar = () => {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-lg border-b border-border" dir={direction}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-md">
-              <GraduationCap className="w-6 h-6 text-primary-foreground" />
+          <Link to="/" className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-lg bg-white p-1 shadow-md overflow-hidden">
+              <img src={logoImage} alt={t("school_name")} className="w-full h-full object-contain" />
             </div>
-            <span className="font-bold text-xl text-foreground">{t("school_name")}</span>
+            <span className="font-bold text-xl text-foreground hidden sm:block">{t("school_name")}</span>
           </Link>
 
           {/* Desktop Menu */}

@@ -365,12 +365,25 @@ const translations: Translations = {
   // Programs Page
   "academic_programs": { en: "Academic Programs", ar: "البرامج الأكاديمية" },
   "programs_description": { en: "Discover our comprehensive range of educational programs designed to nurture both academic excellence and spiritual growth.", ar: "اكتشف مجموعتنا الشاملة من البرامج التعليمية المصممة لتعزيز التميز الأكاديمي والنمو الروحي." },
-  "primary_education": { en: "Primary Education", ar: "التعليم الابتدائي" },
+  "primary_education": { en: "Primary Education (Tamhidi)", ar: "التمهيدي" },
   "primary_education_desc": { en: "Foundation education combining Islamic values with core academic subjects.", ar: "التعليم الأساسي الذي يجمع بين القيم الإسلامية والمواد الأكاديمية الأساسية." },
-  "junior_secondary": { en: "Junior Secondary (JSS)", ar: "الإعدادية" },
+  "junior_secondary": { en: "Intermediate (I'dadi)", ar: "الإعدادي" },
   "junior_secondary_desc": { en: "Comprehensive curriculum preparing students for senior secondary education.", ar: "منهج شامل يعد الطلاب للتعليم الثانوي." },
-  "senior_secondary": { en: "Senior Secondary (SSS)", ar: "الثانوية" },
+  "senior_secondary": { en: "Secondary (Tawjihi)", ar: "التوجيهي" },
   "senior_secondary_desc": { en: "Specialized tracks preparing students for higher education and professional careers.", ar: "مسارات متخصصة تعد الطلاب للتعليم العالي والمهن المهنية." },
+  
+  // Class levels
+  "tamhidi": { en: "Tamhidi (Preparatory)", ar: "التمهيدي" },
+  "tamhidi_1": { en: "Tamhidi 1", ar: "تمهيدي ١" },
+  "tamhidi_2": { en: "Tamhidi 2", ar: "تمهيدي ٢" },
+  "idadi": { en: "I'dadi (Intermediate)", ar: "الإعدادي" },
+  "idadi_1": { en: "I'dadi 1", ar: "إعدادي ١" },
+  "idadi_2": { en: "I'dadi 2", ar: "إعدادي ٢" },
+  "idadi_3": { en: "I'dadi 3", ar: "إعدادي ٣" },
+  "tawjihi": { en: "Tawjihi (Secondary)", ar: "التوجيهي" },
+  "tawjihi_1": { en: "Tawjihi 1", ar: "توجيهي ١" },
+  "tawjihi_2": { en: "Tawjihi 2", ar: "توجيهي ٢" },
+  "tawjihi_3": { en: "Tawjihi 3", ar: "توجيهي ٣" },
   "islamic_studies_programs": { en: "Islamic Studies Programs", ar: "برامج الدراسات الإسلامية" },
   "extracurricular": { en: "Extracurricular Activities", ar: "الأنشطة اللامنهجية" },
   "extracurricular_desc": { en: "Beyond academics, we offer various activities for holistic development", ar: "بعيداً عن الأكاديميات، نقدم أنشطة متنوعة للتطوير الشامل" },
@@ -653,7 +666,13 @@ const categoryMap: Record<string, string> = {
 };
 
 export const LanguageProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguageState] = useState<Language>("en");
+  const [language, setLanguageState] = useState<Language>("ar");
+  
+  // Set Arabic as default on mount
+  React.useEffect(() => {
+    document.documentElement.dir = "rtl";
+    document.documentElement.lang = "ar";
+  }, []);
 
   const direction: Direction = language === "ar" ? "rtl" : "ltr";
 

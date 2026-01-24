@@ -1,39 +1,27 @@
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Globe } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export const LanguageSwitcher = () => {
-  const { language, setLanguage, t } = useLanguage();
+  const { language, setLanguage } = useLanguage();
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="relative">
-          <Globe className="w-5 h-5" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-40">
-        <DropdownMenuItem
-          onClick={() => setLanguage("en")}
-          className={language === "en" ? "bg-accent" : ""}
-        >
-          <span className="mr-2">🇬🇧</span>
-          {t("english")}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage("ar")}
-          className={language === "ar" ? "bg-accent" : ""}
-        >
-          <span className="mr-2">🇸🇦</span>
-          {t("arabic")}
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex items-center gap-1 bg-muted rounded-lg p-1">
+      <Button
+        variant={language === "ar" ? "default" : "ghost"}
+        size="sm"
+        onClick={() => setLanguage("ar")}
+        className="px-3 py-1 h-8 text-sm font-semibold"
+      >
+        AR
+      </Button>
+      <Button
+        variant={language === "en" ? "default" : "ghost"}
+        size="sm"
+        onClick={() => setLanguage("en")}
+        className="px-3 py-1 h-8 text-sm font-semibold"
+      >
+        EN
+      </Button>
+    </div>
   );
 };
