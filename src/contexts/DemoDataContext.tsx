@@ -184,12 +184,12 @@ const DemoDataContext = createContext<DemoDataContextType | undefined>(undefined
 
 // Demo Data
 const initialStudents: Student[] = [
-  { id: "s1", surname: "إبراهيم", firstName: "أحمد", dob: "2010-05-15", regNo: "DU/2024/001", class: "إعدادي ١أ", status: "active", parentName: "السيد إبراهيم", parentPhone: "08012345678", dateRegistered: "2024-01-15" },
-  { id: "s2", surname: "يوسف", firstName: "فاطمة", dob: "2009-08-22", regNo: "DU/2024/002", class: "إعدادي ٢ب", status: "active", parentName: "السيدة يوسف", parentPhone: "08023456789", dateRegistered: "2024-01-16" },
-  { id: "s3", surname: "علي", firstName: "محمد", dob: "2008-03-10", regNo: "DU/2024/003", class: "توجيهي ١أ", status: "suspended", parentName: "السيد علي", parentPhone: "08034567890", dateRegistered: "2024-01-17" },
-  { id: "s4", surname: "بيلو", firstName: "عائشة", dob: "2010-11-30", regNo: "DU/2024/004", class: "إعدادي ٣أ", status: "inactive", parentName: "السيد بيلو", parentPhone: "08045678901", dateRegistered: "2024-01-18" },
-  { id: "s5", surname: "سليمان", firstName: "عمر", dob: "2010-02-14", regNo: "DU/2024/005", class: "إعدادي ١أ", status: "pending", parentName: "السيد سليمان", parentPhone: "08056789012", dateRegistered: "2024-12-28" },
-  { id: "s6", surname: "عبد الله", firstName: "خديجة", dob: "2009-07-20", regNo: "DU/2024/006", class: "إعدادي ٢أ", status: "pending", parentName: "السيدة عبد الله", parentPhone: "08067890123", dateRegistered: "2024-12-29" },
+  { id: "s1", surname: "إبراهيم", firstName: "أحمد", dob: "١٥-٠٥-٢٠١٠", regNo: "DU/2024/001", class: "إعدادي ١أ", status: "active", parentName: "السيد إبراهيم", parentPhone: "08012345678", dateRegistered: "٢٠٢٤-٠١-١٥" },
+  { id: "s2", surname: "يوسف", firstName: "فاطمة", dob: "٢٢-٠٨-٢٠٠٩", regNo: "DU/2024/002", class: "إعدادي ٢ب", status: "active", parentName: "السيدة يوسف", parentPhone: "08023456789", dateRegistered: "٢٠٢٤-٠١-١٦" },
+  { id: "s3", surname: "علي", firstName: "محمد", dob: "١٠-٠٣-٢٠٠٨", regNo: "DU/2024/003", class: "توجيهي ١أ", status: "suspended", parentName: "السيد علي", parentPhone: "08034567890", dateRegistered: "٢٠٢٤-٠١-١٧" },
+  { id: "s4", surname: "بيلو", firstName: "عائشة", dob: "٣٠-١١-٢٠١٠", regNo: "DU/2024/004", class: "إعدادي ٣أ", status: "inactive", parentName: "السيد بيلو", parentPhone: "08045678901", dateRegistered: "٢٠٢٤-٠١-١٨" },
+  { id: "s5", surname: "سليمان", firstName: "عمر", dob: "١٤-٠٢-٢٠١٠", regNo: "DU/2024/005", class: "إعدادي ١أ", status: "pending", parentName: "السيد سليمان", parentPhone: "08056789012", dateRegistered: "٢٠٢٤-١٢-٢٨" },
+  { id: "s6", surname: "عبد الله", firstName: "خديجة", dob: "٢٠-٠٧-٢٠٠٩", regNo: "DU/2024/006", class: "إعدادي ٢أ", status: "pending", parentName: "السيدة عبد الله", parentPhone: "08067890123", dateRegistered: "٢٠٢٤-١٢-٢٩" },
 ];
 
 const initialTeachers: Teacher[] = [
@@ -345,10 +345,42 @@ export const DemoDataProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<(Student | Teacher | Admin) | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
 
+  // Helper to convert Arabic numerals to Western
+  const arabicToWestern = (str: string): string => {
+    const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+    let result = str;
+    arabicNumerals.forEach((num, index) => {
+      result = result.replace(new RegExp(num, 'g'), index.toString());
+    });
+    return result;
+  };
+
+  // Helper to normalize date format for comparison
+  const normalizeDob = (dob: string): string => {
+    const western = arabicToWestern(dob);
+    // Handle both DD-MM-YYYY and YYYY-MM-DD formats
+    const parts = western.split('-');
+    if (parts.length === 3) {
+      if (parts[0].length === 4) {
+        // YYYY-MM-DD format
+        return western;
+      } else {
+        // DD-MM-YYYY format -> convert to YYYY-MM-DD
+        return `${parts[2]}-${parts[1]}-${parts[0]}`;
+      }
+    }
+    return western;
+  };
+
   const loginStudent = (surname: string, dob: string): Student | null => {
-    const student = students.find(
-      s => s.surname.toLowerCase() === surname.toLowerCase() && s.dob === dob && s.status === "active"
-    );
+    const normalizedInputDob = normalizeDob(dob);
+    const student = students.find(s => {
+      const normalizedStoredDob = normalizeDob(s.dob);
+      const surnameMatch = s.surname.toLowerCase() === surname.toLowerCase() || 
+                          arabicToWestern(s.surname).toLowerCase() === surname.toLowerCase() ||
+                          s.surname === surname;
+      return surnameMatch && normalizedStoredDob === normalizedInputDob && s.status === "active";
+    });
     if (student) {
       setCurrentUser(student);
       setUserRole("student");
