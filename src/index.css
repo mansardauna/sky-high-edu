@@ -4,6 +4,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&display=swap');
 
 @layer base {
   :root {
@@ -16,17 +18,17 @@
     --popover: 0 0% 100%;
     --popover-foreground: 210 50% 10%;
 
-    --primary: 199 89% 48%;
+    --primary: 145 63% 32%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 199 30% 94%;
-    --secondary-foreground: 199 89% 30%;
+    --secondary: 145 30% 94%;
+    --secondary-foreground: 145 63% 25%;
 
     --muted: 210 30% 96%;
     --muted-foreground: 210 20% 45%;
 
-    --accent: 199 60% 90%;
-    --accent-foreground: 199 89% 30%;
+    --accent: 145 40% 90%;
+    --accent-foreground: 145 63% 25%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -39,13 +41,13 @@
 
     --border: 210 30% 90%;
     --input: 210 30% 90%;
-    --ring: 199 89% 48%;
+    --ring: 145 63% 32%;
 
     --radius: 0.75rem;
 
     /* Custom gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(199, 89%, 48%) 0%, hsl(199, 89%, 35%) 100%);
-    --gradient-hero: linear-gradient(135deg, hsl(199, 89%, 55%) 0%, hsl(210, 80%, 45%) 50%, hsl(220, 70%, 40%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(145, 63%, 32%) 0%, hsl(145, 63%, 22%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(145, 63%, 38%) 0%, hsl(150, 50%, 28%) 50%, hsl(155, 45%, 22%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(210, 40%, 98%) 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
 
@@ -54,17 +56,17 @@
     --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    --shadow-glow: 0 0 40px rgba(14, 165, 233, 0.3);
+    --shadow-glow: 0 0 40px rgba(34, 139, 80, 0.3);
     --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary: 145 63% 32%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 199 30% 94%;
-    --sidebar-accent-foreground: 199 89% 30%;
+    --sidebar-accent: 145 30% 94%;
+    --sidebar-accent-foreground: 145 63% 25%;
     --sidebar-border: 210 30% 90%;
-    --sidebar-ring: 199 89% 48%;
+    --sidebar-ring: 145 63% 32%;
   }
 
   .dark {
@@ -77,33 +79,33 @@
     --popover: 210 50% 12%;
     --popover-foreground: 210 20% 98%;
 
-    --primary: 199 89% 48%;
+    --primary: 145 63% 42%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 199 30% 20%;
-    --secondary-foreground: 199 60% 80%;
+    --secondary: 145 30% 20%;
+    --secondary-foreground: 145 60% 80%;
 
     --muted: 210 30% 18%;
     --muted-foreground: 210 20% 65%;
 
-    --accent: 199 40% 25%;
-    --accent-foreground: 199 60% 85%;
+    --accent: 145 40% 25%;
+    --accent-foreground: 145 60% 85%;
 
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 210 30% 20%;
     --input: 210 30% 20%;
-    --ring: 199 89% 48%;
+    --ring: 145 63% 42%;
 
     --sidebar-background: 210 50% 10%;
     --sidebar-foreground: 210 20% 90%;
-    --sidebar-primary: 199 89% 48%;
+    --sidebar-primary: 145 63% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 199 30% 20%;
-    --sidebar-accent-foreground: 199 60% 80%;
+    --sidebar-accent: 145 30% 20%;
+    --sidebar-accent-foreground: 145 60% 80%;
     --sidebar-border: 210 30% 20%;
-    --sidebar-ring: 199 89% 48%;
+    --sidebar-ring: 145 63% 42%;
   }
 }
 
@@ -118,20 +120,29 @@
   }
 
   [dir="rtl"] body {
-    font-family: 'Tajawal', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Noto Naskh Arabic', 'Tajawal', 'Plus Jakarta Sans', sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
   }
 
-  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3, [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
-    font-family: 'Amiri', 'Tajawal', serif;
+  [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 {
+    font-family: 'Aref Ruqaa', 'Amiri', 'Tajawal', serif;
     font-weight: 700;
+  }
+
+  [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+    font-family: 'Noto Naskh Arabic', 'Tajawal', serif;
+    font-weight: 600;
   }
 
   [dir="rtl"] .font-mono {
     font-family: 'Tajawal', monospace;
+  }
+
+  [dir="rtl"] .font-calligraphy {
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
   }
 }
 
