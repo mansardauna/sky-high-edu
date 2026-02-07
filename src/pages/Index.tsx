@@ -20,7 +20,7 @@ import {
   Award
 } from "lucide-react";
 import heroImage from "@/assets/hero-school-new.jpg";
-import studentsQuranImage from "@/assets/students-quran.jpg";
+import studentsQuranImage from "@/assets/students-group.jpg";
 import logoImage from "@/assets/logo.png";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useDemoData } from "@/contexts/DemoDataContext";

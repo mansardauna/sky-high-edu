@@ -1,8 +1,11 @@
 import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
-import { GraduationCap, BookOpen, Target, Heart, Star, Users, Award, Globe } from "lucide-react";
+import { GraduationCap, BookOpen, Target, Heart, Star, Users, Award } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import studentsQuran from "@/assets/students-quran.jpg";
+import studentsGroup from "@/assets/students-group.jpg";
+import teamMember1 from "@/assets/team-member-1.jpg";
+import teamMember2 from "@/assets/team-member-2.jpg";
+import teamMember3 from "@/assets/team-member-3.jpg";
 import logo from "@/assets/logo.png";
 
 const About = () => {
@@ -29,19 +32,26 @@ const About = () => {
     { year: "2024", event: "Digital Transformation", desc: "Launch of modern school management system to facilitate communication between students, teachers, and parents" },
   ];
 
-  const founderInfo = language === "ar" ? {
-    name: "الشيخ عبد الباقي محمد",
-    title: "المؤسس والإمام الأكبر",
-    bio: "الشيخ عبد الباقي محمد هو عالم إسلامي بارز ومؤسس دار العلوم إسالكوتو. ولد ونشأ في إيلورين، مدينة العلم والعلماء في نيجيريا. تلقى تعليمه الإسلامي على يد كبار علماء المنطقة وتخصص في الفقه الإسلامي والتفسير والحديث. أسس الشيخ حركة إصلاح الدين (الإصلاح الديني) التي تهدف إلى تجديد الفكر الإسلامي والجمع بين الأصالة والمعاصرة في التعليم. يؤمن الشيخ بأن التعليم الإسلامي الحقيقي لا يتعارض مع العلوم الحديثة، بل يكملها ويوجهها نحو خدمة الإنسانية.",
-    movement: "حركة إصلاح الدين",
-    movementDesc: "حركة إصلاح الدين هي حركة إصلاحية إسلامية أسسها الشيخ عبد الباقي محمد في إيلورين. تهدف الحركة إلى: تجديد الفهم الصحيح للإسلام، الجمع بين التعليم الإسلامي التقليدي والعلوم الحديثة، تربية جيل مسلم واعٍ قادر على مواجهة تحديات العصر، نشر قيم الوسطية والاعتدال في المجتمع."
-  } : {
-    name: "Sheikh Abdulbaaqi Muhammad",
-    title: "Founder & Chief Imam",
-    bio: "Sheikh Abdulbaaqi Muhammad is a prominent Islamic scholar and the founder of Daru Ulum Isalekoto. Born and raised in Ilorin, the city of knowledge and scholars in Nigeria, he received his Islamic education from the region's leading scholars, specializing in Islamic jurisprudence, Quranic exegesis, and Hadith sciences. Sheikh established the Islahudeen (Religious Reform) movement, which aims to renew Islamic thought while combining authenticity with contemporary approaches in education. The Sheikh believes that true Islamic education does not conflict with modern sciences but rather complements and guides them toward serving humanity.",
-    movement: "The Islahudeen Movement",
-    movementDesc: "Islahudeen is an Islamic reform movement founded by Sheikh Abdulbaaqi Muhammad in Ilorin. The movement aims to: Renew the correct understanding of Islam, Combine traditional Islamic education with modern sciences, Raise a conscious Muslim generation capable of facing contemporary challenges, and Spread the values of moderation in society."
-  };
+  const teamMembers = [
+    {
+      image: teamMember1,
+      name: language === "ar" ? "الأستاذ عبد الله أحمد" : "Ustaz Abdullah Ahmed",
+      role: language === "ar" ? "نائب المدير للشؤون الأكاديمية" : "Vice Principal, Academics",
+      desc: language === "ar" ? "خبير في تطوير المناهج والمبادرات الأكاديمية المتميزة." : "Expert in curriculum development and academic excellence initiatives."
+    },
+    {
+      image: teamMember2,
+      name: language === "ar" ? "الأستاذ يوسف إبراهيم" : "Ustaz Yusuf Ibrahim",
+      role: language === "ar" ? "رئيس قسم الدراسات الإسلامية" : "Head of Islamic Studies",
+      desc: language === "ar" ? "متخصص في العلوم الإسلامية والفقه والتفسير." : "Specialist in Islamic sciences, jurisprudence, and Quranic exegesis."
+    },
+    {
+      image: teamMember3,
+      name: language === "ar" ? "الأستاذ سليمان محمد" : "Ustaz Sulaiman Muhammad",
+      role: language === "ar" ? "نائب المدير للشؤون الإدارية" : "Vice Principal, Administration",
+      desc: language === "ar" ? "متخصص في رعاية الطلاب والتميز الإداري." : "Specializes in student welfare and administrative excellence."
+    }
+  ];
 
   return (
     <Layout>
@@ -71,41 +81,27 @@ const About = () => {
         </div>
       </section>
 
-      {/* Founder Section */}
+
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-foreground mb-4">
-                {language === "ar" ? "المؤسس والإمام الأكبر" : "The Founder & Chief Imam"}
-              </h2>
-            </div>
-            
-            <Card className="border-none shadow-xl overflow-hidden">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
-                <div className="lg:col-span-1 bg-gradient-to-br from-primary to-primary/80 p-8 flex flex-col items-center justify-center text-center text-primary-foreground">
-                  <div className="w-32 h-32 rounded-full bg-white/20 flex items-center justify-center mb-6 text-5xl font-bold">
-                    {language === "ar" ? "ش.ع" : "SA"}
-                  </div>
-                  <h3 className="text-2xl font-bold mb-2">{founderInfo.name}</h3>
-                  <p className="text-primary-foreground/80">{founderInfo.title}</p>
-                </div>
-                <div className="lg:col-span-2 p-8">
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {founderInfo.bio}
+            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+              <img 
+                src={studentsGroup} 
+                alt={language === "ar" ? "طلاب دار العلوم" : "Daru Ulum Students"} 
+                className="w-full h-96 object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent flex items-end">
+                <div className="p-8 text-white">
+                  <h3 className="text-2xl font-bold mb-2">
+                    {language === "ar" ? "طلابنا مستقبل الأمة" : "Our Students, the Future of the Ummah"}
+                  </h3>
+                  <p className="text-white/80">
+                    {language === "ar" ? "نرعى العقول ونبني الأجيال على أسس إسلامية راسخة" : "Nurturing minds and building generations on solid Islamic foundations"}
                   </p>
-                  <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Globe className="w-5 h-5 text-primary" />
-                      <h4 className="font-bold text-foreground">{founderInfo.movement}</h4>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {founderInfo.movementDesc}
-                    </p>
-                  </div>
                 </div>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -141,32 +137,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Image Section */}
-      <section className="py-8">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <img 
-                src={studentsQuran} 
-                alt={language === "ar" ? "طلاب دار العلوم" : "Daru Ulum Students"} 
-                className="w-full h-80 object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 to-transparent flex items-end">
-                <div className="p-8 text-white">
-                  <h3 className="text-2xl font-bold mb-2">
-                    {language === "ar" ? "طلابنا مستقبل الأمة" : "Our Students, the Future of the Ummah"}
-                  </h3>
-                  <p className="text-white/80">
-                    {language === "ar" ? "نرعى العقول ونبني الأجيال على أسس إسلامية راسخة" : "Nurturing minds and building generations on solid Islamic foundations"}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Core Values */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -260,56 +230,22 @@ const About = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            <Card className="border-none shadow-card">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mx-auto mb-4 text-primary-foreground text-2xl font-bold">
-                  {language === "ar" ? "ش.ع" : "SA"}
+            {teamMembers.map((member, index) => (
+              <Card key={index} className="border-none shadow-card overflow-hidden">
+                <div className="aspect-square overflow-hidden">
+                  <img 
+                    src={member.image} 
+                    alt={member.name} 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <h3 className="font-semibold text-foreground mb-1">
-                  {language === "ar" ? "الشيخ عبد الباقي محمد" : "Sheikh Abdulbaaqi Muhammad"}
-                </h3>
-                <p className="text-sm text-primary mb-3">{t("principal")}</p>
-                <p className="text-sm text-muted-foreground">
-                  {language === "ar" 
-                    ? "أكثر من ٤٠ عاماً من الخبرة في التعليم الإسلامي وإدارة المؤسسات التعليمية."
-                    : "Over 40 years of experience in Islamic education and educational institution management."}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-card">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-success to-success/80 flex items-center justify-center mx-auto mb-4 text-success-foreground text-2xl font-bold">
-                  {language === "ar" ? "أ.أ" : "AA"}
-                </div>
-                <h3 className="font-semibold text-foreground mb-1">
-                  {language === "ar" ? "الأستاذ عبد الله أحمد" : "Ustaz Abdullah Ahmed"}
-                </h3>
-                <p className="text-sm text-success mb-3">{t("vp_academics")}</p>
-                <p className="text-sm text-muted-foreground">
-                  {language === "ar"
-                    ? "خبير في تطوير المناهج والمبادرات الأكاديمية المتميزة."
-                    : "Expert in curriculum development and academic excellence initiatives."}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-none shadow-card">
-              <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-warning to-warning/80 flex items-center justify-center mx-auto mb-4 text-warning-foreground text-2xl font-bold">
-                  {language === "ar" ? "أ.ف" : "FM"}
-                </div>
-                <h3 className="font-semibold text-foreground mb-1">
-                  {language === "ar" ? "الأستاذة فاطمة موسى" : "Ustaza Fatima Musa"}
-                </h3>
-                <p className="text-sm text-warning mb-3">{t("vp_admin")}</p>
-                <p className="text-sm text-muted-foreground">
-                  {language === "ar"
-                    ? "متخصصة في رعاية الطلاب والتميز الإداري."
-                    : "Specializes in student welfare and administrative excellence."}
-                </p>
-              </CardContent>
-            </Card>
+                <CardContent className="p-6 text-center">
+                  <h3 className="font-semibold text-foreground mb-1">{member.name}</h3>
+                  <p className="text-sm text-primary mb-3">{member.role}</p>
+                  <p className="text-sm text-muted-foreground">{member.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
