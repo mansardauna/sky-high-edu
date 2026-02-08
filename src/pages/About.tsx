@@ -19,16 +19,16 @@ const About = () => {
   ];
 
   const milestones = language === "ar" ? [
-    { year: "١٩٨٥", event: "تأسيس المدرسة", desc: "تأسست دار العلوم إسالكوتو على يد الشيخ عبد الباقي محمد كجزء من حركة الإصلاح الدين (إصلاح الدين) في إيلورين، ولاية كوارا، نيجيريا" },
-    { year: "١٩٩٥", event: "إضافة القسم الإعدادي", desc: "توسع المعهد ليشمل المرحلة الإعدادية مع منهج متكامل يجمع بين العلوم الإسلامية والعلوم الحديثة" },
-    { year: "٢٠٠٥", event: "مرافق حديثة", desc: "بناء معامل الكمبيوتر والمختبرات العلمية لتعزيز التعليم التطبيقي" },
-    { year: "٢٠١٥", event: "الاعتماد الأكاديمي", desc: "حصول المعهد على الاعتماد الكامل من وزارة التربية والتعليم النيجيرية" },
+    { year: "١٩٦٠", event: "تأسيس المدرسة", desc: "تأسست دار العلوم إسالكوتو تحت مظلة جبهة العلماء والأئمة بمبادرة من الأمير التاسع لإيلورين، ألحاج زُلْقَرْنَيْن قَمْبَرِي، بمساعدة الشيخ آدم عبد الله الإلوري" },
+    { year: "١٩٧٥", event: "إضافة القسم الإعدادي", desc: "توسع المعهد ليشمل المرحلة الإعدادية مع منهج متكامل يجمع بين العلوم الإسلامية والعلوم الحديثة" },
+    { year: "١٩٩٥", event: "مرافق حديثة", desc: "بناء معامل الكمبيوتر والمختبرات العلمية لتعزيز التعليم التطبيقي" },
+    { year: "٢٠١٠", event: "الاعتماد الأكاديمي", desc: "حصول المعهد على الاعتماد الكامل من وزارة التربية والتعليم النيجيرية" },
     { year: "٢٠٢٤", event: "التحول الرقمي", desc: "إطلاق نظام إدارة المدرسة الإلكتروني الحديث لتسهيل التواصل بين الطلاب والمعلمين وأولياء الأمور" },
   ] : [
-    { year: "1985", event: "School Founded", desc: "Daru Ulum Isalekoto was established by Sheikh Abdulbaaqi Muhammad as part of the Islahudeen (Religious Reform) movement in Ilorin, Kwara State, Nigeria" },
-    { year: "1995", event: "Intermediate Section Added", desc: "The institute expanded to include the I'dadi level with an integrated curriculum combining Islamic and modern sciences" },
-    { year: "2005", event: "Modern Facilities", desc: "Construction of computer labs and science laboratories to enhance practical education" },
-    { year: "2015", event: "Academic Accreditation", desc: "Full accreditation received from the Nigerian Ministry of Education" },
+    { year: "1960s", event: "School Founded", desc: "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulamahi wal Ahimma through the initiative of the 9th Emir of Ilorin, Alhaji Zulkarnayni Gambari, with the support of Sheikh Adam Abdullah Al-Ilory" },
+    { year: "1975", event: "Intermediate Section Added", desc: "The institute expanded to include the I'dadi level with an integrated curriculum combining Islamic and modern sciences" },
+    { year: "1995", event: "Modern Facilities", desc: "Construction of computer labs and science laboratories to enhance practical education" },
+    { year: "2010", event: "Academic Accreditation", desc: "Full accreditation received from the Nigerian Ministry of Education" },
     { year: "2024", event: "Digital Transformation", desc: "Launch of modern school management system to facilitate communication between students, teachers, and parents" },
   ];
 
@@ -69,7 +69,7 @@ const About = () => {
             </div>
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
               <GraduationCap className="w-4 h-4" />
-              <span>{t("since")} {language === "ar" ? "١٩٨٥" : "1985"}</span>
+              <span>{t("since")} {language === "ar" ? "١٩٦٠" : "1960s"}</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
               {t("about_hero_title")}
@@ -200,7 +200,7 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
             <div>
-              <p className="text-4xl font-bold mb-2">{language === "ar" ? "٣٩+" : "39+"}</p>
+              <p className="text-4xl font-bold mb-2">{language === "ar" ? "٦٠+" : "60+"}</p>
               <p className="text-primary-foreground/80">{t("years_of_excellence")}</p>
             </div>
             <div>
