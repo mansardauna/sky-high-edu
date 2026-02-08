@@ -219,7 +219,7 @@ const Index = () => {
               <p className="text-muted-foreground text-base md:text-lg mb-6 leading-relaxed">
                 {language === "ar" 
                   ? "تأسست مدرسة دار العلوم إسالكوتو تحت مظلة جبهة العلماء والأئمة في إلورن، ولاية كوارا، نيجيريا، بمبادرة من الأمير التاسع لإلورن، ألحاج ذوالقنين غمبيري، بمساعدة العالم الكبير الشيخ آدم عبد الله الإلوري. نحن مؤسسة تعليمية إسلامية رائدة مكرسة لتوفير تعليم شامل يجمع بين الدراسات الإسلامية والعلوم الحديثة."
-                  : "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulanahi wal Ahimma in Isalekoto, Ilorin, Kwara State, Nigeria. It was founded through the initiative of the 9th Emir of Ilorin, Alhaji Zulkarnayni Gambari, with the support of the renowned scholar Sheikh Adam Abdullah Al-Ilory. We are a leading Islamic educational institution dedicated to providing comprehensive education combining Islamic studies with modern academics."}
+                  : "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulanahi wal Ahimma in Isalekoto, Ilorin, Kwara State, Nigeria. It was founded through the initiative of the 9th Emir of Ilorin, Alhaji Dhulqarnayni Gambari, with the support of the great scholar, Sheikh Adam Abdullah Al-Ilory. We are a leading Islamic educational institution dedicated to providing comprehensive education combining Islamic studies with modern academics."}
               </p>
               
               <div className="grid grid-cols-2 gap-4 mb-8">
