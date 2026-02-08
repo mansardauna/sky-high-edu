@@ -151,7 +151,7 @@ const Index = () => {
             </h1>
             
             <p className="text-lg md:text-2xl text-primary-foreground/90 mb-3 md:mb-4 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-              {language === "ar" ? "جبهة العلماء والأئمة - إسالكوتو، إيلورين" : "Jabhatil Ulamahi wal Ahimma - Isalekoto, Ilorin"}
+              {language === "ar" ? "جبهة العلماء والأئمة - إسالكوتو، إيلورين" : "Jabhatil Ulanahi wal Ahimma - Isalekoto, Ilorin"}
             </p>
             
             <p className="text-base md:text-xl text-primary-foreground/80 mb-8 md:mb-10 max-w-2xl mx-auto animate-slide-up px-4" style={{ animationDelay: "0.2s" }}>
@@ -219,7 +219,7 @@ const Index = () => {
               <p className="text-muted-foreground text-base md:text-lg mb-6 leading-relaxed">
                 {language === "ar" 
                   ? "تأسست مدرسة دار العلوم إسالكوتو تحت مظلة جبهة العلماء والأئمة في إيلورين، ولاية كوارا، نيجيريا، بمبادرة من الأمير التاسع لإيلورين، ألحاج زُلْقَرْنَيْن قَمْبَرِي، بمساعدة العالم الكبير الشيخ آدم عبد الله الإلوري. نحن مؤسسة تعليمية إسلامية رائدة مكرسة لتوفير تعليم شامل يجمع بين الدراسات الإسلامية والعلوم الحديثة."
-                  : "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulamahi wal Ahimma in Isalekoto, Ilorin, Kwara State, Nigeria. It was founded through the initiative of the 9th Emir of Ilorin, Alhaji Zulkarnayni Gambari, with the support of the renowned scholar Sheikh Adam Abdullah Al-Ilory. We are a leading Islamic educational institution dedicated to providing comprehensive education combining Islamic studies with modern academics."}
+                  : "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulanahi wal Ahimma in Isalekoto, Ilorin, Kwara State, Nigeria. It was founded through the initiative of the 9th Emir of Ilorin, Alhaji Zulkarnayni Gambari, with the support of the renowned scholar Sheikh Adam Abdullah Al-Ilory. We are a leading Islamic educational institution dedicated to providing comprehensive education combining Islamic studies with modern academics."}
               </p>
               
               <div className="grid grid-cols-2 gap-4 mb-8">

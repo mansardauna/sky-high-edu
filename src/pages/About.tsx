@@ -25,7 +25,7 @@ const About = () => {
     { year: "٢٠١٠", event: "الاعتماد الأكاديمي", desc: "حصول المعهد على الاعتماد الكامل من وزارة التربية والتعليم النيجيرية" },
     { year: "٢٠٢٤", event: "التحول الرقمي", desc: "إطلاق نظام إدارة المدرسة الإلكتروني الحديث لتسهيل التواصل بين الطلاب والمعلمين وأولياء الأمور" },
   ] : [
-    { year: "1960s", event: "School Founded", desc: "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulamahi wal Ahimma through the initiative of the 9th Emir of Ilorin, Alhaji Zulkarnayni Gambari, with the support of Sheikh Adam Abdullah Al-Ilory" },
+    { year: "1960s", event: "School Founded", desc: "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulanahi wal Ahimma through the initiative of the 9th Emir of Ilorin, Alhaji Zulkarnayni Gambari, with the support of Sheikh Adam Abdullah Al-Ilory" },
     { year: "1975", event: "Intermediate Section Added", desc: "The institute expanded to include the I'dadi level with an integrated curriculum combining Islamic and modern sciences" },
     { year: "1995", event: "Modern Facilities", desc: "Construction of computer labs and science laboratories to enhance practical education" },
     { year: "2010", event: "Academic Accreditation", desc: "Full accreditation received from the Nigerian Ministry of Education" },
