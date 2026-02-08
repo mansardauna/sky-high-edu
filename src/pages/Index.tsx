@@ -151,7 +151,7 @@ const Index = () => {
             </h1>
             
             <p className="text-lg md:text-2xl text-primary-foreground/90 mb-3 md:mb-4 animate-slide-up" style={{ animationDelay: "0.1s" }}>
-              {language === "ar" ? "جبهة العلماء والأئمة - إسالكوتو، إيلورين" : "Jabhatil Ulanahi wal Ahimma - Isalekoto, Ilorin"}
+              {language === "ar" ? "لجبهة العلماء والأئمة - إسالكوتو، إيلورين" : "Lijabhatil Ulanahi wal Ahimma - Isalekoto, Ilorin"}
             </p>
             
             <p className="text-base md:text-xl text-primary-foreground/80 mb-8 md:mb-10 max-w-2xl mx-auto animate-slide-up px-4" style={{ animationDelay: "0.2s" }}>

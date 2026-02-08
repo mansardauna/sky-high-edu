@@ -184,9 +184,9 @@ const DemoDataContext = createContext<DemoDataContextType | undefined>(undefined
 
 // Demo Data
 const initialStudents: Student[] = [
-  { id: "s1", surname: "إبراهيم", firstName: "أحمد", dob: "15-05-2010", regNo: "DU/2024/001", class: "إعدادي ١أ", status: "active", parentName: "السيد إبراهيم", parentPhone: "08012345678", dateRegistered: "٢٠٢٤-٠١-١٥" },
+  { id: "s1", surname: "Ibrahim", firstName: "أحمد", dob: "15-05-2010", regNo: "DU/2024/001", class: "إعدادي ١أ", status: "active", parentName: "السيد إبراهيم", parentPhone: "08012345678", dateRegistered: "٢٠٢٤-٠١-١٥" },
   { id: "s2", surname: "يوسف", firstName: "فاطمة", dob: "22-08-2009", regNo: "DU/2024/002", class: "إعدادي ٢ب", status: "active", parentName: "السيدة يوسف", parentPhone: "08023456789", dateRegistered: "٢٠٢٤-٠١-١٦" },
-  { id: "s3", surname: "علي", firstName: "محمد", dob: "10-03-2008", regNo: "DU/2024/003", class: "توجيهي ١أ", status: "suspended", parentName: "السيد علي", parentPhone: "08034567890", dateRegistered: "٢٠٢٤-٠١-١٧" },
+  { id: "s3", surname: "Ali", firstName: "محمد", dob: "10-03-2008", regNo: "DU/2024/003", class: "توجيهي ١أ", status: "suspended", parentName: "السيد علي", parentPhone: "08034567890", dateRegistered: "٢٠٢٤-٠١-١٧" },
   { id: "s4", surname: "بيلو", firstName: "عائشة", dob: "30-11-2010", regNo: "DU/2024/004", class: "إعدادي ٣أ", status: "inactive", parentName: "السيد بيلو", parentPhone: "08045678901", dateRegistered: "٢٠٢٤-٠١-١٨" },
   { id: "s5", surname: "سليمان", firstName: "عمر", dob: "14-02-2010", regNo: "DU/2024/005", class: "إعدادي ١أ", status: "pending", parentName: "السيد سليمان", parentPhone: "08056789012", dateRegistered: "٢٠٢٤-١٢-٢٨" },
   { id: "s6", surname: "عبد الله", firstName: "خديجة", dob: "20-07-2009", regNo: "DU/2024/006", class: "إعدادي ٢أ", status: "pending", parentName: "السيدة عبد الله", parentPhone: "08067890123", dateRegistered: "٢٠٢٤-١٢-٢٩" },
