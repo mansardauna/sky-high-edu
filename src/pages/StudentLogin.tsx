@@ -96,7 +96,7 @@ const StudentLogin = () => {
                 <div className="text-sm">
                   <p className="font-semibold text-foreground mb-1">{t("demo_login")}:</p>
                   <p className="text-muted-foreground">{t("surname")}: <span className="text-primary font-bold">{language === "ar" ? "إبراهيم" : "Ibrahim"}</span></p>
-                  <p className="text-muted-foreground">{t("date_of_birth")}: <span className="text-primary font-bold">{language === "ar" ? "١٥-٠٥-٢٠١٠" : "15-05-2010"}</span></p>
+                  <p className="text-muted-foreground">{t("date_of_birth")}: <span className="text-primary font-bold">15-05-2010</span></p>
                 </div>
               </div>
             </div>
