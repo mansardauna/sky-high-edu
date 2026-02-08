@@ -64,7 +64,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="text-background/70 text-sm">{language === "ar" ? "إسالكوتو، إيلورين، ولاية كوارا، نيجيريا" : "Isalekoto, Ilorin, Kwara State, Nigeria"}</span>
+                <span className="text-background/70 text-sm">{language === "ar" ? "إسالكوتو، إلورن، ولاية كوارا، نيجيريا" : "Isalekoto, Ilorin, Kwara State, Nigeria"}</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary flex-shrink-0" />

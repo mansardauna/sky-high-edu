@@ -324,7 +324,7 @@ const translations: Translations = {
   
   // About Page
   "about_hero_title": { en: "About Daru Ulum Isalekoto", ar: "عن دار العلوم إسالكوتو" },
-  "about_hero_description": { en: "A leading Islamic educational institution in Ilorin, Kwara State, Nigeria, dedicated to providing comprehensive Islamic and secular education that nurtures the intellectual, spiritual, and moral potential of our students.", ar: "مؤسسة تعليمية إسلامية رائدة في إيلورين، ولاية كوارا، نيجيريا، مكرسة لتوفير تعليم إسلامي وعلماني شامل يرعى الإمكانات الفكرية والروحية والأخلاقية لطلابنا." },
+  "about_hero_description": { en: "A leading Islamic educational institution in Ilorin, Kwara State, Nigeria, dedicated to providing comprehensive Islamic and secular education that nurtures the intellectual, spiritual, and moral potential of our students.", ar: "مؤسسة تعليمية إسلامية رائدة في إلورن، ولاية كوارا، نيجيريا، مكرسة لتوفير تعليم إسلامي وعلماني شامل يرعى الإمكانات الفكرية والروحية والأخلاقية لطلابنا." },
   "since": { en: "Since", ar: "منذ" },
   "our_mission": { en: "Our Mission", ar: "مهمتنا" },
   "mission_description": { en: "To provide quality Islamic and Western education that develops students into well-rounded individuals who are academically excellent, morally upright, and spiritually grounded, prepared to contribute positively to society while maintaining their Islamic values.", ar: "توفير تعليم إسلامي وغربي عالي الجودة يطور الطلاب ليصبحوا أفراداً متكاملين متفوقين أكاديمياً، مستقيمين أخلاقياً، وراسخين روحياً، مستعدين للمساهمة إيجابياً في المجتمع مع الحفاظ على قيمهم الإسلامية." },
@@ -343,7 +343,7 @@ const translations: Translations = {
   "our_journey": { en: "Our Journey", ar: "رحلتنا" },
   "journey_description": { en: "Key milestones in the history of Daru Ulum Isalekoto", ar: "المعالم الرئيسية في تاريخ دار العلوم إسالكوتو" },
   "school_founded": { en: "School Founded", ar: "تأسيس المدرسة" },
-  "school_founded_desc": { en: "Daru Ulum Isalekoto was established in Ilorin, Kwara State", ar: "تأسست دار العلوم إسالكوتو في إيلورين، ولاية كوارا" },
+  "school_founded_desc": { en: "Daru Ulum Isalekoto was established in Ilorin, Kwara State", ar: "تأسست دار العلوم إسالكوتو في إلورن، ولاية كوارا" },
   "secondary_added": { en: "Secondary Section Added", ar: "إضافة القسم الثانوي" },
   "secondary_added_desc": { en: "Expanded to include junior and senior secondary education", ar: "توسعت لتشمل التعليم الثانوي الإعدادي والثانوي" },
   "modern_facilities": { en: "Modern Facilities", ar: "مرافق حديثة" },
