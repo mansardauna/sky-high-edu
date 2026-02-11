@@ -1,14 +1,8 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+Disallow: /student-dashboard
+Disallow: /teacher-dashboard
+Disallow: /admin-dashboard
+Disallow: /super-admin-dashboard
+
+Sitemap: https://id-preview--65e7c195-e4b6-4751-8bcd-4a11292ae758.lovable.app/sitemap.xml

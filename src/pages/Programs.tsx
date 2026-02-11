@@ -16,6 +16,7 @@ import {
   ArrowRight
 } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEOHead from "@/components/SEOHead";
 
 const Programs = () => {
   const { t, translateSubject, language } = useLanguage();
@@ -89,6 +90,11 @@ const Programs = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Academic Programs - Daru Ulum Isalekoto"
+        description="Explore our comprehensive Islamic and Western academic programs including Primary, Junior Secondary, Senior Secondary, Hifz, and Arabic studies."
+        url="/programs"
+      />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
         <div className="container mx-auto px-4">

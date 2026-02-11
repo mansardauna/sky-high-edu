@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SEOHead from "@/components/SEOHead";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -68,6 +69,11 @@ const Contact = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Contact Daru Ulum Isalekoto - Get in Touch"
+        description="Contact Daru Ulum Isalekoto in Isalekoto, Ilorin, Kwara State. Reach our admissions, academic affairs, or finance departments."
+        url="/contact"
+      />
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5">
         <div className="container mx-auto px-4">

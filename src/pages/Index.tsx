@@ -28,6 +28,7 @@ import studentsQuranImage from "@/assets/students-group.jpg";
 import studentsImage from "@/assets/students-quran.jpg";
 import logoImage from "@/assets/logo.png";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEOHead from "@/components/SEOHead";
 import { useDemoData } from "@/contexts/DemoDataContext";
 
 const Index = () => {
@@ -124,6 +125,11 @@ const Index = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="Daru Ulum Isalekoto - Islamic & Western Education, Ilorin"
+        description="Leading Islamic and Western educational institution in Isalekoto, Ilorin, Kwara State. Founded under Jabhatil Ulanahi wal Ahimma by the 9th Emir of Ilorin and Sheikh Adam Abdullah Al-Ilory."
+        url="/"
+      />
       {/* Hero Section */}
       <section className="relative min-h-[75vh] md:min-h-[85vh] flex items-center overflow-hidden" dir={direction}>
         <div className="absolute inset-0 z-0">
