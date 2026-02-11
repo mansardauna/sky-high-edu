@@ -248,20 +248,24 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Map Section Placeholder */}
+      {/* Map Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <Card className="border-none shadow-card overflow-hidden">
-              <div className="h-80 bg-muted flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="font-semibold text-foreground mb-2">Find Us</h3>
-                  <p className="text-muted-foreground">
-                    Isalekoto, Ilorin South LGA, Kwara State, Nigeria
-                  </p>
-                </div>
-              </div>
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-foreground mb-2">Find Us</h2>
+              <p className="text-muted-foreground">Isalekoto, Ilorin South LGA, Kwara State, Nigeria</p>
+            </div>
+            <Card className="border-none shadow-card overflow-hidden rounded-xl">
+              <iframe
+                title="Daru Ulum Isalekoto Location"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=4.50%2C8.45%2C4.60%2C8.55&layer=mapnik&marker=8.4799%2C4.5418"
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+              />
             </Card>
           </div>
         </div>
