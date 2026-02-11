@@ -1,0 +1,21 @@
+{
+  "name": "Daru Ulum Isalekoto",
+  "short_name": "Daru Ulum",
+  "description": "Islamic & Western Education - Isalekoto, Ilorin, Kwara State",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

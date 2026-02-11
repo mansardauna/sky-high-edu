@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import { Card, CardContent } from "@/components/ui/card";
 import { GraduationCap, BookOpen, Target, Heart, Star, Users, Award } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import SEOHead from "@/components/SEOHead";
 import studentsGroup from "@/assets/students-group.jpg";
 import teamMember1 from "@/assets/team-member-1.jpg";
 import teamMember2 from "@/assets/team-member-2.jpg";
@@ -55,6 +56,11 @@ const About = () => {
 
   return (
     <Layout>
+      <SEOHead
+        title="About Daru Ulum Isalekoto - History & Mission"
+        description="Learn about Daru Ulum Isalekoto's rich history, founded under Jabhatil Ulanahi wal Ahimma by the 9th Emir of Ilorin and Sheikh Adam Abdullah Al-Ilory."
+        url="/about"
+      />
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-br from-primary/5 via-background to-accent/5 overflow-hidden" dir={direction}>
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
