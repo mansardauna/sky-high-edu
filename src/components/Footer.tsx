@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { GraduationCap, Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import logoImage from "@/assets/logo.png";
 
 const Footer = () => {
   const { t, direction, language } = useLanguage();
@@ -11,9 +12,9 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
-                <GraduationCap className="w-6 h-6 text-primary-foreground" />
+            <Link to="/" className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-xl bg-white p-1 shadow-md overflow-hidden">
+                <img src={logoImage} alt={t("school_name")} className="w-full h-full object-contain" />
               </div>
               <span className="font-bold text-xl">{t("school_name")}</span>
             </Link>
