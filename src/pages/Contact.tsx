@@ -98,7 +98,7 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {contactInfo.map((info, index) => (
-              <Card key={index} className="border-none shadow-card hover:shadow-lg transition-shadow">
+              <Card key={index} className="border-none  transition-shadow">
                 <CardContent className="p-6 text-center">
                   <div className={`w-14 h-14 rounded-xl bg-${info.color}/10 flex items-center justify-center mx-auto mb-4`}>
                     <info.icon className={`w-7 h-7 text-${info.color}`} />
@@ -119,7 +119,7 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Contact Form */}
-            <Card className="lg:col-span-2 border-none shadow-card">
+            <Card className="lg:col-span-2 border-none">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Send className="w-5 h-5 text-primary" />
@@ -205,7 +205,7 @@ const Contact = () => {
 
             {/* Quick Contacts */}
             <div className="space-y-6">
-              <Card className="border-none shadow-card">
+              <Card className="border-none">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Building className="w-5 h-5 text-primary" />
@@ -231,7 +231,7 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              <Card className="border-none shadow-card bg-primary text-primary-foreground">
+              <Card className="border-none bg-primary text-primary-foreground">
                 <CardContent className="p-6 text-center">
                   <GraduationCap className="w-12 h-12 mx-auto mb-4" />
                   <h3 className="font-semibold mb-2">Visit Our Campus</h3>
@@ -256,7 +256,7 @@ const Contact = () => {
               <h2 className="text-3xl font-bold text-foreground mb-2">Find Us</h2>
               <p className="text-muted-foreground">Isalekoto, Ilorin South LGA, Kwara State, Nigeria</p>
             </div>
-            <Card className="border-none shadow-card overflow-hidden rounded-xl">
+            <Card className="border-none overflow-hidden rounded-xl">
               <iframe
                 title="Daru Ulum Isalekoto Location"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=4.50%2C8.45%2C4.60%2C8.55&layer=mapnik&marker=8.4799%2C4.5418"

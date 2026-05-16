@@ -91,7 +91,7 @@ const About = () => {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
+            <div className="relative rounded-none overflow-hidden">
               <img 
                 src={studentsGroup} 
                 alt={language === "ar" ? "طلاب دار العلوم" : "Daru Ulum Students"} 
@@ -116,7 +116,7 @@ const About = () => {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card className="border-none shadow-card bg-gradient-to-br from-primary/5 to-primary/10">
+            <Card className="border-none bg-gradient-to-br from-primary/5 to-primary/10">
               <CardContent className="p-8">
                 <div className="w-14 h-14 rounded-xl bg-primary/20 flex items-center justify-center mb-6">
                   <Target className="w-7 h-7 text-primary" />
@@ -128,7 +128,7 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-none shadow-card bg-gradient-to-br from-accent/5 to-accent/10">
+            <Card className="border-none bg-gradient-to-br from-accent/5 to-accent/10">
               <CardContent className="p-8">
                 <div className="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-6">
                   <Star className="w-7 h-7 text-primary" />
@@ -154,7 +154,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {values.map((value, index) => (
-              <Card key={index} className="border-none shadow-card hover:shadow-lg transition-shadow">
+              <Card key={index} className="border-none  transition-shadow">
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <value.icon className="w-7 h-7 text-primary" />
@@ -188,7 +188,7 @@ const About = () => {
                   <div className="relative z-10 w-16 h-16 rounded-full bg-primary/10 border-4 border-background flex items-center justify-center shrink-0">
                     <span className="text-sm font-bold text-primary">{milestone.year}</span>
                   </div>
-                  <Card className="flex-1 border-none shadow-card">
+                  <Card className="flex-1 border-none">
                     <CardContent className="p-6">
                       <h3 className="font-semibold text-foreground mb-2">{milestone.event}</h3>
                       <p className="text-sm text-muted-foreground">{milestone.desc}</p>
@@ -237,7 +237,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {teamMembers.map((member, index) => (
-              <Card key={index} className="border-none shadow-card overflow-hidden">
+              <Card key={index} className="border-none overflow-hidden">
                 <div className="aspect-square overflow-hidden">
                   <img 
                     src={member.image} 

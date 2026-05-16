@@ -118,7 +118,7 @@ const Programs = () => {
         <div className="container mx-auto px-4">
           <div className="space-y-8 max-w-6xl mx-auto">
             {programs.map((program, index) => (
-              <Card key={index} className="border-none shadow-card overflow-hidden">
+              <Card key={index} className="border-none overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-3">
                   <div className={`bg-${program.color}/10 p-8 flex flex-col justify-center`}>
                     <div className={`w-16 h-16 rounded-xl bg-${program.color}/20 flex items-center justify-center mb-4`}>
@@ -179,7 +179,7 @@ const Programs = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {islamicPrograms.map((program, index) => (
-              <Card key={index} className="border-none shadow-card hover:shadow-lg transition-shadow">
+              <Card key={index} className="border-none  transition-shadow">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                     <program.icon className="w-6 h-6 text-primary" />
@@ -210,7 +210,7 @@ const Programs = () => {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {extracurricular.map((activity, index) => (
-                <Card key={index} className="border-none shadow-card hover:shadow-lg transition-shadow cursor-pointer">
+                <Card key={index} className="border-none  transition-shadow cursor-pointer">
                   <CardContent className="p-6 text-center">
                     <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center mx-auto mb-3">
                       <activity.icon className="w-6 h-6 text-primary" />
