@@ -158,7 +158,7 @@ const Index = () => {
         <div className="container mx-auto px-4 sm:px-6 relative z-10 py-16 md:py-20">
           <div className="max-w-4xl mx-auto text-center text-primary-foreground">
             <div className="flex justify-center mb-6 md:mb-8">
-              <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-2xl p-3 md:p-4 shadow-2xl animate-fade-in">
+              <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-none p-3 md:p-4 animate-fade-in">
                 <img src={logoImage} alt={t("school_name")} className="w-full h-full object-contain" />
               </div>
             </div>
@@ -262,9 +262,9 @@ const Index = () => {
                 <img 
                   src={studentsQuranImage} 
                   alt={t("school_name")} 
-                  className="rounded-2xl shadow-2xl w-full"
+                  className="rounded-2xl w-full"
                 />
-                <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-primary text-primary-foreground p-4 md:p-6 rounded-xl shadow-xl">
+                <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-primary text-primary-foreground p-4 md:p-6 rounded-none">
                   <div className="text-3xl md:text-4xl font-bold">٦٠+</div>
                   <div className="text-xs md:text-sm">{language === "ar" ? "سنة من التميز" : "Years of Excellence"}</div>
                 </div>
@@ -290,7 +290,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((val, index) => (
-              <Card key={index} className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-card text-center">
+              <Card key={index} className="border-none  transition-all duration-300 hover:-translate-y-1 bg-card text-center">
                 <CardContent className="p-6 md:p-8">
                   <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
                     <val.icon className="w-7 h-7 md:w-8 md:h-8 text-primary" />
@@ -320,9 +320,9 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {programs.map((program, index) => (
-              <Card key={index} className={`border-none shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br ${program.color} overflow-hidden`}>
+              <Card key={index} className={`border-none  transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br ${program.color} overflow-hidden`}>
                 <CardContent className="p-6 md:p-8">
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-white shadow-lg flex items-center justify-center mb-5 md:mb-6">
+                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-none bg-white flex items-center justify-center mb-5 md:mb-6">
                     <program.icon className="w-7 h-7 md:w-8 md:h-8 text-primary" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3">{t(program.titleKey)}</h3>
@@ -347,7 +347,7 @@ const Index = () => {
               <img 
                 src={studentsImage} 
                 alt={language === "ar" ? "طلاب دار العلوم" : "Daru Ulum Students"} 
-                className="rounded-2xl shadow-2xl w-full"
+                className="rounded-2xl w-full"
               />
             </div>
             <div>
@@ -407,9 +407,9 @@ const Index = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
-              <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-none bg-card">
+              <Card key={index} className="group  transition-all duration-300 hover:-translate-y-2 border-none bg-card">
                 <CardContent className="p-6 md:p-8 text-center">
-                  <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl ${feature.color} flex items-center justify-center mx-auto mb-5 md:mb-6 group-hover:scale-110 transition-transform shadow-lg`}>
+                  <div className={`w-14 h-14 md:w-16 md:h-16 rounded-none ${feature.color} flex items-center justify-center mx-auto mb-5 md:mb-6 group-hover:scale-110 transition-transform`}>
                     <feature.icon className="w-7 h-7 md:w-8 md:h-8 text-white" />
                   </div>
                   <h3 className="text-lg md:text-xl font-semibold text-foreground mb-3">{t(feature.titleKey)}</h3>
@@ -478,7 +478,7 @@ const Index = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {announcements.map((item, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 cursor-pointer border-none bg-card">
+              <Card key={index} className="group  transition-all duration-300 cursor-pointer border-none bg-card">
                 <CardContent className="p-5 md:p-6">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mb-3">
                     <Calendar className="w-4 h-4" />
