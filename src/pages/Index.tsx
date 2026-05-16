@@ -262,7 +262,7 @@ const Index = () => {
                 <img 
                   src={studentsQuranImage} 
                   alt={t("school_name")} 
-                  className="rounded-2xl w-full"
+                  className="rounded-none w-full"
                 />
                 <div className="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-primary text-primary-foreground p-4 md:p-6 rounded-none">
                   <div className="text-3xl md:text-4xl font-bold">٦٠+</div>
@@ -347,7 +347,7 @@ const Index = () => {
               <img 
                 src={studentsImage} 
                 alt={language === "ar" ? "طلاب دار العلوم" : "Daru Ulum Students"} 
-                className="rounded-2xl w-full"
+                className="rounded-none w-full"
               />
             </div>
             <div>
