@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Scheherazade+New:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&display=swap');
 
 @layer base {
@@ -43,20 +43,22 @@
     --input: 210 30% 90%;
     --ring: 200 80% 50%;
 
-    /* Custom gradients */
+    /* Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(200, 80%, 50%) 0%, hsl(200, 80%, 35%) 100%);
     --gradient-hero: linear-gradient(135deg, hsl(200, 80%, 55%) 0%, hsl(205, 70%, 40%) 50%, hsl(210, 65%, 30%) 100%);
     --gradient-card: linear-gradient(180deg, hsl(0, 0%, 100%) 0%, hsl(210, 40%, 98%) 100%);
     --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
 
-    /* Shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-    --shadow-glow: 0 0 40px rgba(56, 162, 220, 0.3);
-    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.08);
-    --radius: 0.75rem;
+    /* Shadows — flat / minimal */
+    --shadow-sm: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-xl: none;
+    --shadow-glow: none;
+    --shadow-card: none;
+
+    /* Sharp edges */
+    --radius: 0rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -71,32 +73,23 @@
   .dark {
     --background: 210 50% 8%;
     --foreground: 210 20% 98%;
-
     --card: 210 50% 12%;
     --card-foreground: 210 20% 98%;
-
     --popover: 210 50% 12%;
     --popover-foreground: 210 20% 98%;
-
     --primary: 200 80% 55%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 200 30% 20%;
     --secondary-foreground: 200 60% 80%;
-
     --muted: 210 30% 18%;
     --muted-foreground: 210 20% 65%;
-
     --accent: 200 40% 25%;
     --accent-foreground: 200 60% 85%;
-
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 210 30% 20%;
     --input: 210 30% 20%;
     --ring: 200 80% 55%;
-
     --sidebar-background: 210 50% 10%;
     --sidebar-foreground: 210 20% 90%;
     --sidebar-primary: 200 80% 55%;
@@ -114,30 +107,29 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 400;
   }
 
   [dir="rtl"] body {
-    font-family: 'Noto Naskh Arabic', 'Tajawal', 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Amiri', 'Scheherazade New', 'DM Sans', serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Plus Jakarta Sans', 'Tajawal', sans-serif;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
   }
 
   [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3 {
-    font-family: 'Aref Ruqaa', 'Amiri', 'Tajawal', serif;
+    font-family: 'Aref Ruqaa', 'Amiri', serif;
     font-weight: 700;
   }
 
   [dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
-    font-family: 'Noto Naskh Arabic', 'Tajawal', serif;
+    font-family: 'Scheherazade New', 'Amiri', serif;
     font-weight: 600;
-  }
-
-  [dir="rtl"] .font-mono {
-    font-family: 'Tajawal', monospace;
   }
 
   [dir="rtl"] .font-calligraphy {
@@ -150,26 +142,12 @@
     @apply bg-clip-text text-transparent;
     background-image: var(--gradient-primary);
   }
+  .bg-gradient-hero { background-image: var(--gradient-hero); }
+  .bg-gradient-primary { background-image: var(--gradient-primary); }
+  .bg-gradient-card { background-image: var(--gradient-card); }
 
-  .bg-gradient-hero {
-    background-image: var(--gradient-hero);
-  }
-
-  .bg-gradient-primary {
-    background-image: var(--gradient-primary);
-  }
-
-  .bg-gradient-card {
-    background-image: var(--gradient-card);
-  }
-
-  .shadow-glow {
-    box-shadow: var(--shadow-glow);
-  }
-
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
+  .shadow-glow { box-shadow: none; }
+  .shadow-card { box-shadow: none; }
 
   .glass {
     background: var(--gradient-glass);
@@ -177,63 +155,71 @@
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
+  .font-display { font-family: 'EB Garamond', Georgia, serif; }
+  .font-body { font-family: 'DM Sans', system-ui, sans-serif; }
 
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+  .animate-pulse-slow { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+  .animate-slide-up { animation: slideUp 0.6s ease-out forwards; }
+  .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+  .animate-scale-in { animation: scaleIn 0.5s ease-out forwards; }
 
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out forwards;
+  /* MUI-style floating label input */
+  .mui-field {
+    position: relative;
   }
-
-  .animate-fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
+  .mui-field input,
+  .mui-field textarea,
+  .mui-field select {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid hsl(var(--border));
+    padding: 1.25rem 0 0.5rem;
+    font-size: 1rem;
+    color: hsl(var(--foreground));
+    outline: none;
+    transition: border-color 0.2s ease;
+    border-radius: 0;
   }
-
-  .animate-scale-in {
-    animation: scaleIn 0.5s ease-out forwards;
+  .mui-field input:focus,
+  .mui-field textarea:focus,
+  .mui-field select:focus {
+    border-bottom: 2px solid hsl(var(--primary));
+    padding-bottom: calc(0.5rem - 1px);
+  }
+  .mui-field label {
+    position: absolute;
+    left: 0;
+    top: 1.1rem;
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+  }
+  .mui-field input:focus + label,
+  .mui-field input:not(:placeholder-shown) + label,
+  .mui-field textarea:focus + label,
+  .mui-field textarea:not(:placeholder-shown) + label {
+    top: 0;
+    font-size: 0.75rem;
+    color: hsl(var(--primary));
   }
 }
 
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-20px);
-  }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
 }
-
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
-
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }

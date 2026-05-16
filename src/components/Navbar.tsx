@@ -2,48 +2,52 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useLanguage } from "@/contexts/LanguageContext";
 import logoImage from "@/assets/logo.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { t, direction } = useLanguage();
+  const { t, language, direction } = useLanguage();
+
+  const portalsComingSoon = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    toast(language === "ar" ? "البوابات قريباً" : "Portals — Coming Soon", {
+      description:
+        language === "ar"
+          ? "نعمل على إطلاق بوابات الطلاب والموظفين قريباً إن شاء الله."
+          : "Student and staff portals will be available soon, in shā’ Allāh.",
+    });
+    setIsOpen(false);
+  };
+
+  const navLink = "text-sm tracking-wide text-foreground/80 hover:text-primary transition-colors";
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-card/80 backdrop-blur-lg border-b border-border" dir={direction}>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur border-b border-border" dir={direction}>
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-lg bg-white p-1 shadow-md overflow-hidden">
+            <div className="w-10 h-10 bg-white p-0.5 overflow-hidden border border-border">
               <img src={logoImage} alt={t("school_name")} className="w-full h-full object-contain" />
             </div>
-            <span className="font-bold text-xl text-foreground hidden sm:block">{t("school_name")}</span>
+            <span className="font-display font-semibold text-lg text-foreground hidden sm:block">{t("school_name")}</span>
           </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-8">
-            <Link to="/" className="text-muted-foreground hover:text-primary transition-colors font-medium">
-              {t("home")}
-            </Link>
-            <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors font-medium">
-              {t("about")}
-            </Link>
-            <Link to="/programs" className="text-muted-foreground hover:text-primary transition-colors font-medium">
-              {t("programs")}
-            </Link>
-            <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors font-medium">
-              {t("contact")}
-            </Link>
+            <Link to="/" className={navLink}>{t("home")}</Link>
+            <Link to="/about" className={navLink}>{t("about")}</Link>
+            <Link to="/programs" className={navLink}>{t("programs")}</Link>
+            <Link to="/gallery" className={navLink}>{language === "ar" ? "المعرض" : "Gallery"}</Link>
+            <Link to="/contact" className={navLink}>{t("contact")}</Link>
           </div>
 
           <div className="hidden md:flex items-center gap-3">
             <LanguageSwitcher />
-            <Button variant="ghost" asChild>
-              <Link to="/student-login">{t("student_portal")}</Link>
-            </Button>
-            <Button variant="default" asChild>
-              <Link to="/staff-login">{t("staff_login")}</Link>
+            <Button variant="outline" size="sm" onClick={portalsComingSoon}>
+              {language === "ar" ? "بوابة الموظفين" : "Staff Portal"}
             </Button>
           </div>
 
@@ -53,6 +57,7 @@ const Navbar = () => {
             <button
               className="p-2 text-foreground"
               onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -63,24 +68,14 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden py-4 border-t border-border animate-fade-in">
             <div className="flex flex-col gap-4">
-              <Link to="/" className="text-muted-foreground hover:text-primary transition-colors font-medium px-2 py-1" onClick={() => setIsOpen(false)}>
-                {t("home")}
-              </Link>
-              <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors font-medium px-2 py-1" onClick={() => setIsOpen(false)}>
-                {t("about")}
-              </Link>
-              <Link to="/programs" className="text-muted-foreground hover:text-primary transition-colors font-medium px-2 py-1" onClick={() => setIsOpen(false)}>
-                {t("programs")}
-              </Link>
-              <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors font-medium px-2 py-1" onClick={() => setIsOpen(false)}>
-                {t("contact")}
-              </Link>
-              <div className="flex flex-col gap-2 pt-4 border-t border-border">
-                <Button variant="ghost" asChild className="justify-start" onClick={() => setIsOpen(false)}>
-                  <Link to="/student-login">{t("student_portal")}</Link>
-                </Button>
-                <Button variant="default" asChild onClick={() => setIsOpen(false)}>
-                  <Link to="/staff-login">{t("staff_login")}</Link>
+              <Link to="/" className={`${navLink} px-2 py-1`} onClick={() => setIsOpen(false)}>{t("home")}</Link>
+              <Link to="/about" className={`${navLink} px-2 py-1`} onClick={() => setIsOpen(false)}>{t("about")}</Link>
+              <Link to="/programs" className={`${navLink} px-2 py-1`} onClick={() => setIsOpen(false)}>{t("programs")}</Link>
+              <Link to="/gallery" className={`${navLink} px-2 py-1`} onClick={() => setIsOpen(false)}>{language === "ar" ? "المعرض" : "Gallery"}</Link>
+              <Link to="/contact" className={`${navLink} px-2 py-1`} onClick={() => setIsOpen(false)}>{t("contact")}</Link>
+              <div className="pt-4 border-t border-border">
+                <Button variant="outline" className="w-full" onClick={portalsComingSoon}>
+                  {language === "ar" ? "بوابة الموظفين" : "Staff Portal"}
                 </Button>
               </div>
             </div>
