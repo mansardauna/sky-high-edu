@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Layout from "@/components/Layout";
@@ -36,6 +37,16 @@ const Index = () => {
   const { getActiveAnnouncements } = useDemoData();
   
   const announcements = getActiveAnnouncements().slice(0, 3);
+
+  const portalComingSoon = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    toast(language === "ar" ? "قريباً" : "Coming Soon", {
+      description:
+        language === "ar"
+          ? "البوابة قيد التطوير وستكون متاحة قريباً إن شاء الله."
+          : "This portal is under development and will be available soon, in shā’ Allāh.",
+    });
+  };
 
   const features = [
     {
@@ -167,22 +178,18 @@ const Index = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 animate-slide-up px-4" style={{ animationDelay: "0.3s" }}>
               <Button 
                 size="xl" 
-                className="bg-white text-primary hover:bg-white/90 shadow-xl font-semibold"
-                asChild
+                className="bg-white text-primary hover:bg-white/90 font-semibold"
+                onClick={portalComingSoon}
               >
-                <Link to="/student-login">
-                  {t("student_portal")} <ArrowRight className="w-5 h-5" />
-                </Link>
+                {t("student_portal")} <ArrowRight className="w-5 h-5" />
               </Button>
               <Button 
                 size="xl" 
                 variant="outline"
                 className="border-2 border-white text-white hover:bg-white/10 bg-transparent"
-                asChild
+                onClick={portalComingSoon}
               >
-                <Link to="/staff-login">
-                  {t("staff_login")}
-                </Link>
+                {t("staff_login")}
               </Button>
             </div>
           </div>
@@ -427,65 +434,27 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            <Link to="/student-login" className="group">
-              <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-300">
-                <CardContent className="p-6 md:p-8 text-center">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                    <GraduationCap className="w-8 h-8 md:w-10 md:h-10 text-primary" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-semibold text-primary-foreground mb-2">{t("student_portal")}</h3>
-                  <p className="text-primary-foreground/70 text-xs md:text-sm mb-3 md:mb-4">{t("check_results")}</p>
-                  <span className="inline-flex items-center gap-1 text-white font-medium text-sm">
-                    {t("login")} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link to="/staff-login" className="group">
-              <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-300">
-                <CardContent className="p-6 md:p-8 text-center">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                    <BookOpen className="w-8 h-8 md:w-10 md:h-10 text-success" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-semibold text-primary-foreground mb-2">{t("teacher_portal")}</h3>
-                  <p className="text-primary-foreground/70 text-xs md:text-sm mb-3 md:mb-4">{t("manage_classes")}</p>
-                  <span className="inline-flex items-center gap-1 text-white font-medium text-sm">
-                    {t("login")} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link to="/staff-login" className="group">
-              <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-300">
-                <CardContent className="p-6 md:p-8 text-center">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                    <Users className="w-8 h-8 md:w-10 md:h-10 text-warning" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-semibold text-primary-foreground mb-2">{t("admin_portal")}</h3>
-                  <p className="text-primary-foreground/70 text-xs md:text-sm mb-3 md:mb-4">{t("manage_staff")}</p>
-                  <span className="inline-flex items-center gap-1 text-white font-medium text-sm">
-                    {t("login")} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link to="/staff-login" className="group">
-              <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-300">
-                <CardContent className="p-6 md:p-8 text-center">
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-white flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform shadow-lg">
-                    <Trophy className="w-8 h-8 md:w-10 md:h-10 text-destructive" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-semibold text-primary-foreground mb-2">{t("super_admin")}</h3>
-                  <p className="text-primary-foreground/70 text-xs md:text-sm mb-3 md:mb-4">{t("full_system_control")}</p>
-                  <span className="inline-flex items-center gap-1 text-white font-medium text-sm">
-                    {t("login")} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </CardContent>
-              </Card>
-            </Link>
+            {[
+              { icon: GraduationCap, titleKey: "student_portal", descKey: "check_results", color: "text-primary" },
+              { icon: BookOpen, titleKey: "teacher_portal", descKey: "manage_classes", color: "text-success" },
+              { icon: Users, titleKey: "admin_portal", descKey: "manage_staff", color: "text-warning" },
+              { icon: Trophy, titleKey: "super_admin", descKey: "full_system_control", color: "text-destructive" },
+            ].map((p, idx) => (
+              <button key={idx} onClick={portalComingSoon} className="group text-left">
+                <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20 transition-all duration-300">
+                  <CardContent className="p-6 md:p-8 text-center">
+                    <div className="w-16 h-16 md:w-20 md:h-20 bg-white flex items-center justify-center mx-auto mb-4 md:mb-6 group-hover:scale-110 transition-transform">
+                      <p.icon className={`w-8 h-8 md:w-10 md:h-10 ${p.color}`} />
+                    </div>
+                    <h3 className="text-lg md:text-xl font-semibold text-primary-foreground mb-2">{t(p.titleKey)}</h3>
+                    <p className="text-primary-foreground/70 text-xs md:text-sm mb-3 md:mb-4">{t(p.descKey)}</p>
+                    <span className="inline-flex items-center gap-1 text-white font-medium text-xs uppercase tracking-wider">
+                      {language === "ar" ? "قريباً" : "Coming Soon"} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
+                  </CardContent>
+                </Card>
+              </button>
+            ))}
           </div>
         </div>
       </section>
