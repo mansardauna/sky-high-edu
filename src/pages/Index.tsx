@@ -145,8 +145,8 @@ const Index = () => {
   return (
     <Layout>
       <SEOHead
-        title="Daru Ulum Isalekoto - Islamic & Western Education, Ilorin"
-        description="Leading Islamic and Western educational institution in Isalekoto, Ilorin, Kwara State. Founded under Jabhatil Ulanahi wal Ahimma by the 9th Emir of Ilorin and Sheikh Adam Abdullah Al-Ilory."
+        title="Daru Ulum - Islamic & Western Education, Ilorin"
+        description="Leading Islamic and Western educational institution in Ilorin, Kwara State. Founded under Jabhatil Ulanahi wal Ahimma by the 9th Emir of Ilorin and Sheikh Adam Abdullah Al-Ilory."
         url="/"
       />
       {/* Hero Section */}
@@ -272,13 +272,13 @@ const Index = () => {
               </div>
               
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                {language === "ar" ? "عن دار العلوم إسالكوتو" : "About Daru Ulum Isalekoto"}
+                {language === "ar" ? "عن دار العلوم" : "About Daru Ulum"}
               </h2>
               
               <p className="text-muted-foreground text-base md:text-lg mb-6 leading-relaxed">
                 {language === "ar" 
-                  ? "تأسست مدرسة دار العلوم إسالكوتو تحت مظلة جبهة العلماء والأئمة في إلورن، ولاية كوارا، نيجيريا، بمبادرة من الأمير التاسع لإلورن، ألحاج ذوالقنين غمبيري، بمساعدة العالم الكبير الشيخ آدم عبد الله الإلوري. نحن مؤسسة تعليمية إسلامية رائدة مكرسة لتوفير تعليم شامل يجمع بين الدراسات الإسلامية والعلوم الحديثة."
-                  : "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulanahi wal Ahimma in Isalekoto, Ilorin, Kwara State, Nigeria. It was founded through the initiative of the 9th Emir of Ilorin, Alhaji Dhulqarnayni Gambari, with the support of the great scholar, Sheikh Adam Abdullah Al-Ilory. We are a leading Islamic educational institution dedicated to providing comprehensive education combining Islamic studies with modern academics."}
+                  ? "تأسست مدرسة دار العلوم تحت مظلة جبهة العلماء والأئمة في إلورن، ولاية كوارا، نيجيريا، بمبادرة من الأمير التاسع لإلورن، ألحاج ذوالقنين غمبيري، بمساعدة العالم الكبير الشيخ آدم عبد الله الإلوري. نحن مؤسسة تعليمية إسلامية رائدة مكرسة لتوفير تعليم شامل يجمع بين الدراسات الإسلامية والعلوم الحديثة."
+                  : "Daru Ulum was established under the umbrella of Jabhatil Ulanahi wal Ahimma in Isalekoto, Ilorin, Kwara State, Nigeria. It was founded through the initiative of the 9th Emir of Ilorin, Alhaji Dhulqarnayni Gambari, with the support of the great scholar, Sheikh Adam Abdullah Al-Ilory. We are a leading Islamic educational institution dedicated to providing comprehensive education combining Islamic studies with modern academics."}
               </p>
               
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -359,8 +359,8 @@ const Index = () => {
             </h2>
             <p className="text-muted-foreground text-base md:text-lg">
               {language === "ar" 
-                ? "المراحل الدراسية المتاحة في دار العلوم إسالكوتو"
-                : "Academic levels available at Daru Ulum Isalekoto"}
+                ? "المراحل الدراسية المتاحة في دار العلوم"
+                : "Academic levels available at Daru Ulum"}
             </p>
           </div>
 
@@ -402,8 +402,8 @@ const Index = () => {
               </h2>
               <p className="text-muted-foreground text-base md:text-lg mb-6 leading-relaxed">
                 {language === "ar"
-                  ? "في دار العلوم إسالكوتو، نؤمن بأن التعليم يتجاوز الفصول الدراسية. نوفر بيئة غنية تدعم النمو الروحي والفكري والاجتماعي لكل طالب. من حلقات تحفيظ القرآن الكريم إلى الأنشطة الرياضية والثقافية، نسعى لتنمية شخصية الطالب من جميع الجوانب."
-                  : "At Daru Ulum Isalekoto, we believe education goes beyond classrooms. We provide a rich environment that supports the spiritual, intellectual, and social growth of every student. From Quran memorization circles to sports and cultural activities, we strive to develop students holistically."}
+                  ? "في دار العلوم، نؤمن بأن التعليم يتجاوز الفصول الدراسية. نوفر بيئة غنية تدعم النمو الروحي والفكري والاجتماعي لكل طالب. من حلقات تحفيظ القرآن الكريم إلى الأنشطة الرياضية والثقافية، نسعى لتنمية شخصية الطالب من جميع الجوانب."
+                  : "At Daru Ulum, we believe education goes beyond classrooms. We provide a rich environment that supports the spiritual, intellectual, and social growth of every student. From Quran memorization circles to sports and cultural activities, we strive to develop students holistically."}
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
