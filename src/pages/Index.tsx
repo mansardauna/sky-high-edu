@@ -237,44 +237,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Marquee — Vision & Mission Keywords */}
-      <section className="py-6 bg-primary text-primary-foreground overflow-hidden" dir={direction}>
-        <div className="animate-marquee-left">
-          {[...Array(2)].map((_, setIdx) => (
-            <div key={setIdx} className="flex items-center gap-12 px-6 shrink-0">
-              {(language === "ar" ? [
-                "التعليم الإسلامي عالي الجودة",
-                "الأكاديميات الحديثة",
-                "الاستقامة الأخلاقية",
-                "التربية الروحية",
-                "التميز الأكاديمي",
-                "التطوير الشامل",
-                "القيادة",
-                "التغيير الإيجابي",
-                "التأثير المجتمعي",
-                "القيم الإسلامية",
-              ] : [
-                "Quality Islamic Education",
-                "Modern Academics",
-                "Moral Uprightness",
-                "Spiritual Grounding",
-                "Academic Excellence",
-                "Holistic Development",
-                "Leadership",
-                "Positive Change",
-                "Community Impact",
-                "Islamic Values",
-              ]).map((text, i) => (
-                <span key={i} className="flex items-center gap-3 shrink-1 whitespace-nowrap">
-                  <Star className="w-4 h-4 opacity-60" />
-                  <span className="text-sm md:text-base font-medium tracking-wide">{text}</span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* About Section */}
       <section className="py-16 md:py-20 bg-background" dir={direction}>
         <div className="container mx-auto px-4 sm:px-6">
@@ -639,13 +601,18 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
             <Button size="xl" className="bg-white text-primary hover:bg-white/90 font-semibold" asChild>
-              <Link to="/student-registration">
-                {t("apply_now")} <ArrowRight className="w-5 h-5" />
+              <Link to="/contact">
+                {t("contact")} <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
             <Button size="xl" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent" asChild>
-              <Link to="/contact">
-                {t("contact_us")}
+              <Link to="/programs">
+                {t("explore")}
+              </Link>
+            </Button>
+            <Button size="xl" variant="outline" className="border-white text-white hover:bg-white/10 bg-transparent" asChild>
+              <Link to="/about">
+                {t("learn_more")}
               </Link>
             </Button>
           </div>
