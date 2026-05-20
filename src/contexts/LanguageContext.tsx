@@ -451,6 +451,9 @@ const translations: Translations = {
   "all_rights_reserved": { en: "All rights reserved", ar: "جميع الحقوق محفوظة" },
   "footer_description": { en: "Nurturing minds, building futures. Excellence in education with Islamic values and modern standards.", ar: "رعاية العقول، بناء المستقبل. التميز في التعليم مع القيم الإسلامية والمعايير الحديثة." },
 
+  // Partners
+  "trusted_partners": { en: "Our Trusted Partners", ar: "شركاؤنا الموثوقون" },
+
   // Announcements Categories
   "admissions": { en: "Admissions", ar: "القبول" },
   "events": { en: "Events", ar: "الفعاليات" },
