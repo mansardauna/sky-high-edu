@@ -559,6 +559,44 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Marquee — Vision & Mission Keywords */}
+      <section className="py-6 bg-primary text-primary-foreground overflow-hidden" dir={direction}>
+        <div className="animate-marquee-left">
+          {[...Array(2)].map((_, setIdx) => (
+            <div key={setIdx} className="flex items-center gap-12 px-6 shrink-0">
+              {(language === "ar" ? [
+                "التعليم الإسلامي عالي الجودة",
+                "الأكاديميات الحديثة",
+                "الاستقامة الأخلاقية",
+                "التربية الروحية",
+                "التميز الأكاديمي",
+                "التطوير الشامل",
+                "القيادة",
+                "التغيير الإيجابي",
+                "التأثير المجتمعي",
+                "القيم الإسلامية",
+              ] : [
+                "Quality Islamic Education",
+                "Modern Academics",
+                "Moral Uprightness",
+                "Spiritual Grounding",
+                "Academic Excellence",
+                "Holistic Development",
+                "Leadership",
+                "Positive Change",
+                "Community Impact",
+                "Islamic Values",
+              ]).map((text, i) => (
+                <span key={i} className="flex items-center gap-3 shrink-1 whitespace-nowrap">
+                  <Star className="w-4 h-4 opacity-60" />
+                  <span className="text-sm md:text-base font-medium tracking-wide">{text}</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Trusted Partners Section */}
       <section className="py-16 md:py-20 bg-background" dir={direction}>
         <div className="container mx-auto px-4 sm:px-6">
