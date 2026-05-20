@@ -126,6 +126,14 @@ const Index = () => {
     }
   ];
 
+  const partners = [
+    { name: "Markaz Agege", abbr: "MA" },
+    { name: "Kwara State Government", abbr: "KWSG" },
+    { name: "University of Ilorin", abbr: "UNILORIN" },
+    { name: "Kwara State University", abbr: "KWASU" },
+    { name: "Ilorin Emirate", abbr: "IE" },
+  ];
+
   const categoryTranslations: Record<string, string> = {
     admissions: t("admissions_cat"),
     events: t("events"),
@@ -571,6 +579,37 @@ const Index = () => {
               <h3 className="text-lg font-semibold text-background mb-2">{t("email_address")}</h3>
               <p className="text-background/70 text-sm md:text-base">info@daruulumisalekoto.edu.ng</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trusted Partners Section */}
+      <section className="py-16 md:py-20 bg-background" dir={direction}>
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              {t("trusted_partners")}
+            </h2>
+            <div className="w-16 h-0.5 bg-primary mx-auto" />
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 max-w-5xl mx-auto">
+            {partners.map((partner, index) => (
+              <div
+                key={index}
+                className="group relative bg-card border border-border p-6 md:p-8 text-center flex flex-col items-center justify-center min-h-[140px] md:min-h-[160px] hover:border-primary transition-colors duration-300"
+              >
+                <div className="absolute top-0 left-  right-0 h-1 bg-primary" />
+                <div className="text-primary/20 font-display text-4xl md:text-5xl font-bold select-none absolute inset-0 flex items-center justify-center">
+                  {partner.abbr}
+                </div>
+                <div className="relative z-10">
+                  <h4 className="font-display font-semibold text-foreground text-sm md:text-base leading-tight">
+                    {partner.name}
+                  </h4>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
