@@ -187,17 +187,31 @@ const Index = () => {
               <Button 
                 size="xl" 
                 className="bg-white text-primary hover:bg-white/90 font-semibold"
-                onClick={portalComingSoon}
+                asChild
               >
-                {t("student_portal")} <ArrowRight className="w-5 h-5" />
+                <Link to="/contact">
+                  {t("contact")} <ArrowRight className="w-5 h-5" />
+                </Link>
               </Button>
               <Button 
                 size="xl" 
                 variant="outline"
                 className="border-2 border-white text-white hover:bg-white/10 bg-transparent"
-                onClick={portalComingSoon}
+                asChild
               >
-                {t("staff_login")}
+                <Link to="/programs">
+                  {t("explore")}
+                </Link>
+              </Button>
+              <Button 
+                size="xl" 
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white/10 bg-transparent"
+                asChild
+              >
+                <Link to="/about">
+                  {t("learn_more")}
+                </Link>
               </Button>
             </div>
           </div>
