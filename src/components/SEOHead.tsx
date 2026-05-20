@@ -11,12 +11,12 @@ interface SEOHeadProps {
 
 const BASE_URL = "https://id-preview--65e7c195-e4b6-4751-8bcd-4a11292ae758.lovable.app";
 const DEFAULT_IMAGE = `${BASE_URL}/og-image.png`;
-const SITE_NAME = "Daru Ulum Isalekoto";
+const SITE_NAME = "Daru Ulum";
 
 const SEOHead = ({
-  title = "Daru Ulum Isalekoto - Islamic & Western Education, Ilorin",
-  description = "Daru Ulum Isalekoto is a leading Islamic and Western educational institution in Isalekoto, Ilorin, Kwara State, Nigeria. Founded under Jabhatil Ulanahi wal Ahimma with guidance from the 9th Emir of Ilorin and Sheikh Adam Abdullah Al-Ilory.",
-  keywords = "Daru Ulum Isalekoto, Islamic school Ilorin, Arabic school Nigeria, Jabhatil Ulanahi, Sheikh Adam Al-Ilory, Kwara State school, Quran memorization, Hifz program, Islamic education Nigeria",
+  title = "Daru Ulum - Islamic & Western Education, Ilorin",
+  description = "Daru Ulum is a leading Islamic and Western educational institution in Ilorin, Kwara State, Nigeria. Founded under Jabhatil Ulanahi wal Ahimma with guidance from the 9th Emir of Ilorin and Sheikh Adam Abdullah Al-Ilory.",
+  keywords = "Daru Ulum, Islamic school Ilorin, Arabic school Nigeria, Jabhatil Ulanahi, Sheikh Adam Al-Ilory, Kwara State school, Quran memorization, Hifz program, Islamic education Nigeria",
   image = DEFAULT_IMAGE,
   url,
   type = "website",

@@ -91,7 +91,7 @@ const Programs = () => {
   return (
     <Layout>
       <SEOHead
-        title="Academic Programs - Daru Ulum Isalekoto"
+        title="Academic Programs - Daru Ulum"
         description="Explore our comprehensive Islamic and Western academic programs including Primary, Junior Secondary, Senior Secondary, Hifz, and Arabic studies."
         url="/programs"
       />

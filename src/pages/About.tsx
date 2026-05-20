@@ -20,13 +20,13 @@ const About = () => {
   ];
 
   const milestones = language === "ar" ? [
-    { year: "١٩٦٠", event: "تأسيس المدرسة", desc: "تأسست دار العلوم إسالكوتو تحت مظلة جبهة العلماء والأئمة بمبادرة من الأمير التاسع لإلورن، ألحاج ذوالقنين غمبيري، بمساعدة الشيخ آدم عبد الله الإلوري" },
+    { year: "١٩٦٠", event: "تأسيس المدرسة", desc: "تأسست دار العلوم تحت مظلة جبهة العلماء والأئمة بمبادرة من الأمير التاسع لإلورن، ألحاج ذوالقنين غمبيري، بمساعدة الشيخ آدم عبد الله الإلوري" },
     { year: "١٩٧٥", event: "إضافة القسم الإعدادي", desc: "توسع المعهد ليشمل المرحلة الإعدادية مع منهج متكامل يجمع بين العلوم الإسلامية والعلوم الحديثة" },
     { year: "١٩٩٥", event: "مرافق حديثة", desc: "بناء معامل الكمبيوتر والمختبرات العلمية لتعزيز التعليم التطبيقي" },
     { year: "٢٠١٠", event: "الاعتماد الأكاديمي", desc: "حصول المعهد على الاعتماد الكامل من وزارة التربية والتعليم النيجيرية" },
     { year: "٢٠٢٤", event: "التحول الرقمي", desc: "إطلاق نظام إدارة المدرسة الإلكتروني الحديث لتسهيل التواصل بين الطلاب والمعلمين وأولياء الأمور" },
   ] : [
-    { year: "1960s", event: "School Founded", desc: "Daru Ulum Isalekoto was established under the umbrella of Jabhatil Ulanahi wal Ahimma through the initiative of the 9th Emir of Ilorin, Alhaji Zulkarnayni Gambari, with the support of Sheikh Adam Abdullah Al-Ilory" },
+    { year: "1960s", event: "School Founded", desc: "Daru Ulum was established under the umbrella of Jabhatil Ulanahi wal Ahimma through the initiative of the 9th Emir of Ilorin, Alhaji Zulkarnayni Gambari, with the support of Sheikh Adam Abdullah Al-Ilory" },
     { year: "1975", event: "Intermediate Section Added", desc: "The institute expanded to include the I'dadi level with an integrated curriculum combining Islamic and modern sciences" },
     { year: "1995", event: "Modern Facilities", desc: "Construction of computer labs and science laboratories to enhance practical education" },
     { year: "2010", event: "Academic Accreditation", desc: "Full accreditation received from the Nigerian Ministry of Education" },
@@ -57,8 +57,8 @@ const About = () => {
   return (
     <Layout>
       <SEOHead
-        title="About Daru Ulum Isalekoto - History & Mission"
-        description="Learn about Daru Ulum Isalekoto's rich history, founded under Jabhatil Ulanahi wal Ahimma by the 9th Emir of Ilorin and Sheikh Adam Abdullah Al-Ilory."
+        title="About Daru Ulum - History & Mission"
+        description="Learn about Daru Ulum's rich history, founded under Jabhatil Ulanahi wal Ahimma by the 9th Emir of Ilorin and Sheikh Adam Abdullah Al-Ilory."
         url="/about"
       />
       {/* Hero Section */}

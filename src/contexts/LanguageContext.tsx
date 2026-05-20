@@ -253,7 +253,7 @@ const translations: Translations = {
   "full_name": { en: "Full Name", ar: "الاسم الكامل" },
   
   // School
-  "school_name": { en: "Daru Ulum Isalekoto", ar: "دار العلوم إسالكوتو" },
+  "school_name": { en: "Daru Ulum", ar: "دار العلوم" },
   "islamic_education": { en: "Islamic Education", ar: "التعليم الإسلامي" },
   "western_education": { en: "Modern Education", ar: "العلوم الحديثة" },
   "registration_number": { en: "Registration Number", ar: "رقم التسجيل" },
@@ -298,6 +298,8 @@ const translations: Translations = {
   "cta_description": { en: "Enroll your child today and give them the gift of quality education combined with strong moral values.", ar: "سجل طفلك اليوم وامنحه هدية التعليم الجيد مع القيم الأخلاقية القوية." },
   "apply_now": { en: "Apply Now", ar: "قدم الآن" },
   "contact_us": { en: "Contact Us", ar: "اتصل بنا" },
+  "explore": { en: "Explore", ar: "استكشف" },
+  "learn_more": { en: "Learn More", ar: "اقرأ المزيد" },
   
   // Features
   "quality_education": { en: "Quality Education", ar: "تعليم عالي الجودة" },
@@ -323,7 +325,7 @@ const translations: Translations = {
   "login": { en: "Login", ar: "تسجيل الدخول" },
   
   // About Page
-  "about_hero_title": { en: "About Daru Ulum Isalekoto", ar: "عن دار العلوم إسالكوتو" },
+  "about_hero_title": { en: "About Daru Ulum", ar: "عن دار العلوم" },
   "about_hero_description": { en: "A leading Islamic educational institution in Ilorin, Kwara State, Nigeria, dedicated to providing comprehensive Islamic and secular education that nurtures the intellectual, spiritual, and moral potential of our students.", ar: "مؤسسة تعليمية إسلامية رائدة في إلورن، ولاية كوارا، نيجيريا، مكرسة لتوفير تعليم إسلامي وعلماني شامل يرعى الإمكانات الفكرية والروحية والأخلاقية لطلابنا." },
   "since": { en: "Since", ar: "منذ" },
   "our_mission": { en: "Our Mission", ar: "مهمتنا" },
@@ -331,7 +333,7 @@ const translations: Translations = {
   "our_vision": { en: "Our Vision", ar: "رؤيتنا" },
   "vision_description": { en: "To be the leading Islamic educational institution in Nigeria, recognized for producing graduates who excel in both religious knowledge and secular academics, becoming leaders and positive change-makers in their communities and beyond.", ar: "أن نكون المؤسسة التعليمية الإسلامية الرائدة في نيجيريا، معترف بها لإنتاج خريجين يتفوقون في المعرفة الدينية والأكاديمية العلمانية، ليصبحوا قادة وصناع تغيير إيجابي في مجتمعاتهم وخارجها." },
   "our_core_values": { en: "Our Core Values", ar: "قيمنا الأساسية" },
-  "values_description": { en: "The principles that guide everything we do at Daru Ulum Isalekoto", ar: "المبادئ التي توجه كل ما نقوم به في دار العلوم إسالكوتو" },
+  "values_description": { en: "The principles that guide everything we do at Daru Ulum", ar: "المبادئ التي توجه كل ما نقوم به في دار العلوم" },
   "islamic_excellence": { en: "Islamic Excellence", ar: "التميز الإسلامي" },
   "islamic_excellence_desc": { en: "Combining Quranic education with modern academic curriculum", ar: "الجمع بين التعليم القرآني والمناهج الأكاديمية الحديثة" },
   "character_building": { en: "Character Building", ar: "بناء الشخصية" },
@@ -341,9 +343,9 @@ const translations: Translations = {
   "holistic_development": { en: "Holistic Development", ar: "التطوير الشامل" },
   "holistic_development_desc": { en: "Fostering intellectual, spiritual, and physical growth", ar: "تعزيز النمو الفكري والروحي والجسدي" },
   "our_journey": { en: "Our Journey", ar: "رحلتنا" },
-  "journey_description": { en: "Key milestones in the history of Daru Ulum Isalekoto", ar: "المعالم الرئيسية في تاريخ دار العلوم إسالكوتو" },
+  "journey_description": { en: "Key milestones in the history of Daru Ulum", ar: "المعالم الرئيسية في تاريخ دار العلوم" },
   "school_founded": { en: "School Founded", ar: "تأسيس المدرسة" },
-  "school_founded_desc": { en: "Daru Ulum Isalekoto was established in Ilorin, Kwara State", ar: "تأسست دار العلوم إسالكوتو في إلورن، ولاية كوارا" },
+  "school_founded_desc": { en: "Daru Ulum was established in Ilorin, Kwara State", ar: "تأسست دار العلوم في إلورن، ولاية كوارا" },
   "secondary_added": { en: "Secondary Section Added", ar: "إضافة القسم الثانوي" },
   "secondary_added_desc": { en: "Expanded to include junior and senior secondary education", ar: "توسعت لتشمل التعليم الثانوي الإعدادي والثانوي" },
   "modern_facilities": { en: "Modern Facilities", ar: "مرافق حديثة" },
