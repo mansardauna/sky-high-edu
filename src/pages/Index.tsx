@@ -599,7 +599,7 @@ const Index = () => {
                 key={index}
                 className="group relative bg-card border border-border p-6 md:p-8 text-center flex flex-col items-center justify-center min-h-[140px] md:min-h-[160px] hover:border-primary transition-colors duration-300"
               >
-                <div className="absolute top-0 left-  right-0 h-1 bg-primary" />
+                <div className="absolute top-0 inset-x-0 h-1 bg-primary" />
                 <div className="text-primary/20 font-display text-4xl md:text-5xl font-bold select-none absolute inset-0 flex items-center justify-center">
                   {partner.abbr}
                 </div>
