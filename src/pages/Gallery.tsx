@@ -22,8 +22,8 @@ const Gallery = () => {
   return (
     <Layout>
       <SEOHead
-        title="Gallery — Daru Ulum Isalekoto"
-        description="Photo gallery showcasing campus life, classrooms, Quran circles and student activities at Daru Ulum Isalekoto, Ilorin."
+        title="Gallery — Daru Ulum"
+        description="Photo gallery showcasing campus life, classrooms, Quran circles and student activities at Daru Ulum, Ilorin."
         url="/gallery"
       />
 
@@ -40,8 +40,8 @@ const Gallery = () => {
           </h1>
           <p className="text-muted-foreground text-base md:text-lg leading-relaxed">
             {language === "ar"
-              ? "نظرة بصرية على الحياة الدراسية والروحية في دار العلوم إسالكوتو."
-              : "A visual glimpse into the academic and spiritual life at Daru Ulum Isalekoto."}
+              ? "نظرة بصرية على الحياة الدراسية والروحية في دار العلوم."
+              : "A visual glimpse into the academic and spiritual life at Daru Ulum."}
           </p>
         </div>
       </section>

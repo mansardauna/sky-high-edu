@@ -70,8 +70,8 @@ const Contact = () => {
   return (
     <Layout>
       <SEOHead
-        title="Contact Daru Ulum Isalekoto - Get in Touch"
-        description="Contact Daru Ulum Isalekoto in Isalekoto, Ilorin, Kwara State. Reach our admissions, academic affairs, or finance departments."
+        title="Contact Daru Ulum - Get in Touch"
+        description="Contact Daru Ulum in Isalekoto, Ilorin, Kwara State. Reach our admissions, academic affairs, or finance departments."
         url="/contact"
       />
       {/* Hero Section */}
@@ -258,7 +258,7 @@ const Contact = () => {
             </div>
             <Card className="border-none overflow-hidden rounded-xl">
               <iframe
-                title="Daru Ulum Isalekoto Location"
+                title="Daru Ulum Location"
                 src="https://www.openstreetmap.org/export/embed.html?bbox=4.50%2C8.45%2C4.60%2C8.55&layer=mapnik&marker=8.4799%2C4.5418"
                 width="100%"
                 height="400"
